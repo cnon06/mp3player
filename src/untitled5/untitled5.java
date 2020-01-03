@@ -29,8 +29,8 @@ public class untitled5 extends JFrame
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false, go_control=false;
     static int count =0,start=0,jb4x=50,X,Y,dragX;
-   // JButton jb4;
-    JLabel jl3, jl1,jl4;
+   JButton jb1;
+    JLabel jl3, jl1;
     JTextField tf1;
     
     
@@ -42,7 +42,7 @@ public class untitled5 extends JFrame
         setSize(500,200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //setResizable(false);
+
 
         setLocationRelativeTo(this);
         setLayout(null);
@@ -55,6 +55,9 @@ public class untitled5 extends JFrame
 
         panel1.setBackground(Color.WHITE);
         panel1.setLocation(0,0);
+
+
+
 
 
 
@@ -87,8 +90,7 @@ public class untitled5 extends JFrame
             public void mousePressed(MouseEvent e) {
 
 
-                if(dont_play_again)
-                {
+
                     stop();
 
                     try
@@ -114,7 +116,7 @@ public class untitled5 extends JFrame
                     if(count==1) start();
 
 
-                    // if(start_stop) start();
+
 
                     Thread t2 = new Thread();
 
@@ -122,24 +124,13 @@ public class untitled5 extends JFrame
                     {
                         t2.sleep(1000);
                         start();
+                        jb1.setText("Pause");
+
+
                     }
                     catch (Exception et)
                     {
-
                     }
-
-
-                    //go_control=true;
-
-                }
-
-
-
-
-
-
-
-
 
             }
 
@@ -150,7 +141,7 @@ public class untitled5 extends JFrame
         });
 
 
-        JButton jb1 = new JButton("Play");
+       jb1 = new JButton("Play");
         jb1.setVisible(true);
         jb1.setSize(80,20);
         jb1.setLocation(50,50);
@@ -161,7 +152,7 @@ public class untitled5 extends JFrame
            public void mousePressed(MouseEvent e) {
 
 
-               if(jb1.getText()=="Play")
+               if(jb1.getText()=="Play" && !dont_play_again)
                {
                    start();
                    jb1.setText("Pause");
@@ -177,6 +168,7 @@ public class untitled5 extends JFrame
                    }
                }
 
+             
 
 
 
@@ -193,7 +185,7 @@ public class untitled5 extends JFrame
         jb2.setVisible(true);
         jb2.setSize(80,20);
         jb2.setLocation(300,50);
-        //jb1.setLayout(null);
+
 
         jb2.addMouseListener(new MouseAdapter() {
             @Override
@@ -203,6 +195,7 @@ public class untitled5 extends JFrame
 
 
             stop();
+                jb1.setText("Play");
 
 
 
@@ -210,37 +203,6 @@ public class untitled5 extends JFrame
         });
 
         panel1.add(jb2);
-
-
-        /*
-        JButton jb3 = new JButton("Pause");
-        jb3.setVisible(true);
-        jb3.setSize(80,20);
-        jb3.setLocation(200,50);
-        //jb1.setLayout(null);
-
-        jb3.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-
-                if(stop_start_stop) {
-
-                    start_stop = true;
-                    start = (int) (count*1000 / 26);
-
-                }
-
-
-
-            }
-        });
-
-        panel1.add(jb3);
-         */
-
-
-
 
 
         jl3 = new JLabel("Sinan");
@@ -356,6 +318,7 @@ public class untitled5 extends JFrame
     {
         if(!dont_play_again)
         {
+
             stop_start_stop=true;
             dont_play_again=true;
 
