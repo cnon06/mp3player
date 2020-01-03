@@ -116,7 +116,20 @@ public class untitled5 extends JFrame
 
                     // if(start_stop) start();
 
-                    go_control=true;
+                    Thread t2 = new Thread();
+
+                    try
+                    {
+                        t2.sleep(1000);
+                        start();
+                    }
+                    catch (Exception et)
+                    {
+
+                    }
+
+
+                    //go_control=true;
 
                 }
 
@@ -137,7 +150,7 @@ public class untitled5 extends JFrame
         });
 
 
-        JButton jb1 = new JButton("Start");
+        JButton jb1 = new JButton("Play");
         jb1.setVisible(true);
         jb1.setSize(80,20);
         jb1.setLocation(50,50);
@@ -146,7 +159,27 @@ public class untitled5 extends JFrame
        jb1.addMouseListener(new MouseAdapter() {
            @Override
            public void mousePressed(MouseEvent e) {
-       start();
+
+
+               if(jb1.getText()=="Play")
+               {
+                   start();
+                   jb1.setText("Pause");
+               }
+                   else
+               {
+                   if(stop_start_stop) {
+
+                       start_stop = true;
+                       start = (int) (count*1000 / 26);
+                       jb1.setText("Play");
+
+                   }
+               }
+
+
+
+
                }
 
 
@@ -179,6 +212,7 @@ public class untitled5 extends JFrame
         panel1.add(jb2);
 
 
+        /*
         JButton jb3 = new JButton("Pause");
         jb3.setVisible(true);
         jb3.setSize(80,20);
@@ -203,6 +237,8 @@ public class untitled5 extends JFrame
         });
 
         panel1.add(jb3);
+         */
+
 
 
 
@@ -258,6 +294,8 @@ public class untitled5 extends JFrame
                 catch (Exception ed)
                 {}
 
+
+                jb1.setText("Pause");
 
                 //start();
             }
