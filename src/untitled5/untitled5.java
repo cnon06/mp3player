@@ -20,7 +20,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 
-// libs are jaudiotagger, java, jlayer
+
 
 public class untitled5 extends JFrame
 
@@ -236,21 +236,20 @@ public class untitled5 extends JFrame
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                //X= e.getX();
-                //Y=e.getY();
 
-                //count = (int)(e.getComponent().getX()*durration/1000)/300;
+
+
                 count = (int)(dragX*durration/1000)/300-40;
                 start = (int) (count*1000 / 26);
-                //if(dont_play_again) dont_play_again=false;
+
 
                 Thread th = new Thread();
 
                 try
                 {
-                   // System.out.println("starting");
+
                     th.sleep(1000);
-                   // System.out.println("started");
+
                     start();
                 }
                 catch (Exception ed)
@@ -273,13 +272,13 @@ public class untitled5 extends JFrame
                 int x2=(e.getX()+e.getComponent().getX())-X;
                 if(x2<50) x2=50;
                 if(x2>350) x2=350;
-                //super.mousePressed(e);
+
                 e.getComponent().setLocation(x2,120);
-               // System.out.println(e.getComponent().getX());
+
                 dragX=e.getComponent().getX();
 
 
-                // System.out.println("Mouse dragged");
+
             }
         });
         
@@ -332,12 +331,7 @@ public class untitled5 extends JFrame
                     public void playbackFinished(PlaybackEvent evt) {
 
                         stop();
-                        /*
-                         if(!start_stop) start_stop=true;
-                        if(stop_start_stop) stop_start_stop=false;
-                        count=0;
-                        jb4x=50;
-                         */
+
 
 
                     }
@@ -360,9 +354,7 @@ public class untitled5 extends JFrame
 
 
                                 jb4x=50+(int)((300*count)/(durration/1000));
-                                //jb4.setLocation(jb4x,100);
 
-                                //jl3x=50+(int)((300*count)/(durration/1000));
                                 jl3.setLocation(jb4x,120);
 
                             }
@@ -372,7 +364,7 @@ public class untitled5 extends JFrame
                             }
 
                             jl1.setText(""+count);
-                            //System.out.println("errer");
+
                         }
 
                         playMP3.close();
@@ -382,8 +374,8 @@ public class untitled5 extends JFrame
 
                         jl1.setText(""+count);
                         dont_play_again=false;
-                        gap();
-                        //this.start();
+                       // gap();
+
                     }
                 }.start();
 
@@ -404,7 +396,6 @@ public class untitled5 extends JFrame
                         }
 
 
-                        //super.run();
                     }
                 }.start();
 
@@ -429,12 +420,7 @@ public class untitled5 extends JFrame
         }
     }
 
-    /*
-    public void paint(Graphics g)
-    {
-        g.drawLine(50,120,250,120);
-    }
-     */
+
 
 
   
@@ -483,17 +469,7 @@ public class untitled5 extends JFrame
     }
 
 
-    static void Simpleplayer()
-    {
-        try{
 
-            FileInputStream fis = new FileInputStream("Yeke.mp3");
-            AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
-
-            playMP3.play(8500,(int)durration);
-
-        }catch(Exception e){System.out.println(e);}
-    }
 
 
     public static void main(String [] args)
@@ -502,10 +478,10 @@ public class untitled5 extends JFrame
 
 new untitled5();
 
-       //durr dr = new durr();
+
         durr();
        framesize(durration);
-      //  Simpleplayer();
+
 
     }
 
