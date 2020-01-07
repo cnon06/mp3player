@@ -39,7 +39,7 @@ public class untitled5 extends JFrame
 
 
         setTitle("MP3 Player with JAVA by Sinan");
-        setSize(500,200);
+        setSize(600,200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -57,8 +57,27 @@ public class untitled5 extends JFrame
         panel1.setLocation(0,0);
 
 
+        String list[] = {"Sunday","Monday","Tuesday","Wednesday","Friday","Saturday","January","February","March","April","May","June","July","September","October","November","December"};
+       JList jli1 = new JList(list);
+        //jli1.setVisible(true);
+        //jli1.setSize(150,120);
+        //jli1.setLocation(420,10);
+        jli1.setBackground(Color.GRAY);
+
+        JScrollPane jp1 = new JScrollPane();
+        jp1.setViewportView(jli1);
+        jli1.setLayoutOrientation(JList.VERTICAL);
+        jp1.setSize(150,140);
+        jp1.setLocation(420,10);
+        jp1.setVisible(true);
+       //panel1.add(jli1);
+        panel1.add(jp1);
 
 
+
+
+
+       // jli1.add(list);
 
 
 
@@ -331,6 +350,8 @@ public class untitled5 extends JFrame
                     public void playbackFinished(PlaybackEvent evt) {
 
                         stop();
+                       // jb1 = new JButton("Play");
+
 
 
 
