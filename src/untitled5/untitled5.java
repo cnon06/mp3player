@@ -350,7 +350,7 @@ public class untitled5 extends JFrame
                     public void playbackFinished(PlaybackEvent evt) {
 
                         stop();
-                       // jb1 = new JButton("Play");
+                        jb1.setText("Play");
 
 
 
@@ -437,6 +437,7 @@ public class untitled5 extends JFrame
             start=0;
             jb4x=50;
             divide2=0;
+
 
         }
     }
