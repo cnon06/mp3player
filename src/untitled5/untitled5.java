@@ -14,7 +14,11 @@ import org.jaudiotagger.audio.asf.io.AsfExtHeaderReader;
 
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -63,8 +67,28 @@ public class untitled5 extends JFrame
         //jli1.setSize(150,120);
         //jli1.setLocation(420,10);
         jli1.setBackground(Color.GRAY);
+        jli1.setSelectedIndex(0);
+        jli1.setSelectionMode(0);
+        System.out.println(jli1.getSelectedValue());
 
-        JScrollPane jp1 = new JScrollPane();
+        jli1.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                boolean adjust = e.getValueIsAdjusting();
+
+                if(!adjust)
+                {
+                    JList list2 = (JList) e.getSource();
+                    Object selected = list2.getSelectedValue();
+                    System.out.println(selected);
+                }
+
+
+            }
+        });
+
+                JScrollPane jp1 = new JScrollPane();
         jp1.setViewportView(jli1);
         jli1.setLayoutOrientation(JList.VERTICAL);
         jp1.setSize(150,140);
@@ -93,7 +117,18 @@ public class untitled5 extends JFrame
         tf1.setVisible(true);
         tf1.setSize(40,20);
         tf1.setLocation(150,10);
-       
+
+        tf1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+                if(e.getKeyCode()==10)Go();
+                //System.out.println(e.getKeyCode());
+
+
+            }
+        });
+
         panel1.add(tf1);
         tf1.setText("0");
 
@@ -109,47 +144,8 @@ public class untitled5 extends JFrame
             public void mousePressed(MouseEvent e) {
 
 
+                Go();
 
-                    stop();
-
-                    try
-                    {
-                        count = Integer.parseInt(tf1.getText());
-                    }
-                    catch (Exception ej)
-                    {
-                        count=1;
-                        tf1.setText("1");
-                    }
-
-
-
-                    if(count>durration/1000 || count<0)
-                    {
-                        count=1;
-                        tf1.setText("1");
-                    }
-
-
-                    start = (int) (count*1000 / 26);
-                    if(count==1) start();
-
-
-
-
-                    Thread t2 = new Thread();
-
-                    try
-                    {
-                        t2.sleep(1000);
-                        start();
-                        jb1.setText("Pause");
-
-
-                    }
-                    catch (Exception et)
-                    {
-                    }
 
             }
 
@@ -332,6 +328,52 @@ public class untitled5 extends JFrame
       }
     }
 
+    public void Go()
+    {
+        stop();
+
+        try
+        {
+            count = Integer.parseInt(tf1.getText());
+        }
+        catch (Exception ej)
+        {
+            count=1;
+            tf1.setText("1");
+        }
+
+
+
+        if(count>durration/1000 || count<0)
+        {
+            count=1;
+            tf1.setText("1");
+        }
+
+
+        start = (int) (count*1000 / 26);
+        if(count==1) start();
+
+
+
+
+        Thread t2 = new Thread();
+
+        try
+        {
+            t2.sleep(1000);
+            start();
+            jb1.setText("Pause");
+
+
+        }
+        catch (Exception et)
+        {
+        }
+
+    }
+
+
     public void start()
     {
         if(!dont_play_again)
@@ -351,7 +393,7 @@ public class untitled5 extends JFrame
 
                         stop();
                         jb1.setText("Play");
-                        // fdfsdf
+
 
 
 
