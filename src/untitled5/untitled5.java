@@ -37,6 +37,7 @@ public class untitled5 extends JFrame
     JLabel jl3, jl1;
     JTextField tf1;
     JList jli1;
+    Object selected;
     
     
     untitled5()
@@ -100,8 +101,7 @@ public class untitled5 extends JFrame
                 if(!adjust)
                 {
                     JList list2 = (JList) e.getSource();
-                    Object selected = list2.getSelectedValue();
-
+                    selected = list2.getSelectedValue();
                     try {
 
                         FileInputStream fis = new FileInputStream("mp3\\"+selected);
@@ -129,13 +129,7 @@ public class untitled5 extends JFrame
 
 
                         System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
-                       // System.out.println("Total Frame: "+durrr/f_size);
-
-
-
-
-
-
+                        // System.out.println("Total Frame: "+durrr/f_size);
 
                     }
                     catch (Exception er)
@@ -143,17 +137,42 @@ public class untitled5 extends JFrame
 
                     }
 
+                    stop();
 
-                    //System.out.println(selected);
+                    Thread th = new Thread();
 
+                    try
+                    {
 
+                        th.sleep(1000);
+
+                        start();
+                    }
+                    catch (Exception ed)
+                    {}
 
 
                 }
 
 
+
             }
         });
+
+
+        /*
+           jli1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+
+            }
+        });
+         */
+
+
+
+
 
                 JScrollPane jp1 = new JScrollPane();
         jp1.setViewportView(jli1);
