@@ -92,6 +92,8 @@ public class untitled5 extends JFrame
         jli1.setSelectionMode(0);
         System.out.println(jli1.getSelectedValue());
 
+
+
         jli1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -102,54 +104,11 @@ public class untitled5 extends JFrame
                 {
                     JList list2 = (JList) e.getSource();
                     selected = list2.getSelectedValue();
-                    try {
-
-                        FileInputStream fis = new FileInputStream("mp3\\"+selected);
-                        Bitstream bs = new Bitstream(fis);
-                        Header h = bs.readFrame();
-                        float f_size = h.ms_per_frame();
 
 
-                        File source = new File("mp3\\"+selected);
-                        Encoder encoder = new Encoder();
-                        try {
-                            MultimediaInfo mi = encoder.getInfo(source);
-                            long ls = mi.getDuration();
-                            AudioInfo ss = mi.getAudio();
-                            String gh = mi.getFormat();
-                            int sec =(int)( ls/1000);
-                            //System.out.println("duration(ms) = "+ls);
-                            durration=ls;
-                            //System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
-                            //System.out.println("İnfo: "+ss);
-                            //System.out.println("Format: "+gh);
-                        } catch (Exception ere) {
-                            //e.printStackTrace();
-                        }
 
+                    selected();
 
-                        System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
-                        // System.out.println("Total Frame: "+durrr/f_size);
-
-                    }
-                    catch (Exception er)
-                    {
-
-                    }
-
-                    stop();
-
-                    Thread th = new Thread();
-
-                    try
-                    {
-
-                        th.sleep(1000);
-
-                        start();
-                    }
-                    catch (Exception ed)
-                    {}
 
 
                 }
@@ -478,8 +437,30 @@ public class untitled5 extends JFrame
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
-                        stop();
+                       // stop();
+                        boolean adjust = jli1.getValueIsAdjusting();
+
                         jb1.setText("Play");
+
+                        if(jli1.getLastVisibleIndex()==jli1.getSelectedIndex())
+                            jli1.setSelectedIndex(0);
+                            else
+                        {
+                            jli1.setSelectedIndex(jli1.getSelectedIndex()+1);
+                            selected=jli1.getSelectedValue();
+                        }
+
+
+
+
+
+                        /*
+                         if(!adjust)
+                        {
+
+
+                        }
+                         */
 
 
 
@@ -555,6 +536,59 @@ public class untitled5 extends JFrame
         }
 
 
+    }
+
+    public void selected()
+    {
+        try {
+
+            stop();
+
+            Thread th = new Thread();
+
+            try
+            {
+
+                th.sleep(1000);
+
+                start();
+            }
+            catch (Exception ed)
+            {}
+
+
+            FileInputStream fis = new FileInputStream("mp3\\"+selected);
+            Bitstream bs = new Bitstream(fis);
+            Header h = bs.readFrame();
+            float f_size = h.ms_per_frame();
+
+
+            File source = new File("mp3\\"+selected);
+            Encoder encoder = new Encoder();
+            try {
+                MultimediaInfo mi = encoder.getInfo(source);
+                long ls = mi.getDuration();
+                AudioInfo ss = mi.getAudio();
+                String gh = mi.getFormat();
+                int sec =(int)( ls/1000);
+                //System.out.println("duration(ms) = "+ls);
+                durration=ls;
+                //System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
+                //System.out.println("İnfo: "+ss);
+                //System.out.println("Format: "+gh);
+            } catch (Exception ere) {
+                //e.printStackTrace();
+            }
+
+
+            System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
+            // System.out.println("Total Frame: "+durrr/f_size);
+
+        }
+        catch (Exception er)
+        {
+
+        }
     }
 
 
