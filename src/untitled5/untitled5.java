@@ -279,8 +279,6 @@ public class untitled5 extends JFrame
 
 
 
-
-
             public void mousePressed(MouseEvent e) {
 
                   X= e.getX();
@@ -299,7 +297,10 @@ public class untitled5 extends JFrame
 
 
 
-                count = (int)(dragX*durration/1000)/300-40;
+                //count = (int)(dragX*durration/1000)/300-43;
+                //count = (int)(dragX*durration/1000)/300-27;
+                count = (int)(dragX*durration/1000)/300-(int)(durration/1000*0.158);
+
                 start = (int) (count*1000 / 26);
 
 
