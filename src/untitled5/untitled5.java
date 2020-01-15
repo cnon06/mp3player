@@ -215,7 +215,7 @@ public class untitled5 extends JFrame
                if(jb1.getText()=="Play" && !dont_play_again)
                {
                    start();
-                   jb1.setText("Pause");
+                  // jb1.setText("Pause");
                }
                    else
                {
@@ -316,7 +316,7 @@ public class untitled5 extends JFrame
                 {}
 
 
-                jb1.setText("Pause");
+               // jb1.setText("Pause");
 
                 //start();
             }
@@ -408,7 +408,7 @@ public class untitled5 extends JFrame
         {
             t2.sleep(1000);
             start();
-            jb1.setText("Pause");
+            //jb1.setText("Pause");
 
 
         }
@@ -432,7 +432,7 @@ public class untitled5 extends JFrame
                //FileInputStream fis = new FileInputStream("Yeke.mp3");
                 FileInputStream fis = new FileInputStream("mp3\\"+jli1.getSelectedValue().toString());
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
-
+                jb1.setText("Pause");
                 playMP3.setPlayBackListener(new PlaybackListener() {
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
@@ -636,7 +636,16 @@ public class untitled5 extends JFrame
 
    static void durr()
     {
-        File source = new File("Yeke.mp3");
+
+        String path = "mp3";
+        File folder = new File(path);
+        File list[] = folder.listFiles();
+        System.out.println("First value: "+list[0]);
+
+        //String list5 [] = new String [list.length];
+
+        //File source = new File("Yeke.mp3");
+        File source = new File(""+list[0]);
         Encoder encoder = new Encoder();
         try {
             MultimediaInfo mi = encoder.getInfo(source);
