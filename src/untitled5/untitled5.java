@@ -38,7 +38,7 @@ public class untitled5 extends JFrame
     JTextField tf1;
     JList jli1;
     Object selected;
-    
+    int listlength;
     
     untitled5()
     {
@@ -67,7 +67,9 @@ public class untitled5 extends JFrame
         File folder = new File(path);
         File list[] = folder.listFiles();
         String list5 [] = new String [list.length];
-      System.out.println("list length: "+list.length);
+      listlength = list.length;
+
+        System.out.println("list length: "+list.length);
 
 
 
@@ -443,7 +445,11 @@ public class untitled5 extends JFrame
 
                         jb1.setText("Play");
 
-                        if(jli1.getLastVisibleIndex()==jli1.getSelectedIndex())
+
+                        if(listlength-1==jli1.getSelectedIndex())
+                        // if(jli1.getLastVisibleIndex()==jli1.getSelectedIndex())
+
+
                             jli1.setSelectedIndex(0);
                             else
                         {
