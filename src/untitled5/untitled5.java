@@ -14,13 +14,17 @@ import org.jaudiotagger.audio.asf.io.AsfExtHeaderReader;
 
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 
-// libs are jaudiotagger, java, jlayer
+
 
 public class untitled5 extends JFrame
 
@@ -29,20 +33,22 @@ public class untitled5 extends JFrame
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false, go_control=false;
     static int count =0,start=0,jb4x=50,X,Y,dragX;
-   // JButton jb4;
-    JLabel jl3, jl1,jl4;
+   JButton jb1;
+    JLabel jl3, jl1;
     JTextField tf1;
-    
+    JList jli1;
+    Object selected;
+    int listlength;
     
     untitled5()
     {
 
 
         setTitle("MP3 Player with JAVA by Sinan");
-        setSize(500,200);
+        setSize(600,200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //setResizable(false);
+
 
         setLocationRelativeTo(this);
         setLayout(null);
@@ -56,6 +62,93 @@ public class untitled5 extends JFrame
         panel1.setBackground(Color.WHITE);
         panel1.setLocation(0,0);
 
+
+        String path = "mp3";
+        File folder = new File(path);
+        File list[] = folder.listFiles();
+        String list5 [] = new String [list.length];
+      listlength = list.length;
+
+        System.out.println("list length: "+list.length);
+
+
+
+      for(int i=0;i<list.length;i++)
+      {
+          list5 [i] = list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1);
+      }
+
+
+     // list5 [0] = list [0].toString();
+
+
+
+       // String list[] = {"Sunday","Monday","Tuesday","Wednesday","Friday","Saturday","January","February","March","April","May","June","July","September","October","November","December"};
+       jli1 = new JList(list5);
+
+        //jli1.setVisible(true);
+        //jli1.setSize(150,120);
+        //jli1.setLocation(420,10);
+        jli1.setBackground(Color.GRAY);
+        jli1.setSelectedIndex(0);
+        jli1.setSelectionMode(0);
+        System.out.println(jli1.getSelectedValue());
+
+
+
+        jli1.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+                boolean adjust = e.getValueIsAdjusting();
+
+                if(!adjust)
+                {
+                    JList list2 = (JList) e.getSource();
+                    selected = list2.getSelectedValue();
+
+
+
+                    selected();
+
+
+
+                }
+
+
+
+            }
+        });
+
+
+        /*
+           jli1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+
+            }
+        });
+         */
+
+
+
+
+
+                JScrollPane jp1 = new JScrollPane();
+        jp1.setViewportView(jli1);
+        jli1.setLayoutOrientation(JList.VERTICAL);
+        jp1.setSize(150,140);
+        jp1.setLocation(420,10);
+        jp1.setVisible(true);
+       //panel1.add(jli1);
+        panel1.add(jp1);
+
+
+
+
+
+       // jli1.add(list);
 
 
 
@@ -71,7 +164,18 @@ public class untitled5 extends JFrame
         tf1.setVisible(true);
         tf1.setSize(40,20);
         tf1.setLocation(150,10);
-       
+
+        tf1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+                if(e.getKeyCode()==10)Go();
+                //System.out.println(e.getKeyCode());
+
+
+            }
+        });
+
         panel1.add(tf1);
         tf1.setText("0");
 
@@ -87,58 +191,7 @@ public class untitled5 extends JFrame
             public void mousePressed(MouseEvent e) {
 
 
-                if(dont_play_again)
-                {
-                    stop();
-
-                    try
-                    {
-                        count = Integer.parseInt(tf1.getText());
-                    }
-                    catch (Exception ej)
-                    {
-                        count=1;
-                        tf1.setText("1");
-                    }
-
-
-
-                    if(count>durration/1000 || count<0)
-                    {
-                        count=1;
-                        tf1.setText("1");
-                    }
-
-
-                    start = (int) (count*1000 / 26);
-                    if(count==1) start();
-
-
-                    // if(start_stop) start();
-
-                    Thread t2 = new Thread();
-
-                    try
-                    {
-                        t2.sleep(1000);
-                        start();
-                    }
-                    catch (Exception et)
-                    {
-
-                    }
-
-
-                    //go_control=true;
-
-                }
-
-
-
-
-
-
-
+                Go();
 
 
             }
@@ -150,7 +203,7 @@ public class untitled5 extends JFrame
         });
 
 
-        JButton jb1 = new JButton("Play");
+       jb1 = new JButton("Play");
         jb1.setVisible(true);
         jb1.setSize(80,20);
         jb1.setLocation(50,50);
@@ -161,10 +214,10 @@ public class untitled5 extends JFrame
            public void mousePressed(MouseEvent e) {
 
 
-               if(jb1.getText()=="Play")
+               if(jb1.getText()=="Play" && !dont_play_again)
                {
                    start();
-                   jb1.setText("Pause");
+                  // jb1.setText("Pause");
                }
                    else
                {
@@ -177,6 +230,7 @@ public class untitled5 extends JFrame
                    }
                }
 
+             
 
 
 
@@ -193,7 +247,7 @@ public class untitled5 extends JFrame
         jb2.setVisible(true);
         jb2.setSize(80,20);
         jb2.setLocation(300,50);
-        //jb1.setLayout(null);
+
 
         jb2.addMouseListener(new MouseAdapter() {
             @Override
@@ -203,6 +257,7 @@ public class untitled5 extends JFrame
 
 
             stop();
+                jb1.setText("Play");
 
 
 
@@ -210,37 +265,6 @@ public class untitled5 extends JFrame
         });
 
         panel1.add(jb2);
-
-
-        /*
-        JButton jb3 = new JButton("Pause");
-        jb3.setVisible(true);
-        jb3.setSize(80,20);
-        jb3.setLocation(200,50);
-        //jb1.setLayout(null);
-
-        jb3.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-
-                if(stop_start_stop) {
-
-                    start_stop = true;
-                    start = (int) (count*1000 / 26);
-
-                }
-
-
-
-            }
-        });
-
-        panel1.add(jb3);
-         */
-
-
-
 
 
         jl3 = new JLabel("Sinan");
@@ -253,8 +277,6 @@ public class untitled5 extends JFrame
 
 
         jl3.addMouseListener(new MouseAdapter() {
-
-
 
 
 
@@ -274,28 +296,30 @@ public class untitled5 extends JFrame
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                //X= e.getX();
-                //Y=e.getY();
 
-                //count = (int)(e.getComponent().getX()*durration/1000)/300;
-                count = (int)(dragX*durration/1000)/300-40;
+
+
+                //count = (int)(dragX*durration/1000)/300-43;
+                //count = (int)(dragX*durration/1000)/300-27;
+                count = (int)(dragX*durration/1000)/300-(int)(durration/1000*0.158);
+
                 start = (int) (count*1000 / 26);
-                //if(dont_play_again) dont_play_again=false;
+
 
                 Thread th = new Thread();
 
                 try
                 {
-                   // System.out.println("starting");
+
                     th.sleep(1000);
-                   // System.out.println("started");
+
                     start();
                 }
                 catch (Exception ed)
                 {}
 
 
-                jb1.setText("Pause");
+               // jb1.setText("Pause");
 
                 //start();
             }
@@ -311,13 +335,13 @@ public class untitled5 extends JFrame
                 int x2=(e.getX()+e.getComponent().getX())-X;
                 if(x2<50) x2=50;
                 if(x2>350) x2=350;
-                //super.mousePressed(e);
+
                 e.getComponent().setLocation(x2,120);
-               // System.out.println(e.getComponent().getX());
+
                 dragX=e.getComponent().getX();
 
 
-                // System.out.println("Mouse dragged");
+
             }
         });
         
@@ -352,29 +376,101 @@ public class untitled5 extends JFrame
       }
     }
 
+    public void Go()
+    {
+        stop();
+
+        try
+        {
+            count = Integer.parseInt(tf1.getText());
+        }
+        catch (Exception ej)
+        {
+            count=1;
+            tf1.setText("1");
+        }
+
+
+
+        if(count>durration/1000 || count<0)
+        {
+            count=1;
+            tf1.setText("1");
+        }
+
+
+        start = (int) (count*1000 / 26);
+        if(count==1) start();
+
+
+
+
+        Thread t2 = new Thread();
+
+        try
+        {
+            t2.sleep(1000);
+            start();
+            //jb1.setText("Pause");
+
+
+        }
+        catch (Exception et)
+        {
+        }
+
+    }
+
+
     public void start()
     {
         if(!dont_play_again)
         {
+
             stop_start_stop=true;
             dont_play_again=true;
 
             try{
 
-                FileInputStream fis = new FileInputStream("Yeke.mp3");
+               //FileInputStream fis = new FileInputStream("Yeke.mp3");
+                FileInputStream fis = new FileInputStream("mp3\\"+jli1.getSelectedValue().toString());
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
-
+                jb1.setText("Pause");
                 playMP3.setPlayBackListener(new PlaybackListener() {
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
-                        stop();
+                       // stop();
+                        boolean adjust = jli1.getValueIsAdjusting();
+
+                        jb1.setText("Play");
+
+
+                        if(listlength-1==jli1.getSelectedIndex())
+                        // if(jli1.getLastVisibleIndex()==jli1.getSelectedIndex())
+
+
+                            jli1.setSelectedIndex(0);
+                            else
+                        {
+                            jli1.setSelectedIndex(jli1.getSelectedIndex()+1);
+                            selected=jli1.getSelectedValue();
+                        }
+
+
+
+
+
                         /*
-                         if(!start_stop) start_stop=true;
-                        if(stop_start_stop) stop_start_stop=false;
-                        count=0;
-                        jb4x=50;
+                         if(!adjust)
+                        {
+
+
+                        }
                          */
+
+
+
 
 
                     }
@@ -397,9 +493,7 @@ public class untitled5 extends JFrame
 
 
                                 jb4x=50+(int)((300*count)/(durration/1000));
-                                //jb4.setLocation(jb4x,100);
 
-                                //jl3x=50+(int)((300*count)/(durration/1000));
                                 jl3.setLocation(jb4x,120);
 
                             }
@@ -409,7 +503,7 @@ public class untitled5 extends JFrame
                             }
 
                             jl1.setText(""+count);
-                            //System.out.println("errer");
+
                         }
 
                         playMP3.close();
@@ -419,8 +513,8 @@ public class untitled5 extends JFrame
 
                         jl1.setText(""+count);
                         dont_play_again=false;
-                        gap();
-                        //this.start();
+                       // gap();
+
                     }
                 }.start();
 
@@ -441,7 +535,6 @@ public class untitled5 extends JFrame
                         }
 
 
-                        //super.run();
                     }
                 }.start();
 
@@ -450,6 +543,59 @@ public class untitled5 extends JFrame
         }
 
 
+    }
+
+    public void selected()
+    {
+        try {
+
+            stop();
+
+            Thread th = new Thread();
+
+            try
+            {
+
+                th.sleep(1000);
+
+                start();
+            }
+            catch (Exception ed)
+            {}
+
+
+            FileInputStream fis = new FileInputStream("mp3\\"+selected);
+            Bitstream bs = new Bitstream(fis);
+            Header h = bs.readFrame();
+            float f_size = h.ms_per_frame();
+
+
+            File source = new File("mp3\\"+selected);
+            Encoder encoder = new Encoder();
+            try {
+                MultimediaInfo mi = encoder.getInfo(source);
+                long ls = mi.getDuration();
+                AudioInfo ss = mi.getAudio();
+                String gh = mi.getFormat();
+                int sec =(int)( ls/1000);
+                //System.out.println("duration(ms) = "+ls);
+                durration=ls;
+                //System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
+                //System.out.println("İnfo: "+ss);
+                //System.out.println("Format: "+gh);
+            } catch (Exception ere) {
+                //e.printStackTrace();
+            }
+
+
+            System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
+            // System.out.println("Total Frame: "+durrr/f_size);
+
+        }
+        catch (Exception er)
+        {
+
+        }
     }
 
 
@@ -463,15 +609,11 @@ public class untitled5 extends JFrame
             jb4x=50;
             divide2=0;
 
+
         }
     }
 
-    /*
-    public void paint(Graphics g)
-    {
-        g.drawLine(50,120,250,120);
-    }
-     */
+
 
 
   
@@ -501,7 +643,16 @@ public class untitled5 extends JFrame
 
    static void durr()
     {
-        File source = new File("Yeke.mp3");
+
+        String path = "mp3";
+        File folder = new File(path);
+        File list[] = folder.listFiles();
+        System.out.println("First value: "+list[0]);
+
+        //String list5 [] = new String [list.length];
+
+        //File source = new File("Yeke.mp3");
+        File source = new File(""+list[0]);
         Encoder encoder = new Encoder();
         try {
             MultimediaInfo mi = encoder.getInfo(source);
@@ -520,17 +671,7 @@ public class untitled5 extends JFrame
     }
 
 
-    static void Simpleplayer()
-    {
-        try{
 
-            FileInputStream fis = new FileInputStream("Yeke.mp3");
-            AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
-
-            playMP3.play(8500,(int)durration);
-
-        }catch(Exception e){System.out.println(e);}
-    }
 
 
     public static void main(String [] args)
@@ -539,10 +680,10 @@ public class untitled5 extends JFrame
 
 new untitled5();
 
-       //durr dr = new durr();
+
         durr();
        framesize(durration);
-      //  Simpleplayer();
+
 
     }
 
