@@ -45,7 +45,7 @@ public class untitled5 extends JFrame
 
 
         setTitle("MP3 Player with JAVA by Sinan");
-        setSize(600,200);
+        setSize(680,200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -78,91 +78,46 @@ public class untitled5 extends JFrame
           list5 [i] = list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1);
       }
 
-
-     // list5 [0] = list [0].toString();
-
-
-
-       // String list[] = {"Sunday","Monday","Tuesday","Wednesday","Friday","Saturday","January","February","March","April","May","June","July","September","October","November","December"};
        jli1 = new JList(list5);
 
-        //jli1.setVisible(true);
-        //jli1.setSize(150,120);
-        //jli1.setLocation(420,10);
+
         jli1.setBackground(Color.GRAY);
         jli1.setSelectedIndex(0);
         jli1.setSelectionMode(0);
         System.out.println(jli1.getSelectedValue());
-
-
-
         jli1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
 
                 boolean adjust = e.getValueIsAdjusting();
-
                 if(!adjust)
                 {
                     JList list2 = (JList) e.getSource();
                     selected = list2.getSelectedValue();
-
-
-
                     selected();
-
-
-
                 }
 
-
-
             }
         });
-
-
-        /*
-           jli1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-
-            }
-        });
-         */
-
-
-
-
-
                 JScrollPane jp1 = new JScrollPane();
         jp1.setViewportView(jli1);
         jli1.setLayoutOrientation(JList.VERTICAL);
-        jp1.setSize(150,140);
-        jp1.setLocation(420,10);
+        jp1.setSize(200,140);
+        jp1.setLocation(450,10);
         jp1.setVisible(true);
-       //panel1.add(jli1);
+
         panel1.add(jp1);
-
-
-
-
-
-       // jli1.add(list);
-
-
 
         jl1 = new JLabel("0");
         jl1.setVisible(true);
         jl1.setSize(80,20);
-        jl1.setLocation(150,50);
+        jl1.setLocation(250,10);
 
         panel1.add(jl1);
 
-
         tf1 = new JTextField();
         tf1.setVisible(true);
-        tf1.setSize(40,20);
+        tf1.setSize(80,20);
         tf1.setLocation(150,10);
 
         tf1.addKeyListener(new KeyAdapter() {
@@ -170,9 +125,6 @@ public class untitled5 extends JFrame
             public void keyPressed(KeyEvent e) {
 
                 if(e.getKeyCode()==10)Go();
-                //System.out.println(e.getKeyCode());
-
-
             }
         });
 
@@ -190,24 +142,49 @@ public class untitled5 extends JFrame
             @Override
             public void mousePressed(MouseEvent e) {
 
-
                 Go();
-
-
             }
-
-
-
-
-
         });
 
 
+        JButton jb3 = new JButton("Next");
+        jb3.setVisible(true);
+        jb3.setSize(80,20);
+        jb3.setLocation(350,50);
+
+        panel1.add(jb3);
+
+        jb3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+               // Next();
+            }
+        });
+
+
+
+        JButton jb4 = new JButton("Previous");
+        jb4.setVisible(true);
+        jb4.setSize(80,20);
+        jb4.setLocation(50,50);
+
+        panel1.add(jb4);
+
+        jb4.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                // Next();
+            }
+        });
+        
+        
        jb1 = new JButton("Play");
         jb1.setVisible(true);
         jb1.setSize(80,20);
-        jb1.setLocation(50,50);
-        //jb1.setLayout(null);
+        jb1.setLocation(150,50);
+
        panel1.add(jb1);
        jb1.addMouseListener(new MouseAdapter() {
            @Override
@@ -217,7 +194,7 @@ public class untitled5 extends JFrame
                if(jb1.getText()=="Play" && !dont_play_again)
                {
                    start();
-                  // jb1.setText("Pause");
+
                }
                    else
                {
@@ -230,10 +207,6 @@ public class untitled5 extends JFrame
                    }
                }
 
-             
-
-
-
                }
 
 
@@ -242,19 +215,14 @@ public class untitled5 extends JFrame
 
        });
 
-
         JButton jb2 = new JButton("Stop");
         jb2.setVisible(true);
         jb2.setSize(80,20);
-        jb2.setLocation(300,50);
-
+        jb2.setLocation(250,50);
 
         jb2.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-
-
-
 
             stop();
                 jb1.setText("Play");
@@ -267,6 +235,10 @@ public class untitled5 extends JFrame
         panel1.add(jb2);
 
 
+
+
+
+
         jl3 = new JLabel("Sinan");
         jl3.setVisible(true);
         jl3.setSize(50,20);
@@ -275,32 +247,20 @@ public class untitled5 extends JFrame
         jl3.setIcon(img1);
         panel1.add(jl3);
 
-
         jl3.addMouseListener(new MouseAdapter() {
-
-
-
 
             public void mousePressed(MouseEvent e) {
 
                   X= e.getX();
                 Y=e.getY();
 
-
-
                  stop();
-
-
 
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
 
-
-
-                //count = (int)(dragX*durration/1000)/300-43;
-                //count = (int)(dragX*durration/1000)/300-27;
                 count = (int)(dragX*durration/1000)/300-(int)(durration/1000*0.158);
 
                 start = (int) (count*1000 / 26);
@@ -319,13 +279,9 @@ public class untitled5 extends JFrame
                 {}
 
 
-               // jb1.setText("Pause");
-
-                //start();
             }
 
         });
-
 
         jl3.addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -353,28 +309,12 @@ public class untitled5 extends JFrame
         ImageIcon img2 = new ImageIcon("line.jpg");
         jl2.setIcon(img2);
         panel1.add(jl2);
-
-
-
-
         setVisible(true);
         add(panel1);
 
 
     }
 
-
-
-    public  void gap()
-    {
-
-
-      if(go_control)
-      {
-          start();
-          go_control=false;
-      }
-    }
 
     public void Go()
     {
@@ -390,20 +330,14 @@ public class untitled5 extends JFrame
             tf1.setText("1");
         }
 
-
-
         if(count>durration/1000 || count<0)
         {
             count=1;
             tf1.setText("1");
         }
 
-
         start = (int) (count*1000 / 26);
         if(count==1) start();
-
-
-
 
         Thread t2 = new Thread();
 
@@ -411,7 +345,7 @@ public class untitled5 extends JFrame
         {
             t2.sleep(1000);
             start();
-            //jb1.setText("Pause");
+
 
 
         }
@@ -420,7 +354,6 @@ public class untitled5 extends JFrame
         }
 
     }
-
 
     public void start()
     {
@@ -432,7 +365,6 @@ public class untitled5 extends JFrame
 
             try{
 
-               //FileInputStream fis = new FileInputStream("Yeke.mp3");
                 FileInputStream fis = new FileInputStream("mp3\\"+jli1.getSelectedValue().toString());
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
                 jb1.setText("Pause");
@@ -440,14 +372,14 @@ public class untitled5 extends JFrame
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
-                       // stop();
-                        boolean adjust = jli1.getValueIsAdjusting();
+
+                       // boolean adjust = jli1.getValueIsAdjusting();
 
                         jb1.setText("Play");
 
 
                         if(listlength-1==jli1.getSelectedIndex())
-                        // if(jli1.getLastVisibleIndex()==jli1.getSelectedIndex())
+
 
 
                             jli1.setSelectedIndex(0);
@@ -456,21 +388,6 @@ public class untitled5 extends JFrame
                             jli1.setSelectedIndex(jli1.getSelectedIndex()+1);
                             selected=jli1.getSelectedValue();
                         }
-
-
-
-
-
-                        /*
-                         if(!adjust)
-                        {
-
-
-                        }
-                         */
-
-
-
 
 
                     }
@@ -513,7 +430,7 @@ public class untitled5 extends JFrame
 
                         jl1.setText(""+count);
                         dont_play_again=false;
-                       // gap();
+
 
                     }
                 }.start();
@@ -556,7 +473,7 @@ public class untitled5 extends JFrame
             try
             {
 
-                th.sleep(1000);
+                th.sleep(1250);
 
                 start();
             }
@@ -577,19 +494,15 @@ public class untitled5 extends JFrame
                 long ls = mi.getDuration();
                 AudioInfo ss = mi.getAudio();
                 String gh = mi.getFormat();
-                int sec =(int)( ls/1000);
-                //System.out.println("duration(ms) = "+ls);
+
+
                 durration=ls;
-                //System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
-                //System.out.println("İnfo: "+ss);
-                //System.out.println("Format: "+gh);
+
             } catch (Exception ere) {
-                //e.printStackTrace();
+
             }
-
-
             System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
-            // System.out.println("Total Frame: "+durrr/f_size);
+
 
         }
         catch (Exception er)
@@ -597,7 +510,6 @@ public class untitled5 extends JFrame
 
         }
     }
-
 
     public void stop()
     {
@@ -613,11 +525,6 @@ public class untitled5 extends JFrame
         }
     }
 
-
-
-
-  
-
    static  void  framesize(long durrr)
     {
 
@@ -629,9 +536,6 @@ public class untitled5 extends JFrame
             float f_size = h.ms_per_frame();
             System.out.println("Frame size: "+f_size);
             System.out.println("Total Frame: "+durrr/f_size);
-
-
-
         }
         catch (Exception e)
         {
@@ -649,9 +553,7 @@ public class untitled5 extends JFrame
         File list[] = folder.listFiles();
         System.out.println("First value: "+list[0]);
 
-        //String list5 [] = new String [list.length];
 
-        //File source = new File("Yeke.mp3");
         File source = new File(""+list[0]);
         Encoder encoder = new Encoder();
         try {
