@@ -158,7 +158,7 @@ public class untitled5 extends JFrame
             @Override
             public void mousePressed(MouseEvent e) {
 
-               // Next();
+               next();
             }
         });
 
@@ -175,7 +175,7 @@ public class untitled5 extends JFrame
             @Override
             public void mousePressed(MouseEvent e) {
 
-                // Next();
+               previous();
             }
         });
         
@@ -355,6 +355,42 @@ public class untitled5 extends JFrame
 
     }
 
+
+    public void previous()
+    {
+        jb1.setText("Play");
+
+
+        if(jli1.getSelectedIndex()==0)
+
+
+
+            jli1.setSelectedIndex(listlength-1);
+        else
+        {
+            jli1.setSelectedIndex(jli1.getSelectedIndex()-1);
+            selected=jli1.getSelectedValue();
+        }
+    }
+
+    public void next()
+    {
+        jb1.setText("Play");
+
+
+        if(listlength-1==jli1.getSelectedIndex())
+
+
+
+            jli1.setSelectedIndex(0);
+        else
+        {
+            jli1.setSelectedIndex(jli1.getSelectedIndex()+1);
+            selected=jli1.getSelectedValue();
+        }
+    }
+
+
     public void start()
     {
         if(!dont_play_again)
@@ -373,21 +409,8 @@ public class untitled5 extends JFrame
                     public void playbackFinished(PlaybackEvent evt) {
 
 
-                       // boolean adjust = jli1.getValueIsAdjusting();
 
-                        jb1.setText("Play");
-
-
-                        if(listlength-1==jli1.getSelectedIndex())
-
-
-
-                            jli1.setSelectedIndex(0);
-                            else
-                        {
-                            jli1.setSelectedIndex(jli1.getSelectedIndex()+1);
-                            selected=jli1.getSelectedValue();
-                        }
+                     next();
 
 
                     }
