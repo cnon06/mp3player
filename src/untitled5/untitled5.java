@@ -34,7 +34,7 @@ public class untitled5 extends JFrame
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false, go_control=false;
     static int count =0,start=0,jb4x=50,X,Y,dragX;
    JButton jb1;
-    JLabel jl3, jl1;
+    JLabel jl3, jl1,jl6;
     JTextField tf1;
     JList jli1;
     Object selected;
@@ -108,12 +108,21 @@ public class untitled5 extends JFrame
 
         panel1.add(jp1);
 
+
         jl1 = new JLabel("0");
         jl1.setVisible(true);
         jl1.setSize(80,20);
         jl1.setLocation(250,10);
 
         panel1.add(jl1);
+
+        jl6 = new JLabel("0");
+        jl6.setVisible(true);
+        jl6.setSize(80,20);
+        jl6.setLocation(350,10);
+
+        panel1.add(jl6);
+        
 
         tf1 = new JTextField();
         tf1.setVisible(true);
@@ -309,6 +318,11 @@ public class untitled5 extends JFrame
         ImageIcon img2 = new ImageIcon("line.jpg");
         jl2.setIcon(img2);
         panel1.add(jl2);
+
+       // jli1.setSelectedIndex(0);
+
+
+         info();
         setVisible(true);
         add(panel1);
 
@@ -398,7 +412,7 @@ public class untitled5 extends JFrame
 
             stop_start_stop=true;
             dont_play_again=true;
-
+            info();
             try{
 
                 FileInputStream fis = new FileInputStream("mp3\\"+jli1.getSelectedValue().toString());
@@ -485,9 +499,45 @@ public class untitled5 extends JFrame
 
     }
 
-    public void selected()
+    public void info()
     {
         try {
+
+            /*
+            FileInputStream fis = new FileInputStream("mp3\\"+selected);
+            Bitstream bs = new Bitstream(fis);
+            Header h = bs.readFrame();
+            float f_size = h.ms_per_frame();
+             */
+
+
+            File source = new File("mp3\\"+jli1.getSelectedValue());
+            //File source = new File("mp3\\"+selected);
+            Encoder encoder = new Encoder();
+
+            MultimediaInfo mi = encoder.getInfo(source);
+            long ls = mi.getDuration();
+            //AudioInfo ss = mi.getAudio();
+            //String gh = mi.getFormat();
+
+            //System.out.println("info");
+            durration=ls;
+
+            jl6.setText(""+(int)durration/1000);
+            //System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
+
+
+        }
+        catch (Exception er)
+        {
+            System.out.println(er);
+        }
+    }
+
+
+    public void selected()
+    {
+
 
             stop();
 
@@ -504,34 +554,7 @@ public class untitled5 extends JFrame
             {}
 
 
-            FileInputStream fis = new FileInputStream("mp3\\"+selected);
-            Bitstream bs = new Bitstream(fis);
-            Header h = bs.readFrame();
-            float f_size = h.ms_per_frame();
-
-
-            File source = new File("mp3\\"+selected);
-            Encoder encoder = new Encoder();
-            try {
-                MultimediaInfo mi = encoder.getInfo(source);
-                long ls = mi.getDuration();
-                AudioInfo ss = mi.getAudio();
-                String gh = mi.getFormat();
-
-
-                durration=ls;
-
-            } catch (Exception ere) {
-
-            }
-            System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
-
-
-        }
-        catch (Exception er)
-        {
-
-        }
+         // info();
     }
 
     public void stop()
@@ -548,6 +571,8 @@ public class untitled5 extends JFrame
         }
     }
 
+
+
    static  void  framesize(long durrr)
     {
 
@@ -557,8 +582,8 @@ public class untitled5 extends JFrame
             Bitstream bs = new Bitstream(fis);
             Header h = bs.readFrame();
             float f_size = h.ms_per_frame();
-            System.out.println("Frame size: "+f_size);
-            System.out.println("Total Frame: "+durrr/f_size);
+            // System.out.println("Frame size: "+f_size);
+            //System.out.println("Total Frame: "+durrr/f_size);
         }
         catch (Exception e)
         {
@@ -574,7 +599,7 @@ public class untitled5 extends JFrame
         String path = "mp3";
         File folder = new File(path);
         File list[] = folder.listFiles();
-        System.out.println("First value: "+list[0]);
+       // System.out.println("First value: "+list[0]);
 
 
         File source = new File(""+list[0]);
@@ -585,11 +610,11 @@ public class untitled5 extends JFrame
             AudioInfo ss = mi.getAudio();
             String gh = mi.getFormat();
             int sec =(int)( ls/1000);
-            System.out.println("duration(ms) = "+ls);
+           // System.out.println("duration(ms) = "+ls);
             durration=ls;
-            System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
-            System.out.println("İnfo: "+ss);
-            System.out.println("Format: "+gh);
+           // System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
+           // System.out.println("İnfo: "+ss);
+           // System.out.println("Format: "+gh);
         } catch (Exception e) {
             e.printStackTrace();
         }
