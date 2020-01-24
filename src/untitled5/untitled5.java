@@ -47,6 +47,7 @@ public class untitled5 extends JFrame
         setTitle("MP3 Player with JAVA by Sinan");
         setSize(680,200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
 
 
@@ -84,7 +85,7 @@ public class untitled5 extends JFrame
         jli1.setBackground(Color.GRAY);
         jli1.setSelectedIndex(0);
         jli1.setSelectionMode(0);
-       // System.out.println(jli1.getSelectedValue());
+
         jli1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -526,14 +527,14 @@ public class untitled5 extends JFrame
             MultimediaInfo mi = encoder.getInfo(source);
             long ls = mi.getDuration();
             AudioInfo ss = mi.getAudio();
-            //String gh = mi.getFormat();
 
-            //System.out.println("info");
             durration=ls;
 
             jl6.setText(""+(int)durration/1000);
             jl7.setText(""+jli1.getSelectedValue());
             //System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
+
+
 
 
         }
@@ -608,7 +609,7 @@ public class untitled5 extends JFrame
         String path = "mp3";
         File folder = new File(path);
         File list[] = folder.listFiles();
-       // System.out.println("First value: "+list[0]);
+
 
 
         File source = new File(""+list[0]);
