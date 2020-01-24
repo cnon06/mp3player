@@ -34,7 +34,7 @@ public class untitled5 extends JFrame
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false, go_control=false;
     static int count =0,start=0,jb4x=50,X,Y,dragX;
    JButton jb1;
-    JLabel jl3, jl1,jl6;
+    JLabel jl3, jl1,jl6,jl7;
     JTextField tf1;
     JList jli1;
     Object selected;
@@ -84,7 +84,7 @@ public class untitled5 extends JFrame
         jli1.setBackground(Color.GRAY);
         jli1.setSelectedIndex(0);
         jli1.setSelectionMode(0);
-        System.out.println(jli1.getSelectedValue());
+       // System.out.println(jli1.getSelectedValue());
         jli1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -109,21 +109,29 @@ public class untitled5 extends JFrame
         panel1.add(jp1);
 
 
-        jl1 = new JLabel("0");
+        jl1 = new JLabel("Count");
         jl1.setVisible(true);
         jl1.setSize(80,20);
         jl1.setLocation(250,10);
 
         panel1.add(jl1);
 
-        jl6 = new JLabel("0");
+        jl6 = new JLabel("Duration");
         jl6.setVisible(true);
         jl6.setSize(80,20);
         jl6.setLocation(350,10);
 
         panel1.add(jl6);
-        
 
+
+        jl7 = new JLabel("Title");
+        jl7.setVisible(true);
+        jl7.setSize(400,20);
+        jl7.setLocation(50,80);
+
+        panel1.add(jl7);
+        
+        
         tf1 = new JTextField();
         tf1.setVisible(true);
         tf1.setSize(80,20);
@@ -517,13 +525,14 @@ public class untitled5 extends JFrame
 
             MultimediaInfo mi = encoder.getInfo(source);
             long ls = mi.getDuration();
-            //AudioInfo ss = mi.getAudio();
+            AudioInfo ss = mi.getAudio();
             //String gh = mi.getFormat();
 
             //System.out.println("info");
             durration=ls;
 
             jl6.setText(""+(int)durration/1000);
+            jl7.setText(""+jli1.getSelectedValue());
             //System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
 
 
@@ -612,8 +621,8 @@ public class untitled5 extends JFrame
             int sec =(int)( ls/1000);
            // System.out.println("duration(ms) = "+ls);
             durration=ls;
-           // System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
-           // System.out.println("İnfo: "+ss);
+           //System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
+           //System.out.println("İnfo: "+ss);
            // System.out.println("Format: "+gh);
         } catch (Exception e) {
             e.printStackTrace();
