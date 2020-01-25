@@ -279,7 +279,7 @@ public class untitled5 extends JFrame
             @Override
             public void mouseReleased(MouseEvent e) {
 
-                count = (int)(dragX*durration/1000)/300-(int)(durration/1000*0.158);
+                count = (int)(dragX*durration/1000)/330-(int)(durration/1000*0.158);
 
                 start = (int) (count*1000 / 26);
 
@@ -308,7 +308,7 @@ public class untitled5 extends JFrame
 
                 int x2=(e.getX()+e.getComponent().getX())-X;
                 if(x2<50) x2=50;
-                if(x2>350) x2=350;
+                if(x2>380) x2=380;
 
                 e.getComponent().setLocation(x2,120);
 
@@ -322,7 +322,7 @@ public class untitled5 extends JFrame
         
         JLabel jl2 = new JLabel("Sinan");
         jl2.setVisible(true);
-        jl2.setSize(350,20);
+        jl2.setSize(380,20);
         jl2.setLocation(50,119);
         ImageIcon img2 = new ImageIcon("line.jpg");
         jl2.setIcon(img2);
@@ -455,7 +455,7 @@ public class untitled5 extends JFrame
                                 Thread.sleep(1000);
 
 
-                                jb4x=50+(int)((300*count)/(durration/1000));
+                                jb4x=50+(int)((330*count)/(durration/1000));
 
                                 jl3.setLocation(jb4x,120);
 
