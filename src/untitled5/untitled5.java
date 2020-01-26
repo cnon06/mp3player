@@ -13,6 +13,10 @@ import javazoom.jl.player.advanced.PlaybackListener;
 import org.jaudiotagger.audio.asf.io.AsfExtHeaderReader;
 
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.Port;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -329,8 +333,7 @@ public class untitled5 extends JFrame
         panel1.add(jl2);
 
        // jli1.setSelectedIndex(0);
-
-
+volume_up_down(0.1f);
          info();
         setVisible(true);
         add(panel1);
@@ -414,6 +417,35 @@ public class untitled5 extends JFrame
     }
 
 
+
+    public void volume_up_down(float ctrl)
+    {
+
+
+         try {
+            Mixer.Info[] infos = AudioSystem.getMixerInfo();
+            for (Mixer.Info info: infos)
+            {
+                Mixer mixer = AudioSystem.getMixer(info);
+                if (mixer.isLineSupported(Port.Info.SPEAKER))
+                {
+                    Port port = (Port)mixer.getLine(Port.Info.SPEAKER);
+                    port.open();
+                    if (port.isControlSupported(FloatControl.Type.VOLUME))
+                    {
+                        FloatControl volume =  (FloatControl)port.getControl(FloatControl.Type.VOLUME);
+                        volume.setValue(ctrl);
+                    }
+                    port.close();
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Erro\n"+e);
+        }
+
+
+    }
+
     public void start()
     {
         if(!dont_play_again)
@@ -427,6 +459,11 @@ public class untitled5 extends JFrame
                 FileInputStream fis = new FileInputStream("mp3\\"+jli1.getSelectedValue().toString());
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
                 jb1.setText("Pause");
+
+
+
+
+
                 playMP3.setPlayBackListener(new PlaybackListener() {
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
@@ -468,6 +505,7 @@ public class untitled5 extends JFrame
                             jl1.setText(""+count);
 
                         }
+
 
                         playMP3.close();
 
