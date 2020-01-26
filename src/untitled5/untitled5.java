@@ -36,10 +36,11 @@ public class untitled5 extends JFrame
     static float divide2=0;
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false, go_control=false;
-    static int count =0,start=0,jb4x=50,X,Y,dragX;
+    static int count =0,start=0,jb4x=50,X,Y,dragX,vlm1=5;
+
    JButton jb1;
     JLabel jl3, jl1,jl6,jl7;
-    JTextField tf1;
+    JTextField tf1,tf2;
     JList jli1;
     Object selected;
     int listlength;
@@ -146,13 +147,66 @@ public class untitled5 extends JFrame
             @Override
             public void keyPressed(KeyEvent e) {
 
-                if(e.getKeyCode()==10)Go();
+                if(e.getKeyCode()==10)
+                {
+                    Go();
+                    tf1.setSelectionStart(0);
+                    tf1.setSelectionEnd(tf1.getText().length());
+                }
+            }
+        });
+        
+        panel1.add(tf1);
+        tf1.setText("");
+
+
+        tf2 = new JTextField();
+        tf2.setVisible(true);
+        tf2.setSize(80,20);
+        tf2.setLocation(50,100);
+
+        tf2.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+                //if(e.getKeyCode()==10)Go();
+
+
+                if(e.getKeyCode()==10){
+
+                   try
+                   {
+                       vlm1  = Integer.parseInt(tf2.getText());
+                       //System.out.println(tf2.getText());
+                       if(vlm1>=0&&vlm1<=100)
+                       {
+                           float vlm2=vlm1*(0.01F);
+                           volume_up_down(vlm2);
+                         
+
+                       }
+
+                   }
+                   catch (Exception erfs)
+                   {
+                      //System.out.println(erfs);
+
+                   }
+                    tf2.setSelectionStart(0);
+                    tf2.setSelectionEnd(tf2.getText().length());
+
+
+                }
+
+
+
             }
         });
 
-        panel1.add(tf1);
-        tf1.setText("0");
-
+        panel1.add(tf2);
+        tf2.setText("");
+        
+        
         JButton jb5 = new JButton("Go");
         jb5.setVisible(true);
         jb5.setSize(80,20);
@@ -333,7 +387,11 @@ public class untitled5 extends JFrame
         panel1.add(jl2);
 
        // jli1.setSelectedIndex(0);
-volume_up_down(0.1f);
+        
+        
+        
+        
+volume_up_down(1f);
          info();
         setVisible(true);
         add(panel1);
