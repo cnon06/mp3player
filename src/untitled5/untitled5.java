@@ -25,18 +25,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-
+import java.io.*;
 
 
 public class untitled5 extends JFrame
 
 {
-    static float divide2=0;
+    static float divide2=0,vlm3=50;
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false, go_control=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,vlm1=5,locationX=20;
+    static String outcome="40";
 
    JButton jb1;
     JLabel jl3, jl1,jl6,jl7;
@@ -182,6 +181,7 @@ public class untitled5 extends JFrame
                        {
                            float vlm2=vlm1*(0.01F);
                            volume_up_down(vlm2);
+                           volume_write(vlm1);
                          
 
                        }
@@ -397,13 +397,56 @@ public class untitled5 extends JFrame
         
         
         
-        
-volume_up_down(1f);
+        volume_read();
+
+        try
+        {
+            vlm3=Integer.parseInt(outcome);
+        }
+        catch (Exception e)
+        {
+            vlm3=50;
+        }
+        System.out.println(vlm3);
+        volume_up_down(vlm3*(0.01F));
+//volume_up_down(1f);
          info();
         setVisible(true);
         add(panel1);
 
 
+    }
+
+    public void volume_read()
+    {
+        outcome="";
+        try(FileReader fileReader = new FileReader( "volume_record.txt")) {
+            int ch = fileReader.read();
+            while(ch != -1) {
+
+
+                outcome+=(char)ch;
+
+                ch = fileReader.read();
+            }
+        } catch (Exception etr) {
+            System.out.println(etr);
+        }
+
+
+
+    }
+
+
+    public void volume_write(Integer vlm)
+    {
+        try(FileWriter fileWriter = new FileWriter( "volume_record.txt")) {
+
+           // String fileContent = jtf1.getText();
+           fileWriter.write(vlm.toString());
+        } catch (IOException ej) {
+
+        }
     }
 
 
