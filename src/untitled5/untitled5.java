@@ -36,7 +36,7 @@ public class untitled5 extends JFrame
     static float divide2=0;
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false, go_control=false;
-    static int count =0,start=0,jb4x=50,X,Y,dragX,vlm1=5;
+    static int count =0,start=0,jb4x=0,X,Y,dragX,vlm1=5,locationX=20;
 
    JButton jb1;
     JLabel jl3, jl1,jl6,jl7;
@@ -47,7 +47,7 @@ public class untitled5 extends JFrame
     
     untitled5()
     {
-
+        jb4x=locationX;
 
         setTitle("MP3 Player with JAVA by Sinan");
         setSize(680,200);
@@ -108,8 +108,8 @@ public class untitled5 extends JFrame
                 JScrollPane jp1 = new JScrollPane();
         jp1.setViewportView(jli1);
         jli1.setLayoutOrientation(JList.VERTICAL);
-        jp1.setSize(200,140);
-        jp1.setLocation(450,10);
+        jp1.setSize(225,140);
+        jp1.setLocation(400+locationX,10);
         jp1.setVisible(true);
 
         panel1.add(jp1);
@@ -118,14 +118,14 @@ public class untitled5 extends JFrame
         jl1 = new JLabel("Count");
         jl1.setVisible(true);
         jl1.setSize(80,20);
-        jl1.setLocation(250,10);
+        jl1.setLocation(200+locationX,10);
 
         panel1.add(jl1);
 
         jl6 = new JLabel("Duration");
         jl6.setVisible(true);
         jl6.setSize(80,20);
-        jl6.setLocation(350,10);
+        jl6.setLocation(300+locationX,10);
 
         panel1.add(jl6);
 
@@ -133,7 +133,7 @@ public class untitled5 extends JFrame
         jl7 = new JLabel("Title");
         jl7.setVisible(true);
         jl7.setSize(400,20);
-        jl7.setLocation(50,80);
+        jl7.setLocation(locationX,80);
 
         panel1.add(jl7);
         
@@ -141,7 +141,7 @@ public class untitled5 extends JFrame
         tf1 = new JTextField();
         tf1.setVisible(true);
         tf1.setSize(80,20);
-        tf1.setLocation(150,10);
+        tf1.setLocation(100+locationX,10);
 
         tf1.addKeyListener(new KeyAdapter() {
             @Override
@@ -163,7 +163,7 @@ public class untitled5 extends JFrame
         tf2 = new JTextField();
         tf2.setVisible(true);
         tf2.setSize(80,20);
-        tf2.setLocation(50,100);
+        tf2.setLocation(locationX,100);
 
         tf2.addKeyListener(new KeyAdapter() {
             @Override
@@ -210,7 +210,7 @@ public class untitled5 extends JFrame
         JButton jb5 = new JButton("Go");
         jb5.setVisible(true);
         jb5.setSize(80,20);
-        jb5.setLocation(50,10);
+        jb5.setLocation(+locationX,10);
 
         panel1.add(jb5);
 
@@ -226,7 +226,7 @@ public class untitled5 extends JFrame
         JButton jb3 = new JButton("Next");
         jb3.setVisible(true);
         jb3.setSize(80,20);
-        jb3.setLocation(350,50);
+        jb3.setLocation(300+locationX,50);
 
         panel1.add(jb3);
 
@@ -243,7 +243,7 @@ public class untitled5 extends JFrame
         JButton jb4 = new JButton("Previous");
         jb4.setVisible(true);
         jb4.setSize(80,20);
-        jb4.setLocation(50,50);
+        jb4.setLocation(+locationX,50);
 
         panel1.add(jb4);
 
@@ -259,7 +259,7 @@ public class untitled5 extends JFrame
        jb1 = new JButton("Play");
         jb1.setVisible(true);
         jb1.setSize(80,20);
-        jb1.setLocation(150,50);
+        jb1.setLocation(100+locationX,50);
 
        panel1.add(jb1);
        jb1.addMouseListener(new MouseAdapter() {
@@ -294,7 +294,7 @@ public class untitled5 extends JFrame
         JButton jb2 = new JButton("Stop");
         jb2.setVisible(true);
         jb2.setSize(80,20);
-        jb2.setLocation(250,50);
+        jb2.setLocation(200+locationX,50);
 
         jb2.addMouseListener(new MouseAdapter() {
             @Override
@@ -318,7 +318,7 @@ public class untitled5 extends JFrame
         jl3 = new JLabel("Sinan");
         jl3.setVisible(true);
         jl3.setSize(50,20);
-        jl3.setLocation(50,120);
+        jl3.setLocation(locationX,120);
        ImageIcon img1 = new ImageIcon("redline.png");
         jl3.setIcon(img1);
         panel1.add(jl3);
@@ -337,8 +337,15 @@ public class untitled5 extends JFrame
             @Override
             public void mouseReleased(MouseEvent e) {
 
-                count = (int)(dragX*durration/1000)/330-(int)(durration/1000*0.158);
 
+                //count = (int)(dragX*durration/1000)/(330)-(int)(durration/1000*(locationX*0.9333)/258);
+
+                //count = (int)(dragX*durration/1000)/(330)-(int)(1.3*locationX);
+               count = (int)(dragX*durration/1000)/(330)-(int)(durration/1000*0.05813);
+                // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
+
+
+                //if(count<0) count=0;
                 start = (int) (count*1000 / 26);
 
 
@@ -365,8 +372,8 @@ public class untitled5 extends JFrame
 
 
                 int x2=(e.getX()+e.getComponent().getX())-X;
-                if(x2<50) x2=50;
-                if(x2>380) x2=380;
+                if(x2<locationX) x2=+locationX;
+                if(x2>330+locationX) x2=330+locationX;
 
                 e.getComponent().setLocation(x2,120);
 
@@ -381,7 +388,7 @@ public class untitled5 extends JFrame
         JLabel jl2 = new JLabel("Sinan");
         jl2.setVisible(true);
         jl2.setSize(380,20);
-        jl2.setLocation(50,119);
+        jl2.setLocation(locationX,119);
         ImageIcon img2 = new ImageIcon("line.jpg");
         jl2.setIcon(img2);
         panel1.add(jl2);
@@ -550,8 +557,8 @@ volume_up_down(1f);
                                 Thread.sleep(1000);
 
 
-                                jb4x=50+(int)((330*count)/(durration/1000));
-
+                               // jb4x=locationX+(int)((330*count)/(durration/1000));
+                                jb4x=locationX+(int)(((330)*count)/(durration/1000));
                                 jl3.setLocation(jb4x,120);
 
                             }
@@ -670,7 +677,7 @@ volume_up_down(1f);
             start_stop=true;
             count=0;
             start=0;
-            jb4x=50;
+            jb4x=locationX;
             divide2=0;
 
 
