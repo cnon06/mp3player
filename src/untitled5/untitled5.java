@@ -38,7 +38,7 @@ public class untitled5 extends JFrame
     static String outcome="40";
 
    JButton jb1;
-    JLabel jl3, jl1,jl6,jl7;
+    JLabel jl3, jl1,jl6,jl7,jl4;
     JTextField tf1,tf2;
     JList jli1;
     Object selected;
@@ -162,7 +162,7 @@ public class untitled5 extends JFrame
         tf2 = new JTextField();
         tf2.setVisible(true);
         tf2.setSize(80,20);
-        tf2.setLocation(locationX,100);
+        tf2.setLocation(250,100);
 
         tf2.addKeyListener(new KeyAdapter() {
             @Override
@@ -318,7 +318,7 @@ public class untitled5 extends JFrame
         jl3 = new JLabel("Sinan");
         jl3.setVisible(true);
         jl3.setSize(50,20);
-        jl3.setLocation(locationX,120);
+        jl3.setLocation(locationX,130);
        ImageIcon img1 = new ImageIcon("redline.png");
         jl3.setIcon(img1);
         panel1.add(jl3);
@@ -375,7 +375,7 @@ public class untitled5 extends JFrame
                 if(x2<locationX) x2=+locationX;
                 if(x2>330+locationX) x2=330+locationX;
 
-                e.getComponent().setLocation(x2,120);
+                e.getComponent().setLocation(x2,130);
 
                 dragX=e.getComponent().getX();
 
@@ -388,10 +388,66 @@ public class untitled5 extends JFrame
         JLabel jl2 = new JLabel("Sinan");
         jl2.setVisible(true);
         jl2.setSize(380,20);
-        jl2.setLocation(locationX,119);
+        jl2.setLocation(locationX,129);
         ImageIcon img2 = new ImageIcon("line.jpg");
         jl2.setIcon(img2);
         panel1.add(jl2);
+
+
+
+
+
+        jl4 = new JLabel("");
+        jl4.setVisible(true);
+        jl4.setSize(7,21);
+        jl4.setLocation(90,105);
+        ImageIcon img3 = new ImageIcon("slider.png");
+        jl4.setIcon(img3);
+        panel1.add(jl4);
+
+        jl4.addMouseListener(new MouseAdapter() {
+
+            public void mousePressed(MouseEvent e) {
+
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+
+
+
+
+            }
+
+        });
+
+        jl4.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
+
+
+
+
+            }
+        });
+
+
+        JLabel jl5 = new JLabel();
+        jl5.setVisible(true);
+        jl5.setSize(93,21);
+        jl5.setLocation(locationX,104);
+        ImageIcon img4 = new ImageIcon("volume_bar.png");
+        jl5.setIcon(img4);
+        panel1.add(jl5);
+
+
+
+
+
+
 
        // jli1.setSelectedIndex(0);
         
@@ -405,7 +461,7 @@ public class untitled5 extends JFrame
         }
         catch (Exception e)
         {
-            vlm3=50;
+            vlm3=50; System.out.println(e);
         }
         System.out.println(vlm3);
         volume_up_down(vlm3*(0.01F));
@@ -602,7 +658,7 @@ public class untitled5 extends JFrame
 
                                // jb4x=locationX+(int)((330*count)/(durration/1000));
                                 jb4x=locationX+(int)(((330)*count)/(durration/1000));
-                                jl3.setLocation(jb4x,120);
+                                jl3.setLocation(jb4x,130);
 
                             }
                             catch (Exception hj)
@@ -787,8 +843,8 @@ public class untitled5 extends JFrame
 new untitled5();
 
 
-        durr();
-       framesize(durration);
+        //durr();
+       //framesize(durration);
 
 
     }
