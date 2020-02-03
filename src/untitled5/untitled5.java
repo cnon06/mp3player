@@ -1,16 +1,13 @@
 package untitled5;
 
 
-import it.sauronsoftware.jave.AudioInfo;
+
 import it.sauronsoftware.jave.Encoder;
 import it.sauronsoftware.jave.MultimediaInfo;
-import javazoom.jl.decoder.Bitstream;
-import javazoom.jl.decoder.Header;
-import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
-import org.jaudiotagger.audio.asf.io.AsfExtHeaderReader;
+
 
 
 import javax.sound.sampled.AudioSystem;
@@ -33,8 +30,8 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false, go_control=false;
-    static int count =0,start=0,jb4x=0,X,Y,dragX,vlm1=5,locationX=20;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false;
+    static int count =0,start=0,jb4x=0,X,Y,dragX,vlm1=5,locationX=20,XVolume,YVolume, GetXvolume;
     static String outcome="40";
 
    JButton jb1;
@@ -158,8 +155,8 @@ public class untitled5 extends JFrame
         panel1.add(tf1);
         tf1.setText("");
 
-
-        tf2 = new JTextField();
+/*
+  tf2 = new JTextField();
         tf2.setVisible(true);
         tf2.setSize(80,20);
         tf2.setLocation(250,100);
@@ -168,43 +165,39 @@ public class untitled5 extends JFrame
             @Override
             public void keyPressed(KeyEvent e) {
 
-                //if(e.getKeyCode()==10)Go();
-
 
                 if(e.getKeyCode()==10){
 
                    try
                    {
                        vlm1  = Integer.parseInt(tf2.getText());
-                       //System.out.println(tf2.getText());
+
                        if(vlm1>=0&&vlm1<=100)
                        {
                            float vlm2=vlm1*(0.01F);
                            volume_up_down(vlm2);
                            volume_write(vlm1);
-                         
 
                        }
 
                    }
                    catch (Exception erfs)
                    {
-                      //System.out.println(erfs);
+
 
                    }
                     tf2.setSelectionStart(0);
                     tf2.setSelectionEnd(tf2.getText().length());
 
-
                 }
-
-
 
             }
         });
 
         panel1.add(tf2);
         tf2.setText("");
+ */
+
         
         
         JButton jb5 = new JButton("Go");
@@ -285,10 +278,6 @@ public class untitled5 extends JFrame
 
                }
 
-
-
-
-
        });
 
         JButton jb2 = new JButton("Stop");
@@ -303,15 +292,10 @@ public class untitled5 extends JFrame
             stop();
                 jb1.setText("Play");
 
-
-
             }
         });
 
         panel1.add(jb2);
-
-
-
 
 
 
@@ -338,14 +322,11 @@ public class untitled5 extends JFrame
             public void mouseReleased(MouseEvent e) {
 
 
-                //count = (int)(dragX*durration/1000)/(330)-(int)(durration/1000*(locationX*0.9333)/258);
-
-                //count = (int)(dragX*durration/1000)/(330)-(int)(1.3*locationX);
                count = (int)(dragX*durration/1000)/(330)-(int)(durration/1000*0.05813);
                 // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
 
 
-                //if(count<0) count=0;
+
                 start = (int) (count*1000 / 26);
 
 
@@ -379,8 +360,6 @@ public class untitled5 extends JFrame
 
                 dragX=e.getComponent().getX();
 
-
-
             }
         });
         
@@ -392,8 +371,6 @@ public class untitled5 extends JFrame
         ImageIcon img2 = new ImageIcon("line.jpg");
         jl2.setIcon(img2);
         panel1.add(jl2);
-
-
 
 
 
@@ -409,15 +386,21 @@ public class untitled5 extends JFrame
 
             public void mousePressed(MouseEvent e) {
 
-
+                XVolume= e.getX();
+                YVolume=e.getY();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
 
 
-
-
+                //System.out.println(GetXvolume);
+                double converse = (GetXvolume-locationX)*1.1627;
+                converse = Math.ceil(converse);
+                System.out.println((int)converse);
+                //int converse2 = (int)(converse);
+                volume_up_down((int)converse*(0.01F));
+                volume_write((int)converse);
 
             }
 
@@ -426,11 +409,13 @@ public class untitled5 extends JFrame
         jl4.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                int x2=(e.getX()+e.getComponent().getX())-XVolume;
+                if(x2<locationX) x2=+locationX;
+                if(x2>86+locationX) x2=86+locationX;
 
+                e.getComponent().setLocation(x2,105);
 
-
-
-
+               GetXvolume=e.getComponent().getX();
             }
         });
 
@@ -443,15 +428,6 @@ public class untitled5 extends JFrame
         jl5.setIcon(img4);
         panel1.add(jl5);
 
-
-
-
-
-
-
-       // jli1.setSelectedIndex(0);
-        
-        
         
         volume_read();
 
@@ -465,7 +441,11 @@ public class untitled5 extends JFrame
         }
         System.out.println(vlm3);
         volume_up_down(vlm3*(0.01F));
-//volume_up_down(1f);
+
+        int xstart =locationX+(int)((double)vlm3*0.86);
+        jl4.setLocation(xstart,105);
+
+
          info();
         setVisible(true);
         add(panel1);
@@ -498,7 +478,6 @@ public class untitled5 extends JFrame
     {
         try(FileWriter fileWriter = new FileWriter( "volume_record.txt")) {
 
-           // String fileContent = jtf1.getText();
            fileWriter.write(vlm.toString());
         } catch (IOException ej) {
 
@@ -545,15 +524,12 @@ public class untitled5 extends JFrame
 
     }
 
-
     public void previous()
     {
         jb1.setText("Play");
 
 
         if(jli1.getSelectedIndex()==0)
-
-
 
             jli1.setSelectedIndex(listlength-1);
         else
@@ -567,10 +543,7 @@ public class untitled5 extends JFrame
     {
         jb1.setText("Play");
 
-
         if(listlength-1==jli1.getSelectedIndex())
-
-
 
             jli1.setSelectedIndex(0);
         else
@@ -625,17 +598,11 @@ public class untitled5 extends JFrame
                 jb1.setText("Pause");
 
 
-
-
-
                 playMP3.setPlayBackListener(new PlaybackListener() {
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
-
-
                      next();
-
 
                     }
                 });
@@ -656,7 +623,7 @@ public class untitled5 extends JFrame
                                 Thread.sleep(1000);
 
 
-                               // jb4x=locationX+(int)((330*count)/(durration/1000));
+
                                 jb4x=locationX+(int)(((330)*count)/(durration/1000));
                                 jl3.setLocation(jb4x,130);
 
@@ -699,7 +666,6 @@ public class untitled5 extends JFrame
 
                         }
 
-
                     }
                 }.start();
 
@@ -714,30 +680,17 @@ public class untitled5 extends JFrame
     {
         try {
 
-            /*
-            FileInputStream fis = new FileInputStream("mp3\\"+selected);
-            Bitstream bs = new Bitstream(fis);
-            Header h = bs.readFrame();
-            float f_size = h.ms_per_frame();
-             */
-
-
             File source = new File("mp3\\"+jli1.getSelectedValue());
-            //File source = new File("mp3\\"+selected);
+
             Encoder encoder = new Encoder();
 
             MultimediaInfo mi = encoder.getInfo(source);
             long ls = mi.getDuration();
-            AudioInfo ss = mi.getAudio();
 
             durration=ls;
 
             jl6.setText(""+(int)durration/1000);
             jl7.setText(""+jli1.getSelectedValue());
-            //System.out.println(selected+" Frame size: "+f_size+" Duration: "+durration);
-
-
-
 
         }
         catch (Exception er)
@@ -766,7 +719,7 @@ public class untitled5 extends JFrame
             {}
 
 
-         // info();
+
     }
 
     public void stop()
@@ -785,56 +738,6 @@ public class untitled5 extends JFrame
 
 
 
-   static  void  framesize(long durrr)
-    {
-
-        try {
-
-            FileInputStream fis = new FileInputStream("Yeke.mp3");
-            Bitstream bs = new Bitstream(fis);
-            Header h = bs.readFrame();
-            float f_size = h.ms_per_frame();
-            // System.out.println("Frame size: "+f_size);
-            //System.out.println("Total Frame: "+durrr/f_size);
-        }
-        catch (Exception e)
-        {
-
-        }
-
-    }
-
-
-   static void durr()
-    {
-
-        String path = "mp3";
-        File folder = new File(path);
-        File list[] = folder.listFiles();
-
-
-
-        File source = new File(""+list[0]);
-        Encoder encoder = new Encoder();
-        try {
-            MultimediaInfo mi = encoder.getInfo(source);
-            long ls = mi.getDuration();
-            AudioInfo ss = mi.getAudio();
-            String gh = mi.getFormat();
-            int sec =(int)( ls/1000);
-           // System.out.println("duration(ms) = "+ls);
-            durration=ls;
-           //System.out.println("duration(sec) = "+  (sec/60)+":"+(sec%60));
-           //System.out.println("İnfo: "+ss);
-           // System.out.println("Format: "+gh);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
 
     public static void main(String [] args)
     {
@@ -843,8 +746,6 @@ public class untitled5 extends JFrame
 new untitled5();
 
 
-        //durr();
-       //framesize(durration);
 
 
     }
