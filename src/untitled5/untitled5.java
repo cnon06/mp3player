@@ -71,7 +71,7 @@ public class untitled5 extends JFrame
         String list5 [] = new String [list.length];
       listlength = list.length;
 
-        System.out.println("list length: "+list.length);
+      //  System.out.println("list length: "+list.length);
 
 
 
