@@ -15,13 +15,11 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.Port;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.*;
 
 
@@ -372,7 +370,26 @@ public class untitled5 extends JFrame
         jl2.setIcon(img2);
         panel1.add(jl2);
 
+        JLabel jl8 = new JLabel("Volume Percent");
+        jl8.setVisible(true);
 
+
+        jl8.setSize(30,15);
+        jl8.setLocation(locationX,104);
+        //jl8.setBorder();
+        jl8.setOpaque(true);
+        jl8.setBackground(Color.WHITE);
+        jl8.setFont(new Font("Serif", Font.PLAIN, 9));
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+
+        // set the border of this component
+        jl8.setBorder(border);
+        // ImageIcon img4 = new ImageIcon("volume_bar.png");
+        // jl8.setIcon(img4);
+
+
+
+        panel1.add(jl8);
 
         jl4 = new JLabel("");
         jl4.setVisible(true);
@@ -416,6 +433,16 @@ public class untitled5 extends JFrame
                 e.getComponent().setLocation(x2,105);
 
                GetXvolume=e.getComponent().getX();
+
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int x = (int) b.getX();
+                int y = (int) b.getY();
+
+                jl8.setText(x+","+y);
+
+                jl8.setLocation(jl4.getX()+10,jl4.getY()+3);
+
             }
         });
 
@@ -426,7 +453,13 @@ public class untitled5 extends JFrame
         jl5.setLocation(locationX,104);
         ImageIcon img4 = new ImageIcon("volume_bar.png");
         jl5.setIcon(img4);
+
+
+
         panel1.add(jl5);
+
+
+
 
         
         volume_read();
