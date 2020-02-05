@@ -69,7 +69,7 @@ public class untitled5 extends JFrame
         String list5 [] = new String [list.length];
       listlength = list.length;
 
-      //  System.out.println("list length: "+list.length);
+
 
 
 
@@ -371,7 +371,7 @@ public class untitled5 extends JFrame
         panel1.add(jl2);
 
         JLabel jl8 = new JLabel("Volume Percent");
-        jl8.setVisible(true);
+        jl8.setVisible(false);
 
 
         jl8.setSize(30,15);
@@ -411,13 +411,14 @@ public class untitled5 extends JFrame
             public void mouseReleased(MouseEvent e) {
 
 
-                //System.out.println(GetXvolume);
+
                 double converse = (GetXvolume-locationX)*1.1627;
                 converse = Math.ceil(converse);
-                System.out.println((int)converse);
-                //int converse2 = (int)(converse);
+               // System.out.println((int)converse);
+
                 volume_up_down((int)converse*(0.01F));
                 volume_write((int)converse);
+                jl8.setVisible(false);
 
             }
 
@@ -426,6 +427,7 @@ public class untitled5 extends JFrame
         jl4.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                jl8.setVisible(true);
                 int x2=(e.getX()+e.getComponent().getX())-XVolume;
                 if(x2<locationX) x2=+locationX;
                 if(x2>86+locationX) x2=86+locationX;
@@ -439,7 +441,8 @@ public class untitled5 extends JFrame
                 int x = (int) b.getX();
                 int y = (int) b.getY();
 
-                jl8.setText(x+","+y);
+                int volume_percent=(int)Math.ceil((GetXvolume-locationX)*1.1627);
+                jl8.setText("% "+volume_percent);
 
                 jl8.setLocation(jl4.getX()+10,jl4.getY()+3);
 
