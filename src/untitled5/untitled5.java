@@ -33,7 +33,7 @@ public class untitled5 extends JFrame
     static String outcome="40";
 
    JButton jb1;
-    JLabel jl3, jl1,jl6,jl7,jl4;
+    JLabel jl3, jl1,jl6,jl7,jl4,jl9,jl2;
     JTextField tf1,tf2;
     JList jli1;
     Object selected;
@@ -296,6 +296,19 @@ public class untitled5 extends JFrame
         panel1.add(jb2);
 
 
+         jl9 = new JLabel("Timeline");
+        jl9.setVisible(true);
+        jl9.setSize(30,15);
+        jl9.setLocation(locationX,145);
+        jl9.setOpaque(true);
+        //jl9.set
+        jl9.setBackground(Color.WHITE);
+        jl9.setFont(new Font("Serif", Font.PLAIN, 9));
+        Border border2 = BorderFactory.createLineBorder(Color.BLACK, 1);
+        jl9.setBorder(border2);
+
+        panel1.add(jl9);
+
 
         jl3 = new JLabel("Sinan");
         jl3.setVisible(true);
@@ -322,8 +335,6 @@ public class untitled5 extends JFrame
 
                count = (int)(dragX*durration/1000)/(330)-(int)(durration/1000*0.05813);
                 // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
-
-
 
                 start = (int) (count*1000 / 26);
 
@@ -357,12 +368,22 @@ public class untitled5 extends JFrame
                 e.getComponent().setLocation(x2,130);
 
                 dragX=e.getComponent().getX();
+                timeline();
 
             }
+
+
+            public void mouseMoved(MouseEvent e) {
+
+
+               timeline();
+
+            }
+
         });
         
         
-        JLabel jl2 = new JLabel("Sinan");
+        jl2 = new JLabel("Sinan");
         jl2.setVisible(true);
         jl2.setSize(380,20);
         jl2.setLocation(locationX,129);
@@ -370,26 +391,34 @@ public class untitled5 extends JFrame
         jl2.setIcon(img2);
         panel1.add(jl2);
 
+
+        jl2.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+              timeline();
+
+
+            }
+        });
+
+
+
         JLabel jl8 = new JLabel("Volume Percent");
         jl8.setVisible(false);
-
-
         jl8.setSize(30,15);
         jl8.setLocation(locationX,104);
-        //jl8.setBorder();
         jl8.setOpaque(true);
         jl8.setBackground(Color.WHITE);
         jl8.setFont(new Font("Serif", Font.PLAIN, 9));
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-
-        // set the border of this component
         jl8.setBorder(border);
-        // ImageIcon img4 = new ImageIcon("volume_bar.png");
-        // jl8.setIcon(img4);
-
-
 
         panel1.add(jl8);
+
+
+
+
 
         jl4 = new JLabel("");
         jl4.setVisible(true);
@@ -482,11 +511,28 @@ public class untitled5 extends JFrame
         jl4.setLocation(xstart,105);
 
 
+
+
          info();
         setVisible(true);
         add(panel1);
 
 
+    }
+
+
+    public void timeline()
+    {
+        PointerInfo a = MouseInfo.getPointerInfo();
+        Point b = a.getLocation();
+        int x = (int) b.getX();
+        int y = (int) b.getY();
+
+        //int volume_percent=(int)Math.ceil((GetXvolume-locationX)*1.1627);
+        jl9.setText(x+""+y);
+
+        // jl9.setLocation(jl2.getX()+10,jl2.getY()+3);
+        jl9.setLocation((int)b.getX()-jl2.getWidth()+locationX,120);
     }
 
     public void volume_read()
