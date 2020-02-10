@@ -297,9 +297,9 @@ public class untitled5 extends JFrame
 
 
          jl9 = new JLabel("Timeline");
-        jl9.setVisible(true);
+        jl9.setVisible(false);
         jl9.setSize(30,15);
-        jl9.setLocation(locationX,145);
+        jl9.setLocation(locationX,120);
         jl9.setOpaque(true);
         //jl9.set
         jl9.setBackground(Color.WHITE);
@@ -354,6 +354,17 @@ public class untitled5 extends JFrame
 
             }
 
+            public void mouseExited(MouseEvent e) {
+
+                jl9.setVisible(false);
+
+            }
+            public void mouseEntered(MouseEvent e) {
+
+                jl9.setVisible(true);
+
+            }
+
         });
 
         jl3.addMouseMotionListener(new MouseAdapter() {
@@ -380,8 +391,11 @@ public class untitled5 extends JFrame
 
             }
 
+
         });
-        
+
+
+
         
         jl2 = new JLabel("Sinan");
         jl2.setVisible(true);
@@ -392,6 +406,21 @@ public class untitled5 extends JFrame
         panel1.add(jl2);
 
 
+        jl2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+                    jl9.setVisible(false);
+
+            }
+            public void mouseEntered(MouseEvent e) {
+
+                jl9.setVisible(true);
+
+            }
+
+        });
+
         jl2.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -400,6 +429,9 @@ public class untitled5 extends JFrame
 
 
             }
+
+
+
         });
 
 
@@ -451,6 +483,8 @@ public class untitled5 extends JFrame
 
             }
 
+
+
         });
 
         jl4.addMouseMotionListener(new MouseAdapter() {
@@ -476,6 +510,9 @@ public class untitled5 extends JFrame
                 jl8.setLocation(jl4.getX()+10,jl4.getY()+3);
 
             }
+
+
+
         });
 
 
@@ -523,16 +560,23 @@ public class untitled5 extends JFrame
 
     public void timeline()
     {
-        PointerInfo a = MouseInfo.getPointerInfo();
-        Point b = a.getLocation();
-        int x = (int) b.getX();
-        int y = (int) b.getY();
+        PointerInfo a1 = MouseInfo.getPointerInfo();
+        Point b1 = a1.getLocation();
+        int x = (int) b1.getX();
+        int y = (int) b1.getY();
 
-        //int volume_percent=(int)Math.ceil((GetXvolume-locationX)*1.1627);
-        jl9.setText(x+""+y);
 
-        // jl9.setLocation(jl2.getX()+10,jl2.getY()+3);
-        jl9.setLocation((int)b.getX()-jl2.getWidth()+locationX,120);
+
+        int timeX=(int)b1.getX()-648;
+      if(timeX>379) timeX=379;
+        if(timeX<0) timeX=0;
+
+        jl9.setLocation(timeX,120);
+        //System.out.println(timeX);
+        int timeline =(int) ((timeX*(durration/1000))/379);
+
+        jl9.setText(""+timeline);
+
     }
 
     public void volume_read()
