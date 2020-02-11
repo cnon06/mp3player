@@ -567,13 +567,15 @@ public class untitled5 extends JFrame
 
 
 
-        int timeX=(int)b1.getX()-648;
-      if(timeX>379) timeX=379;
-        if(timeX<0) timeX=0;
+       // int timeX=(int)b1.getX()-648;
+        int timeX=(int)b1.getX()-371;
+      if(timeX>371) timeX=371;
+       if(timeX<0) timeX=0;
 
         jl9.setLocation(timeX,120);
         //System.out.println(timeX);
-        int timeline =(int) ((timeX*(durration/1000))/379);
+        int timeline =(int) ((timeX*(durration/1000))/371);
+        //jl9.setText(""+timeX);
 
         jl9.setText(""+timeline);
 
