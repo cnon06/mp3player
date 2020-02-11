@@ -380,15 +380,16 @@ public class untitled5 extends JFrame
 
                 dragX=e.getComponent().getX();
 
-                timeline();
+
+               timeline(jl3.getX()-2*jl3.getWidth()+e.getX());
 
             }
 
 
             public void mouseMoved(MouseEvent e) {
 
-
-               timeline();
+                timeline(jl3.getX()-2*jl3.getWidth()+e.getX());
+               //timeline(e.getX()+jb4x);
 
             }
 
@@ -471,7 +472,7 @@ public class untitled5 extends JFrame
             @Override
             public void mouseMoved(MouseEvent e) {
 
-              timeline();
+              timeline(e.getX());
               System.out.println(e.getX());
 
             }
@@ -604,28 +605,23 @@ public class untitled5 extends JFrame
     }
 
 
-    public void timeline()
+    public void timeline(int getx)
     {
-        PointerInfo a1 = MouseInfo.getPointerInfo();
-        Point b1 = a1.getLocation();
-        int x = (int) b1.getX();
-        int y = (int) b1.getY();
 
 
-        int calibrate =648;
-        if(b1.getX()>371) calibrate =371;
-        int timeX=(int)b1.getX()-calibrate;
-       // int timeX=(int)b1.getX()-371;
+      int timeX=getx;
 
 
 
-        if(timeX>371) timeX=371;
+        if(timeX>379) timeX=379;
        if(timeX<0) timeX=0;
 
         jl9.setLocation(timeX,120);
 
         int timeline =(int) ((timeX*(durration/1000))/371);
         //jl9.setText(""+timeX);
+
+        if(timeline>(int)(durration/1000)) timeline=(int)(durration/1000);
 
         jl9.setText(""+timeline);
 
