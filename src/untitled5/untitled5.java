@@ -312,7 +312,7 @@ public class untitled5 extends JFrame
 
         jl3 = new JLabel("Sinan");
         jl3.setVisible(true);
-        jl3.setSize(50,20);
+        jl3.setSize(10,20);
         jl3.setLocation(locationX,130);
        ImageIcon img1 = new ImageIcon("redline.png");
         jl3.setIcon(img1);
@@ -333,7 +333,7 @@ public class untitled5 extends JFrame
             public void mouseReleased(MouseEvent e) {
 
 
-               count = (int)(dragX*durration/1000)/(330)-(int)(durration/1000*0.05813);
+               count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
                 // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
 
                 start = (int) (count*1000 / 26);
@@ -374,7 +374,7 @@ public class untitled5 extends JFrame
 
                 int x2=(e.getX()+e.getComponent().getX())-X;
                 if(x2<locationX) x2=+locationX;
-                if(x2>330+locationX) x2=330+locationX;
+                if(x2>370+locationX) x2=370+locationX;
 
                 e.getComponent().setLocation(x2,130);
 
@@ -752,7 +752,7 @@ public class untitled5 extends JFrame
 
 
 
-                                jb4x=locationX+(int)(((330)*count)/(durration/1000));
+                                jb4x=locationX+(int)(((370)*count)/(durration/1000));
                                 jl3.setLocation(jb4x,130);
 
                             }
