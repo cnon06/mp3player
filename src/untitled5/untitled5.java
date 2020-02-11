@@ -29,7 +29,7 @@ public class untitled5 extends JFrame
     static float divide2=0,vlm3=50;
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false;
-    static int count =0,start=0,jb4x=0,X,Y,dragX,vlm1=5,locationX=20,XVolume,YVolume, GetXvolume;
+    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume;
     static String outcome="40";
 
    JButton jb1;
@@ -379,6 +379,7 @@ public class untitled5 extends JFrame
                 e.getComponent().setLocation(x2,130);
 
                 dragX=e.getComponent().getX();
+
                 timeline();
 
             }
@@ -419,6 +420,51 @@ public class untitled5 extends JFrame
 
             }
 
+            public void mousePressed(MouseEvent e) {
+
+                X= e.getX();
+                Y=e.getY();
+
+                stop();
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+
+
+                dragX =(int) b.getX()+20;
+
+
+                if(dragX>371) dragX =dragX-371;
+
+              //  System.out .println(dragX);
+                count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
+                if(count<0) count=0;
+
+                // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
+
+                start = (int) (count*1000 / 26);
+
+
+                Thread th = new Thread();
+
+                try
+                {
+
+                    th.sleep(1000);
+
+                    start();
+                }
+                catch (Exception ed)
+                {}
+
+
+            }
+
         });
 
         jl2.addMouseMotionListener(new MouseMotionAdapter() {
@@ -426,7 +472,7 @@ public class untitled5 extends JFrame
             public void mouseMoved(MouseEvent e) {
 
               timeline();
-
+              System.out.println(e.getX());
 
             }
 
@@ -475,7 +521,7 @@ public class untitled5 extends JFrame
 
                 double converse = (GetXvolume-locationX)*1.1627;
                 converse = Math.ceil(converse);
-               // System.out.println((int)converse);
+
 
                 volume_up_down((int)converse*(0.01F));
                 volume_write((int)converse);
@@ -541,7 +587,7 @@ public class untitled5 extends JFrame
         {
             vlm3=50; System.out.println(e);
         }
-        System.out.println(vlm3);
+       // System.out.println(vlm3);
         volume_up_down(vlm3*(0.01F));
 
         int xstart =locationX+(int)((double)vlm3*0.86);
@@ -577,8 +623,7 @@ public class untitled5 extends JFrame
        if(timeX<0) timeX=0;
 
         jl9.setLocation(timeX,120);
-       // System.out.println(timeX);
-        //System.out.println(b1.getX());
+
         int timeline =(int) ((timeX*(durration/1000))/371);
         //jl9.setText(""+timeX);
 
@@ -716,6 +761,10 @@ public class untitled5 extends JFrame
 
     }
 
+
+
+
+
     public void start()
     {
         if(!dont_play_again)
@@ -756,9 +805,18 @@ public class untitled5 extends JFrame
                                 Thread.sleep(1000);
 
 
-
+                                if(count<0) count=0;
                                 jb4x=locationX+(int)(((370)*count)/(durration/1000));
-                                jl3.setLocation(jb4x,130);
+
+
+                                if(jb4x>390)  jb4x = 390;
+                                    //jl3.setLocation(369,130);
+
+                                if(jb4x<locationX) jb4x = locationX;
+
+
+                                    jl3.setLocation(jb4x,130);
+
 
                             }
                             catch (Exception hj)
