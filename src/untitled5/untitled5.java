@@ -566,14 +566,19 @@ public class untitled5 extends JFrame
         int y = (int) b1.getY();
 
 
+        int calibrate =648;
+        if(b1.getX()>371) calibrate =371;
+        int timeX=(int)b1.getX()-calibrate;
+       // int timeX=(int)b1.getX()-371;
 
-       // int timeX=(int)b1.getX()-648;
-        int timeX=(int)b1.getX()-371;
-      if(timeX>371) timeX=371;
+
+
+        if(timeX>371) timeX=371;
        if(timeX<0) timeX=0;
 
         jl9.setLocation(timeX,120);
-        //System.out.println(timeX);
+       // System.out.println(timeX);
+        //System.out.println(b1.getX());
         int timeline =(int) ((timeX*(durration/1000))/371);
         //jl9.setText(""+timeX);
 
