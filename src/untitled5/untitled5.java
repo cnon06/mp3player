@@ -29,7 +29,7 @@ public class untitled5 extends JFrame
     static float divide2=0,vlm3=50;
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false;
-    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume;
+    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX;
     static String outcome="40";
 
    JButton jb1;
@@ -152,49 +152,6 @@ public class untitled5 extends JFrame
         
         panel1.add(tf1);
         tf1.setText("");
-
-/*
-  tf2 = new JTextField();
-        tf2.setVisible(true);
-        tf2.setSize(80,20);
-        tf2.setLocation(250,100);
-
-        tf2.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-
-                if(e.getKeyCode()==10){
-
-                   try
-                   {
-                       vlm1  = Integer.parseInt(tf2.getText());
-
-                       if(vlm1>=0&&vlm1<=100)
-                       {
-                           float vlm2=vlm1*(0.01F);
-                           volume_up_down(vlm2);
-                           volume_write(vlm1);
-
-                       }
-
-                   }
-                   catch (Exception erfs)
-                   {
-
-
-                   }
-                    tf2.setSelectionStart(0);
-                    tf2.setSelectionEnd(tf2.getText().length());
-
-                }
-
-            }
-        });
-
-        panel1.add(tf2);
-        tf2.setText("");
- */
 
         
         
@@ -433,14 +390,14 @@ public class untitled5 extends JFrame
             @Override
             public void mouseReleased(MouseEvent e) {
 
-                PointerInfo a = MouseInfo.getPointerInfo();
-                Point b = a.getLocation();
 
 
-                dragX =(int) b.getX()+20;
 
 
-                if(dragX>371) dragX =dragX-371;
+                dragX =timeX+15;
+
+
+               // if(dragX>390) dragX =3890;
 
               //  System.out .println(dragX);
                 count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
@@ -473,7 +430,7 @@ public class untitled5 extends JFrame
             public void mouseMoved(MouseEvent e) {
 
               timeline(e.getX());
-              System.out.println(e.getX());
+            //System.out.println(e.getX());
 
             }
 
@@ -609,7 +566,7 @@ public class untitled5 extends JFrame
     {
 
 
-      int timeX=getx;
+       timeX=getx;
 
 
 
@@ -618,7 +575,7 @@ public class untitled5 extends JFrame
 
         jl9.setLocation(timeX,120);
 
-        int timeline =(int) ((timeX*(durration/1000))/371);
+        timeline =(int) ((timeX*(durration/1000))/371);
         //jl9.setText(""+timeX);
 
         if(timeline>(int)(durration/1000)) timeline=(int)(durration/1000);
