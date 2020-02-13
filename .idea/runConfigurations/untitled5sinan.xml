@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="untitled5sinan" type="Application" factoryName="Application" singleton="false">
+    <option name="MAIN_CLASS_NAME" value="untitled5.untitled5" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="untitled5.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
