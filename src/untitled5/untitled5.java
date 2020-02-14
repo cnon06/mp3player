@@ -30,10 +30,10 @@ public class untitled5 extends JFrame
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX;
-    static String outcome="40";
+    static String outcome="40", jk [];
 
    JButton jb1;
-    JLabel jl3, jl1,jl6,jl7,jl4,jl9,jl2;
+    JLabel jl3, jl1,jl6,jl7,jl4,jl9,jl2,jl8,jl5;
     JTextField tf1,tf2;
     JList jli1;
     Object selected;
@@ -384,6 +384,7 @@ public class untitled5 extends JFrame
                 Y=e.getY();
 
                 stop();
+                //go_volume_bar();
 
             }
 
@@ -391,35 +392,14 @@ public class untitled5 extends JFrame
             public void mouseReleased(MouseEvent e) {
 
 
+               go_volume_bar();
+
+            }
+
+            public void mouseClicked(MouseEvent e) {
 
 
-
-                dragX =timeX+15;
-
-
-               // if(dragX>390) dragX =3890;
-
-              //  System.out .println(dragX);
-                count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
-                if(count<0) count=0;
-
-                // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
-
-                start = (int) (count*1000 / 26);
-
-
-                Thread th = new Thread();
-
-                try
-                {
-
-                    th.sleep(1000);
-
-                    start();
-                }
-                catch (Exception ed)
-                {}
-
+           //go_volume_bar();
 
             }
 
@@ -440,7 +420,7 @@ public class untitled5 extends JFrame
 
 
 
-        JLabel jl8 = new JLabel("Volume Percent");
+        jl8 = new JLabel("Volume Percent");
         jl8.setVisible(false);
         jl8.setSize(30,15);
         jl8.setLocation(locationX,104);
@@ -466,6 +446,15 @@ public class untitled5 extends JFrame
 
         jl4.addMouseListener(new MouseAdapter() {
 
+
+            public void mouseEntered(MouseEvent e) {
+                jl8.setVisible(true);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                jl8.setVisible(false);
+            }
+
             public void mousePressed(MouseEvent e) {
 
                 XVolume= e.getX();
@@ -477,13 +466,17 @@ public class untitled5 extends JFrame
 
 
 
+
+
                 double converse = (GetXvolume-locationX)*1.1627;
                 converse = Math.ceil(converse);
 
 
+
+
                 volume_up_down((int)converse*(0.01F));
                 volume_write((int)converse);
-                jl8.setVisible(false);
+               // jl8.setVisible(false);
 
             }
 
@@ -494,7 +487,10 @@ public class untitled5 extends JFrame
         jl4.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                jl8.setVisible(true);
+
+
+
+                   jl8.setVisible(true);
                 int x2=(e.getX()+e.getComponent().getX())-XVolume;
                 if(x2<locationX) x2=+locationX;
                 if(x2>86+locationX) x2=86+locationX;
@@ -503,24 +499,35 @@ public class untitled5 extends JFrame
 
                GetXvolume=e.getComponent().getX();
 
-                PointerInfo a = MouseInfo.getPointerInfo();
-                Point b = a.getLocation();
-                int x = (int) b.getX();
-                int y = (int) b.getY();
+
 
                 int volume_percent=(int)Math.ceil((GetXvolume-locationX)*1.1627);
                 jl8.setText("% "+volume_percent);
 
                 jl8.setLocation(jl4.getX()+10,jl4.getY()+3);
 
+
+
             }
 
+            public void mouseMoved(MouseEvent e) {
 
+                jl8.setLocation(e.getX()+jl4.getX()+5,jl4.getY()+3);
+
+                int vol_per=(100*(e.getX()+(jl4.getX()-locationX))/(jl5.getWidth()-2));
+                if(vol_per>100) vol_per=100;
+                if(vol_per<0) vol_per=0;
+                jl8.setText("%"+vol_per);
+
+                jk  = jl8.getText().split("%");
+                //System.out.println(jk[1]);
+
+            }
 
         });
 
 
-        JLabel jl5 = new JLabel();
+        jl5 = new JLabel();
         jl5.setVisible(true);
         jl5.setSize(93,21);
         jl5.setLocation(locationX,104);
@@ -528,6 +535,68 @@ public class untitled5 extends JFrame
         jl5.setIcon(img4);
 
 
+        jl5.addMouseListener(new MouseAdapter() {
+            @Override
+
+            public void mouseEntered(MouseEvent e) {
+            jl8.setVisible(true);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                jl8.setVisible(false);
+            }
+
+            public void mouseClicked(MouseEvent e) {
+                int hm = Integer.parseInt(jk[1]);
+                //System.out.println(hm);
+
+                volume_up_down(hm*(0.01F));
+                volume_write(hm);
+
+            }
+
+            public void mousePressed(MouseEvent e) {
+                int hm = Integer.parseInt(jk[1]);
+                //System.out.println(hm);
+
+                volume_up_down(hm*(0.01F));
+                volume_write(hm);
+
+            }
+
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+        });
+
+        jl5.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+                jl8.setLocation(e.getX()+25,jl4.getY()+3);
+                int vol_per=(100*e.getX()/(jl5.getWidth()-2));
+                if(vol_per>100) vol_per=100;
+                jl8.setText("%"+vol_per);
+
+                jk  = jl8.getText().split("%");
+                //System.out.println(jk[1]);
+            }
+        });
+
+
+        jl5.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                int jl4_locx =e.getX()+locationX;
+                if(jl4_locx+jl4.getWidth()>jl5.getWidth()+locationX)
+                    jl4_locx=jl5.getWidth()+locationX-jl4.getWidth();
+
+                jl4.setLocation(jl4_locx,jl4.getY());
+                //  super.mousePressed(e);
+            }
+        });
 
         panel1.add(jl5);
 
@@ -558,6 +627,37 @@ public class untitled5 extends JFrame
         setVisible(true);
         add(panel1);
 
+
+    }
+
+
+    public void go_volume_bar()
+    {
+        dragX =timeX+15;
+
+
+        // if(dragX>390) dragX =3890;
+
+        //  System.out .println(dragX);
+        count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
+        if(count<0) count=0;
+
+        // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
+
+        start = (int) (count*1000 / 26);
+
+
+        Thread th = new Thread();
+
+        try
+        {
+
+            th.sleep(1000);
+
+            start();
+        }
+        catch (Exception ed)
+        {}
 
     }
 
