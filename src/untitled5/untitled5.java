@@ -346,7 +346,7 @@ public class untitled5 extends JFrame
             public void mouseMoved(MouseEvent e) {
 
                 timeline(jl3.getX()-2*jl3.getWidth()+e.getX());
-               //timeline(e.getX()+jb4x);
+
 
             }
 
@@ -389,15 +389,13 @@ public class untitled5 extends JFrame
                     X= e.getX();
                     Y=e.getY();
                     stop();
-                    //go_volume_bar();
+
 
 
                 dragX =timeX+15;
 
 
-                // if(dragX>390) dragX =3890;
 
-                //  System.out .println(dragX);
                 count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
                 if(count<0) count=0;
 
@@ -446,14 +444,14 @@ public class untitled5 extends JFrame
             public void mouseReleased(MouseEvent e) {
 
 
-              // go_volume_bar();
+
 
             }
 
             public void mouseClicked(MouseEvent e) {
 
 
-           //go_volume_bar();
+
 
             }
 
@@ -464,7 +462,7 @@ public class untitled5 extends JFrame
             public void mouseMoved(MouseEvent e) {
 
               timeline(e.getX());
-            //System.out.println(e.getX());
+
 
             }
 
@@ -530,7 +528,7 @@ public class untitled5 extends JFrame
 
                 volume_up_down((int)converse*(0.01F));
                 volume_write((int)converse);
-               // jl8.setVisible(false);
+
 
             }
 
@@ -574,7 +572,7 @@ public class untitled5 extends JFrame
                 jl8.setText("%"+vol_per);
 
                 jk  = jl8.getText().split("%");
-                //System.out.println(jk[1]);
+
 
             }
 
@@ -602,7 +600,7 @@ public class untitled5 extends JFrame
 
             public void mouseClicked(MouseEvent e) {
                 int hm = Integer.parseInt(jk[1]);
-                //System.out.println(hm);
+
 
                 volume_up_down(hm*(0.01F));
                 volume_write(hm);
@@ -634,7 +632,7 @@ public class untitled5 extends JFrame
                 jl8.setText("%"+vol_per);
 
                 jk  = jl8.getText().split("%");
-                //System.out.println(jk[1]);
+
             }
         });
 
@@ -648,7 +646,7 @@ public class untitled5 extends JFrame
                     jl4_locx=jl5.getWidth()+locationX-jl4.getWidth();
 
                 jl4.setLocation(jl4_locx,jl4.getY());
-                //  super.mousePressed(e);
+
             }
         });
 
@@ -668,7 +666,7 @@ public class untitled5 extends JFrame
         {
             vlm3=50; System.out.println(e);
         }
-       // System.out.println(vlm3);
+
         volume_up_down(vlm3*(0.01F));
 
         int xstart =locationX+(int)((double)vlm3*0.86);
@@ -693,25 +691,12 @@ public class untitled5 extends JFrame
 
 
 
-       //if(click_cont)
-        //click_cont=false;
+
         start();
 
 
 
-            /*
-             Thread th = new Thread();
-               try
-            {
 
-                th.sleep(1000);
-
-                start();
-
-            }
-            catch (Exception ed)
-            {}
-             */
 
 
 
@@ -724,7 +709,7 @@ public class untitled5 extends JFrame
 
 
 
-        //start();
+
 
 
 
@@ -742,7 +727,7 @@ public class untitled5 extends JFrame
         jl9.setLocation(timeX,120);
 
         timeline =(int) ((timeX*(durration/1000))/371);
-        //jl9.setText(""+timeX);
+
 
         if(timeline>(int)(durration/1000)) timeline=(int)(durration/1000);
 
@@ -825,21 +810,7 @@ public class untitled5 extends JFrame
             }
         }.start();
 
-        /*
-        Thread t2 = new Thread();
 
-        try
-        {
-            t2.sleep(1000);
-            start();
-
-
-
-        }
-        catch (Exception et)
-        {
-        }
-         */
 
 
     }
