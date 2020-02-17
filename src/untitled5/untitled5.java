@@ -28,7 +28,7 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,click_cont=false,click_cont2=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX;
     static String outcome="40", jk [];
 
