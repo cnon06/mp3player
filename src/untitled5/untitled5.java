@@ -28,7 +28,7 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,click_cont=false,click_cont2=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX;
     static String outcome="40", jk [];
 
@@ -380,11 +380,65 @@ public class untitled5 extends JFrame
 
             public void mousePressed(MouseEvent e) {
 
-                X= e.getX();
-                Y=e.getY();
 
-                stop();
-                //go_volume_bar();
+
+
+
+
+
+                    X= e.getX();
+                    Y=e.getY();
+                    stop();
+                    //go_volume_bar();
+
+
+                dragX =timeX+15;
+
+
+                // if(dragX>390) dragX =3890;
+
+                //  System.out .println(dragX);
+                count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
+                if(count<0) count=0;
+
+                // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
+
+                start = (int) (count*1000 / 26);
+
+                new Thread(){
+
+                    @Override
+                    public void run() {
+
+                        try
+                        {
+
+                            sleep(1000);
+
+                            go_volume_bar();
+
+                        }
+                        catch (Exception ed)
+                        {}
+
+                    }
+                }.start();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             }
 
@@ -392,7 +446,7 @@ public class untitled5 extends JFrame
             public void mouseReleased(MouseEvent e) {
 
 
-               go_volume_bar();
+              // go_volume_bar();
 
             }
 
@@ -633,33 +687,45 @@ public class untitled5 extends JFrame
 
     public void go_volume_bar()
     {
-        dragX =timeX+15;
 
 
-        // if(dragX>390) dragX =3890;
-
-        //  System.out .println(dragX);
-        count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
-        if(count<0) count=0;
-
-        // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
-
-        start = (int) (count*1000 / 26);
 
 
-        Thread th = new Thread();
 
-        try
-        {
 
-            th.sleep(1000);
+       //if(click_cont)
+        //click_cont=false;
+        start();
 
-            start();
+
+
+            /*
+             Thread th = new Thread();
+               try
+            {
+
+                th.sleep(1000);
+
+                start();
+
+            }
+            catch (Exception ed)
+            {}
+             */
+
+
+
+
+
+
+
         }
-        catch (Exception ed)
-        {}
 
-    }
+
+
+
+        //start();
+
 
 
     public void timeline(int getx)
@@ -739,6 +805,27 @@ public class untitled5 extends JFrame
         start = (int) (count*1000 / 26);
         if(count==1) start();
 
+
+        new Thread(){
+
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    sleep(1000);
+
+                    go_volume_bar();
+
+                }
+                catch (Exception ed)
+                {}
+
+            }
+        }.start();
+
+        /*
         Thread t2 = new Thread();
 
         try
@@ -752,6 +839,8 @@ public class untitled5 extends JFrame
         catch (Exception et)
         {
         }
+         */
+
 
     }
 
