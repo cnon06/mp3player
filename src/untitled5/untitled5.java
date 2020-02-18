@@ -340,7 +340,9 @@ public class untitled5 extends JFrame
                 dragX=e.getComponent().getX();
 
 
+
                timeline(jl3.getX()-2*jl3.getWidth()+e.getX());
+                count=timeline;
 
             }
 
@@ -708,6 +710,7 @@ public class untitled5 extends JFrame
 
         jl9.setText(""+timeline);
 
+
     }
 
     public void volume_read()
@@ -778,6 +781,27 @@ public class untitled5 extends JFrame
                     sleep(1000);
 
                     go_volume_bar();
+
+
+
+                    new Thread(){
+
+                        @Override
+                        public void run() {
+
+                            try
+                            {
+
+                                sleep(1000);
+
+                                go_volume_bar();
+
+                            }
+                            catch (Exception ed)
+                            {}
+
+                        }
+                    }.start();
 
                 }
                 catch (Exception ed)
