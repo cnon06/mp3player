@@ -143,7 +143,7 @@ public class untitled5 extends JFrame
 
                 if(e.getKeyCode()==10)
                 {
-                    Go();
+                    Go(tf1.getText());
                     tf1.setSelectionStart(0);
                     tf1.setSelectionEnd(tf1.getText().length());
                 }
@@ -166,7 +166,7 @@ public class untitled5 extends JFrame
             @Override
             public void mousePressed(MouseEvent e) {
 
-                Go();
+                Go(tf1.getText());
             }
         });
 
@@ -289,8 +289,8 @@ public class untitled5 extends JFrame
             @Override
             public void mouseReleased(MouseEvent e) {
 
-
-               count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
+/*
+ count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
                 // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
 
                 start = (int) (count*1000 / 26);
@@ -307,7 +307,9 @@ public class untitled5 extends JFrame
                 }
                 catch (Exception ed)
                 {}
+ */
 
+                Go(jl9.getText());
 
             }
 
@@ -383,25 +385,26 @@ public class untitled5 extends JFrame
 
 
 
-
-
-
-                    X= e.getX();
-                    Y=e.getY();
-                    stop();
-
+                X= e.getX();
+                Y=e.getY();
+                stop();
 
 
                 dragX =timeX+15;
-
-
 
                 count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
                 if(count<0) count=0;
 
                 // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
 
-                start = (int) (count*1000 / 26);
+                String count_str = ""+count;
+
+
+                //Go(count_str);
+                Go(jl9.getText());
+
+                /*
+                  start = (int) (count*1000 / 26);
 
                 new Thread(){
 
@@ -421,28 +424,13 @@ public class untitled5 extends JFrame
 
                     }
                 }.start();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                 */
 
 
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-
 
 
 
@@ -687,20 +675,7 @@ public class untitled5 extends JFrame
     {
 
 
-
-
-
-
-
         start();
-
-
-
-
-
-
-
-
 
 
 
@@ -767,13 +742,14 @@ public class untitled5 extends JFrame
     }
 
 
-    public void Go()
+    public void Go(String gogo)
     {
         stop();
 
         try
         {
-            count = Integer.parseInt(tf1.getText());
+            count = Integer.parseInt(gogo);
+           // count = Integer.parseInt(tf1.getText());
         }
         catch (Exception ej)
         {
@@ -846,6 +822,20 @@ public class untitled5 extends JFrame
 
 
 
+    public String convert_to_minute(int drr)
+    {
+        //int drr = (int)durration/1000;
+        int minute = drr/60;
+        int second = drr%60;
+        //System.out.println(drr);
+        String minute_space="";
+        String second_space="";
+        if (minute<10) minute_space="0"; else minute_space="";
+        if (second<10) second_space="0"; else second_space="";
+        return minute_space+minute+":"+second_space+second;
+    }
+
+
     public void volume_up_down(float ctrl)
     {
 
@@ -870,7 +860,6 @@ public class untitled5 extends JFrame
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Erro\n"+e);
         }
-
 
     }
 
@@ -937,8 +926,10 @@ public class untitled5 extends JFrame
 
                             }
 
-                            jl1.setText(""+count);
 
+
+                          jl1.setText(""+count);
+                           //jl1.setText(convert_to_minute(count));
                         }
 
 
@@ -947,7 +938,8 @@ public class untitled5 extends JFrame
                         start_stop=false;
                         stop_start_stop=false;
 
-                        jl1.setText(""+count);
+                       jl1.setText(""+count);
+                       // jl1.setText(convert_to_minute(count));
                         dont_play_again=false;
 
 
@@ -993,7 +985,21 @@ public class untitled5 extends JFrame
 
             durration=ls;
 
-            jl6.setText(""+(int)durration/1000);
+            /*
+              int drr = (int)durration/1000;
+            int minute = drr/60;
+            int second = drr%60;
+            //System.out.println(drr);
+            String minute_space="";
+            String second_space="";
+            if (minute<10) minute_space="0"; else minute_space="";
+            if (second<10) second_space="0"; else second_space="";
+
+
+            jl6.setText(minute_space+minute+":"+second_space+second);
+             */
+
+            jl6.setText(convert_to_minute((int)durration/1000));
             jl7.setText(""+jli1.getSelectedValue());
 
         }
