@@ -109,10 +109,25 @@ public class untitled5 extends JFrame
         panel1.add(jp1);
 
 
-        jl1 = new JLabel("Count");
+        JLabel jl11 = new JLabel("Duration:");
+        jl11.setVisible(true);
+        jl11.setSize(80,20);
+        jl11.setLocation(locationX+200,10);
+
+        panel1.add(jl11);
+
+       JLabel jl10 = new JLabel("Counter:");
+        jl10.setVisible(true);
+        jl10.setSize(80,20);
+        jl10.setLocation(locationX,10);
+
+        panel1.add(jl10);
+
+
+        jl1 = new JLabel("00:00");
         jl1.setVisible(true);
         jl1.setSize(80,20);
-        jl1.setLocation(200+locationX,10);
+        jl1.setLocation(100+locationX,10);
 
         panel1.add(jl1);
 
@@ -131,8 +146,8 @@ public class untitled5 extends JFrame
 
         panel1.add(jl7);
         
-        
-        tf1 = new JTextField();
+        /*
+          tf1 = new JTextField();
         tf1.setVisible(true);
         tf1.setSize(80,20);
         tf1.setLocation(100+locationX,10);
@@ -149,13 +164,15 @@ public class untitled5 extends JFrame
                 }
             }
         });
-        
+
         panel1.add(tf1);
         tf1.setText("");
 
+         */
+
         
-        
-        JButton jb5 = new JButton("Go");
+        /*
+         JButton jb5 = new JButton("Go");
         jb5.setVisible(true);
         jb5.setSize(80,20);
         jb5.setLocation(+locationX,10);
@@ -169,6 +186,8 @@ public class untitled5 extends JFrame
                 Go(tf1.getText());
             }
         });
+         */
+
 
 
         JButton jb3 = new JButton("Next");
@@ -308,8 +327,8 @@ public class untitled5 extends JFrame
                 catch (Exception ed)
                 {}
  */
-
-                Go(jl9.getText());
+                Go(""+timeline);
+                //Go(jl9.getText());
 
             }
 
@@ -403,7 +422,8 @@ public class untitled5 extends JFrame
 
 
                 //Go(count_str);
-                Go(jl9.getText());
+                //Go(jl9.getText());
+                Go(""+timeline);
 
                 /*
                   start = (int) (count*1000 / 26);
@@ -708,7 +728,8 @@ public class untitled5 extends JFrame
 
         if(timeline>(int)(durration/1000)) timeline=(int)(durration/1000);
 
-        jl9.setText(""+timeline);
+       // jl9.setText(""+timeline);
+        jl9.setText(convert_to_minute(timeline));
 
 
     }
@@ -952,8 +973,8 @@ public class untitled5 extends JFrame
 
 
 
-                          jl1.setText(""+count);
-                           //jl1.setText(convert_to_minute(count));
+                         // jl1.setText(""+count);
+                           jl1.setText(convert_to_minute(count));
                         }
 
 
@@ -962,8 +983,8 @@ public class untitled5 extends JFrame
                         start_stop=false;
                         stop_start_stop=false;
 
-                       jl1.setText(""+count);
-                       // jl1.setText(convert_to_minute(count));
+                      // jl1.setText(""+count);
+                        jl1.setText(convert_to_minute(count));
                         dont_play_again=false;
 
 
