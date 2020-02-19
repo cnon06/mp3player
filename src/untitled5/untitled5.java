@@ -37,6 +37,8 @@ public class untitled5 extends JFrame
     JTextField tf1,tf2;
     JList jli1;
     Object selected;
+    JScrollPane jp1;
+    JPanel panel1;
     int listlength;
     
     untitled5()
@@ -54,13 +56,14 @@ public class untitled5 extends JFrame
         setLayout(null);
 
 
-         JPanel panel1 = new JPanel();
+          panel1 = new JPanel();
 
         panel1.setSize(getSize());
         panel1.setLayout(null);
 
         panel1.setBackground(Color.WHITE);
         panel1.setLocation(0,0);
+        //panel1.update();
 
 
         String path = "mp3";
@@ -84,7 +87,7 @@ public class untitled5 extends JFrame
         jli1.setBackground(Color.GRAY);
         jli1.setSelectedIndex(0);
         jli1.setSelectionMode(0);
-
+      //  jli1.setValueIsAdjusting(true);
         jli1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -92,22 +95,31 @@ public class untitled5 extends JFrame
                 boolean adjust = e.getValueIsAdjusting();
                 if(!adjust)
                 {
+
                     JList list2 = (JList) e.getSource();
                     selected = list2.getSelectedValue();
                     selected();
+
+
                 }
 
             }
         });
-                JScrollPane jp1 = new JScrollPane();
+                jp1 = new JScrollPane();
         jp1.setViewportView(jli1);
         jli1.setLayoutOrientation(JList.VERTICAL);
+       // jp1.getVerticalScrollBar().setValue(500);
+        //jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getMaximum());
+
+
         jp1.setSize(225,140);
         jp1.setLocation(400+locationX,10);
         jp1.setVisible(true);
 
+
         panel1.add(jp1);
 
+        //jp1.paintComponents();
 
         JLabel jl11 = new JLabel("Duration:");
         jl11.setVisible(true);
@@ -146,47 +158,6 @@ public class untitled5 extends JFrame
 
         panel1.add(jl7);
         
-        /*
-          tf1 = new JTextField();
-        tf1.setVisible(true);
-        tf1.setSize(80,20);
-        tf1.setLocation(100+locationX,10);
-
-        tf1.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-                if(e.getKeyCode()==10)
-                {
-                    Go(tf1.getText());
-                    tf1.setSelectionStart(0);
-                    tf1.setSelectionEnd(tf1.getText().length());
-                }
-            }
-        });
-
-        panel1.add(tf1);
-        tf1.setText("");
-
-         */
-
-        
-        /*
-         JButton jb5 = new JButton("Go");
-        jb5.setVisible(true);
-        jb5.setSize(80,20);
-        jb5.setLocation(+locationX,10);
-
-        panel1.add(jb5);
-
-        jb5.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-                Go(tf1.getText());
-            }
-        });
-         */
 
 
 
@@ -308,25 +279,7 @@ public class untitled5 extends JFrame
             @Override
             public void mouseReleased(MouseEvent e) {
 
-/*
- count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
-                // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
 
-                start = (int) (count*1000 / 26);
-
-
-                Thread th = new Thread();
-
-                try
-                {
-
-                    th.sleep(1000);
-
-                    start();
-                }
-                catch (Exception ed)
-                {}
- */
                 Go(""+timeline);
                 //Go(jl9.getText());
 
@@ -418,35 +371,7 @@ public class untitled5 extends JFrame
 
                 // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
 
-                String count_str = ""+count;
-
-
-                //Go(count_str);
-                //Go(jl9.getText());
                 Go(""+timeline);
-
-                /*
-                  start = (int) (count*1000 / 26);
-
-                new Thread(){
-
-                    @Override
-                    public void run() {
-
-                        try
-                        {
-
-                            sleep(1000);
-
-                            go_volume_bar();
-
-                        }
-                        catch (Exception ed)
-                        {}
-
-                    }
-                }.start();
-                 */
 
 
             }
@@ -528,18 +453,12 @@ public class untitled5 extends JFrame
 
 
 
-
-
                 double converse = (GetXvolume-locationX)*1.1627;
                 converse = Math.ceil(converse);
 
 
-
-
                 volume_up_down((int)converse*(0.01F));
                 volume_write((int)converse);
-
-
             }
 
 
@@ -619,7 +538,7 @@ public class untitled5 extends JFrame
 
             public void mousePressed(MouseEvent e) {
                 int hm = Integer.parseInt(jk[1]);
-                //System.out.println(hm);
+
 
                 volume_up_down(hm*(0.01F));
                 volume_write(hm);
@@ -728,7 +647,7 @@ public class untitled5 extends JFrame
 
         if(timeline>(int)(durration/1000)) timeline=(int)(durration/1000);
 
-       // jl9.setText(""+timeline);
+
         jl9.setText(convert_to_minute(timeline));
 
 
@@ -836,7 +755,21 @@ public class untitled5 extends JFrame
 
     }
 
-    public void previous()
+/*
+ public void paint(Graphics g) {
+        //panel1.update(g);
+     panel1.repaint();
+    }
+ */
+
+
+
+
+
+
+
+
+        public void previous()
     {
         jb1.setText("Play");
 
@@ -844,10 +777,13 @@ public class untitled5 extends JFrame
         if(jli1.getSelectedIndex()==0)
 
             jli1.setSelectedIndex(listlength-1);
+
         else
         {
             jli1.setSelectedIndex(jli1.getSelectedIndex()-1);
             selected=jli1.getSelectedValue();
+
+
         }
     }
 
@@ -863,16 +799,42 @@ public class untitled5 extends JFrame
             jli1.setSelectedIndex(jli1.getSelectedIndex()+1);
             selected=jli1.getSelectedValue();
         }
+
+
+        //System.out.println(jli1.getAnchorSelectionIndex());
+        //System.out.println(jli1.getSelectedIndex());
+        //System.out.println(jli1.getFirstVisibleIndex());
+        // System.out.println(jli1.getLastVisibleIndex());
+      //  jp1.getViewport().setViewPosition(new Point(0,0));
+       // System.out.println(jp1.getViewport().getViewPosition().getX());
+
+
+           if(jli1.getSelectedIndex()>jli1.getLastVisibleIndex())
+        {
+           // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
+            jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue()+100);
+
+            panel1.repaint();
+            //repaint();
+//System.out.println(jp1.getVerticalScrollBar().getValue());
+        }
+
+
+
+
+
+
     }
 
 
 
     public String convert_to_minute(int drr)
     {
-        //int drr = (int)durration/1000;
+
         int minute = drr/60;
         int second = drr%60;
-        //System.out.println(drr);
+
         String minute_space="";
         String second_space="";
         if (minute<10) minute_space="0"; else minute_space="";
@@ -923,6 +885,7 @@ public class untitled5 extends JFrame
             try{
 
                 FileInputStream fis = new FileInputStream("mp3\\"+jli1.getSelectedValue().toString());
+                System.out.println(jli1.getSelectedValue().toString());
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
                 jb1.setText("Pause");
 
@@ -973,7 +936,7 @@ public class untitled5 extends JFrame
 
 
 
-                         // jl1.setText(""+count);
+
                            jl1.setText(convert_to_minute(count));
                         }
 
@@ -983,7 +946,7 @@ public class untitled5 extends JFrame
                         start_stop=false;
                         stop_start_stop=false;
 
-                      // jl1.setText(""+count);
+
                         jl1.setText(convert_to_minute(count));
                         dont_play_again=false;
 
@@ -1030,19 +993,7 @@ public class untitled5 extends JFrame
 
             durration=ls;
 
-            /*
-              int drr = (int)durration/1000;
-            int minute = drr/60;
-            int second = drr%60;
-            //System.out.println(drr);
-            String minute_space="";
-            String second_space="";
-            if (minute<10) minute_space="0"; else minute_space="";
-            if (second<10) second_space="0"; else second_space="";
 
-
-            jl6.setText(minute_space+minute+":"+second_space+second);
-             */
 
             jl6.setText(convert_to_minute((int)durration/1000));
             jl7.setText(""+jli1.getSelectedValue());
