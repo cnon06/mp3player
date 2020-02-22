@@ -777,22 +777,36 @@ public class untitled5 extends JFrame
 
 
 
-        public void previous()
-    {
-        jb1.setText("Play");
+        public void previous() {
+            jb1.setText("Play");
 
 
-        if(jli1.getSelectedIndex()==0)
+            if (jli1.getSelectedIndex() == 0)
 
-            jli1.setSelectedIndex(listlength-1);
+                jli1.setSelectedIndex(listlength - 1);
 
-        else
-        {
-            jli1.setSelectedIndex(jli1.getSelectedIndex()-1);
-            selected=jli1.getSelectedValue();
+            else {
+                jli1.setSelectedIndex(jli1.getSelectedIndex() - 1);
+                selected = jli1.getSelectedValue();
 
 
-        }
+            }
+
+            if (jli1.getSelectedIndex() - 1 < jli1.getFirstVisibleIndex()) {
+                // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
+                jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 100);
+
+                panel1.repaint();
+            }
+
+       if (listlength - 1 == jli1.getSelectedIndex())
+       {
+           jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getMaximum());
+       }
+
+        //jli1.getSelectedIndex()
+
     }
 
 
@@ -830,11 +844,18 @@ public class untitled5 extends JFrame
             jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue()+100);
 
             panel1.repaint();
+
+
+
             //repaint();
 //System.out.println(jp1.getVerticalScrollBar().getValue());
         }
 
-
+        if(0==jli1.getSelectedIndex())
+        {
+            jp1.getVerticalScrollBar().setValue(0);
+            panel1.repaint();
+        }
 
 
 
@@ -899,7 +920,7 @@ public class untitled5 extends JFrame
             try{
 
                 FileInputStream fis = new FileInputStream("mp3\\"+jli1.getSelectedValue().toString());
-                System.out.println(jli1.getSelectedValue().toString());
+             //   System.out.println(jli1.getSelectedValue().toString());
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
                 jb1.setText("Pause");
 
