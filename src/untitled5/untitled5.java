@@ -34,7 +34,7 @@ public class untitled5 extends JFrame
 
    JButton jb1;
     JLabel jl3, jl1,jl6,jl7,jl4,jl9,jl2,jl8,jl5;
-    JTextField tf1,tf2;
+   //JTextField tf1,tf2;
     JList jli1;
     Object selected;
     JScrollPane jp1;
@@ -273,6 +273,7 @@ public class untitled5 extends JFrame
                 Y=e.getY();
 
                  stop();
+               // timeline=Integer.pa
 
             }
 
@@ -280,7 +281,7 @@ public class untitled5 extends JFrame
             public void mouseReleased(MouseEvent e) {
 
 
-                Go(""+timeline);
+                Go(timeline);
                 //Go(jl9.getText());
 
             }
@@ -364,21 +365,27 @@ public class untitled5 extends JFrame
                 stop();
 
 
-                dragX =timeX+15;
+               dragX =timeX+15;
 
-                count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
+
+
+
+                /*
+                 count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
                 if(count<0) count=0;
+                 */
+
 
                 // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
 
-                Go(""+timeline);
+
 
 
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-
+                Go(timeline);
 
 
             }
@@ -685,25 +692,26 @@ public class untitled5 extends JFrame
     }
 
 
-    public void Go(String gogo)
+    public void Go(int gogo)
     {
         stop();
 
         try
         {
-            count = Integer.parseInt(gogo);
+            //count = Integer.parseInt(gogo);
+            count = gogo;
            // count = Integer.parseInt(tf1.getText());
         }
         catch (Exception ej)
         {
             count=1;
-            tf1.setText("1");
+          //  tf1.setText("1");
         }
 
         if(count>durration/1000 || count<0)
         {
             count=1;
-            tf1.setText("1");
+            //tf1.setText("1");
         }
 
         start = (int) (count*1000 / 26);
@@ -787,6 +795,12 @@ public class untitled5 extends JFrame
         }
     }
 
+
+    public void stop2()
+    {
+        stop();
+    }
+
     public void next()
     {
         jb1.setText("Play");
@@ -809,7 +823,7 @@ public class untitled5 extends JFrame
        // System.out.println(jp1.getViewport().getViewPosition().getX());
 
 
-           if(jli1.getSelectedIndex()>jli1.getLastVisibleIndex())
+           if(jli1.getSelectedIndex()+1>jli1.getLastVisibleIndex())
         {
            // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
 
@@ -894,7 +908,7 @@ public class untitled5 extends JFrame
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
-                     next();
+                     //next();
 
                     }
                 });
@@ -909,6 +923,17 @@ public class untitled5 extends JFrame
                         while (!start_stop)
                         {
                             count++;
+
+
+                                if(count>(durration/1000))
+                            {
+                                //this.stop();
+                                next();
+                                stop2();
+                                Go(0);
+
+                            }
+
 
                             try
                             {
