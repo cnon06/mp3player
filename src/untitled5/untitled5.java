@@ -28,7 +28,7 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX;
     static String outcome="40", jk [];
 
@@ -43,6 +43,8 @@ public class untitled5 extends JFrame
     
     untitled5()
     {
+
+
         jb4x=locationX;
 
         setTitle("MP3 Player with JAVA by Sinan");
@@ -88,6 +90,16 @@ public class untitled5 extends JFrame
         jli1.setSelectedIndex(0);
         jli1.setSelectionMode(0);
       //  jli1.setValueIsAdjusting(true);
+
+        jli1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                dindong=false;
+                //  super.mousePressed(e);
+            }
+        });
+
         jli1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -98,7 +110,13 @@ public class untitled5 extends JFrame
 
                     JList list2 = (JList) e.getSource();
                     selected = list2.getSelectedValue();
-                    selected();
+                  if(!dindong)
+                  {
+                      count=0;
+                      start = (int) (count*1000 / 26);
+                      selected();
+                  }
+
 
 
                 }
@@ -212,13 +230,10 @@ public class untitled5 extends JFrame
                }
                    else
                {
-                   if(stop_start_stop) {
 
-                       start_stop = true;
-                       start = (int) (count*1000 / 26);
-                       jb1.setText("Play");
 
-                   }
+                   pause();
+
                }
 
                }
@@ -273,6 +288,7 @@ public class untitled5 extends JFrame
                 Y=e.getY();
 
                  stop();
+                //Go(timeline);
                // timeline=Integer.pa
 
             }
@@ -465,7 +481,7 @@ public class untitled5 extends JFrame
 
 
                 volume_up_down((int)converse*(0.01F));
-                volume_write((int)converse);
+               // volume_write((int)converse);
             }
 
 
@@ -535,20 +551,21 @@ public class untitled5 extends JFrame
             }
 
             public void mouseClicked(MouseEvent e) {
-                int hm = Integer.parseInt(jk[1]);
+                vlm3 = Integer.parseInt(jk[1]);
 
 
-                volume_up_down(hm*(0.01F));
-                volume_write(hm);
+                volume_up_down(vlm3*(0.01F));
+
+                //  volume_write((int)vlm3);
 
             }
 
             public void mousePressed(MouseEvent e) {
-                int hm = Integer.parseInt(jk[1]);
+                vlm3 = Integer.parseInt(jk[1]);
 
 
-                volume_up_down(hm*(0.01F));
-                volume_write(hm);
+                volume_up_down(vlm3*(0.01F));
+              //  volume_write((int)vlm3);
 
             }
 
@@ -608,10 +625,72 @@ public class untitled5 extends JFrame
         int xstart =locationX+(int)((double)vlm3*0.86);
         jl4.setLocation(xstart,105);
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            volume_write();
 
 
 
-         info();
+               /*
+                try(FileWriter fileWriter = new FileWriter( "volume_record.txt")) {
+
+                    fileWriter.write(vlm.toString());
+                } catch (IOException ej) {
+
+                }
+                */
+
+
+
+            //    System.out.println("WindowClosingDemo.windowClosing");
+                System.exit(0);
+            }
+        });
+
+        info();
+/*
+  Thread t5 = new Thread();
+
+      try
+      {
+          volume_up_down(0);
+          t5.sleep(1000);
+
+
+      }
+      catch (Exception gdf)
+      {
+          System.out.println(gdf);
+      }
+ */
+
+
+
+
+        volume_read();
+        start = (int) (count*1000 / 26);
+        jb4x=locationX+(int)(((370)*count)/(durration/1000));
+        jl3.setLocation(jb4x,130);
+
+        try
+        {
+            vlm3=Integer.parseInt(outcome);
+        }
+        catch (Exception e)
+        {
+            vlm3=60;
+        }
+
+
+        volume_up_down(vlm3*(0.01F));
+        jl1.setText(convert_to_minute(count));
+        //start();
+
+        //pause();
+
+
         setVisible(true);
         add(panel1);
 
@@ -677,18 +756,133 @@ public class untitled5 extends JFrame
         }
 
 
+     String outcome2="";
+
+        try(FileReader fileReader = new FileReader( "counter_record.txt")) {
+            int ch = fileReader.read();
+            while(ch != -1) {
+
+
+                outcome2+=(char)ch;
+
+                ch = fileReader.read();
+            }
+        } catch (Exception etr) {
+            System.out.println(etr);
+        }
+
+        try
+        {
+
+             count=Integer.parseInt(outcome2);
+
+        }
+        catch (Exception tye)
+        {
+            System.out.println(tye);
+        }
+
+
+        dindong=true;
+
+
+        String outcome3="";
+
+        try(FileReader fileReader = new FileReader( "selected_record.txt")) {
+            int ch = fileReader.read();
+            while(ch != -1) {
+
+
+                outcome3+=(char)ch;
+
+                ch = fileReader.read();
+            }
+        } catch (Exception etr) {
+            System.out.println(etr);
+        }
+
+        try
+        {
+
+            jli1.setSelectedIndex(Integer.parseInt(outcome3));
+            //count=Integer.parseInt(outcome2);
+
+        }
+        catch (Exception tye)
+        {
+            jli1.setSelectedIndex(0);
+            System.out.println(tye);
+        }
+
+        String outcome4="";
+
+        try(FileReader fileReader = new FileReader( "scroll_record.txt")) {
+            int ch = fileReader.read();
+            while(ch != -1) {
+
+
+                outcome4+=(char)ch;
+
+                ch = fileReader.read();
+            }
+        } catch (Exception etr) {
+            System.out.println(etr);
+        }
+
+        try
+        {
+            jp1.getVerticalScrollBar().setValue(Integer.parseInt(outcome4));
+            //jli1.setSelectedIndex(Integer.parseInt(outcome4));
+            //count=Integer.parseInt(outcome2);
+
+        }
+        catch (Exception tye)
+        {
+            jp1.getVerticalScrollBar().setValue(0);
+            System.out.println(tye);
+        }
+
+
+      //  jp1.getVerticalScrollBar().setValue(jli1.getSelectedIndex()*11);
+
 
     }
 
 
-    public void volume_write(Integer vlm)
+    public void volume_write()
     {
         try(FileWriter fileWriter = new FileWriter( "volume_record.txt")) {
 
-           fileWriter.write(vlm.toString());
+           fileWriter.write(""+(int)vlm3);
         } catch (IOException ej) {
-
+            System.out.println(ej);
         }
+
+
+
+           try(FileWriter fileWriter = new FileWriter( "counter_record.txt")) {
+
+            fileWriter.write(""+count);
+        } catch (IOException ej) {
+               System.out.println(ej);
+        }
+
+        try(FileWriter fileWriter = new FileWriter( "selected_record.txt")) {
+
+            fileWriter.write(""+jli1.getSelectedIndex());
+        } catch (IOException ej) {
+            System.out.println(ej);
+        }
+
+
+
+        try(FileWriter fileWriter = new FileWriter( "scroll_record.txt")) {
+
+            fileWriter.write(""+ jp1.getVerticalScrollBar().getValue());
+        } catch (IOException ej) {
+            System.out.println(ej);
+        }
+
     }
 
 
@@ -696,7 +890,9 @@ public class untitled5 extends JFrame
     {
         stop();
 
-        try
+        count = gogo;
+        /*
+          try
         {
             //count = Integer.parseInt(gogo);
             count = gogo;
@@ -707,6 +903,8 @@ public class untitled5 extends JFrame
             count=1;
           //  tf1.setText("1");
         }
+         */
+
 
         if(count>durration/1000 || count<0)
         {
@@ -753,7 +951,9 @@ public class untitled5 extends JFrame
 
                 }
                 catch (Exception ed)
-                {}
+                {
+                    System.out.println(ed);
+                }
 
             }
         }.start();
@@ -763,14 +963,17 @@ public class untitled5 extends JFrame
 
     }
 
-/*
- public void paint(Graphics g) {
-        //panel1.update(g);
-     panel1.repaint();
+
+public void pause()
+{
+    if(stop_start_stop) {
+
+        start_stop = true;
+        start = (int) (count*1000 / 26);
+        jb1.setText("Play");
+
     }
- */
-
-
+}
 
 
 
@@ -829,17 +1032,11 @@ public class untitled5 extends JFrame
         }
 
 
-        //System.out.println(jli1.getAnchorSelectionIndex());
-        //System.out.println(jli1.getSelectedIndex());
-        //System.out.println(jli1.getFirstVisibleIndex());
-        // System.out.println(jli1.getLastVisibleIndex());
-      //  jp1.getViewport().setViewPosition(new Point(0,0));
-       // System.out.println(jp1.getViewport().getViewPosition().getX());
 
 
            if(jli1.getSelectedIndex()+1>jli1.getLastVisibleIndex())
         {
-           // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
 
             jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue()+100);
 
@@ -847,8 +1044,7 @@ public class untitled5 extends JFrame
 
 
 
-            //repaint();
-//System.out.println(jp1.getVerticalScrollBar().getValue());
+
         }
 
         if(0==jli1.getSelectedIndex())
@@ -1056,6 +1252,7 @@ public class untitled5 extends JFrame
     {
 
 
+
             stop();
 
             Thread th = new Thread();
@@ -1068,7 +1265,13 @@ public class untitled5 extends JFrame
                 start();
             }
             catch (Exception ed)
-            {}
+            {
+                System.out.println(ed);
+            }
+
+
+
+
 
 
 
