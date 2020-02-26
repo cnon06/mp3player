@@ -28,7 +28,7 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX;
     static String outcome="40", jk [];
 
@@ -99,6 +99,9 @@ public class untitled5 extends JFrame
                 //  super.mousePressed(e);
             }
         });
+
+
+
 
         jli1.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -284,12 +287,18 @@ public class untitled5 extends JFrame
 
             public void mousePressed(MouseEvent e) {
 
-                  X= e.getX();
+
+exit_enter=true;
+                    X= e.getX();
                 Y=e.getY();
 
-                 stop();
+                stop4();
+
+
+                 //stop();
                 //Go(timeline);
                // timeline=Integer.pa
+                jl9.setVisible(true);
 
             }
 
@@ -299,17 +308,19 @@ public class untitled5 extends JFrame
 
                 Go(timeline);
                 //Go(jl9.getText());
+                jl9.setVisible(false);
+                exit_enter=false;
 
             }
 
             public void mouseExited(MouseEvent e) {
 
-                jl9.setVisible(false);
+             if(!exit_enter)  jl9.setVisible(false);
 
             }
             public void mouseEntered(MouseEvent e) {
 
-                jl9.setVisible(true);
+                 jl9.setVisible(true);
 
             }
 
@@ -362,7 +373,7 @@ public class untitled5 extends JFrame
             @Override
             public void mouseExited(MouseEvent e) {
 
-                    jl9.setVisible(false);
+                if(!exit_enter)     jl9.setVisible(false);
 
             }
             public void mouseEntered(MouseEvent e) {
@@ -378,11 +389,11 @@ public class untitled5 extends JFrame
 
                 X= e.getX();
                 Y=e.getY();
-                stop();
+                stop4();
 
 
                dragX =timeX+15;
-
+                Go(timeline);
 
 
 
@@ -401,7 +412,7 @@ public class untitled5 extends JFrame
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                Go(timeline);
+
 
 
             }
@@ -924,7 +935,7 @@ public class untitled5 extends JFrame
                 try
                 {
 
-                    sleep(1000);
+                    sleep(500);
 
                     go_volume_bar();
 
@@ -938,13 +949,57 @@ public class untitled5 extends JFrame
                             try
                             {
 
-                                sleep(1000);
+                                sleep(500);
 
                                 go_volume_bar();
 
+
+                                new Thread(){
+
+                                    @Override
+                                    public void run() {
+
+                                        try
+                                        {
+
+                                            sleep(500);
+
+                                            go_volume_bar();
+                                            new Thread(){
+
+                                                @Override
+                                                public void run() {
+
+                                                    try
+                                                    {
+
+                                                        sleep(500);
+
+                                                        go_volume_bar();
+
+                                                    }
+                                                    catch (Exception ed)
+                                                    {
+                                                        System.out.println(ed);
+                                                    }
+
+                                                }
+                                            }.start();
+
+                                        }
+                                        catch (Exception ed)
+                                        {
+                                            System.out.println(ed);
+                                        }
+
+                                    }
+                                }.start();
+
                             }
                             catch (Exception ed)
-                            {}
+                            {
+                                System.out.println(ed);
+                            }
 
                         }
                     }.start();
@@ -1291,7 +1346,19 @@ public void pause()
         }
     }
 
+    public void stop4()
+    {
+        if(stop_start_stop)
+        {
+            start_stop=true;
+            //count=0;
+            //start=0;
+            //jb4x=locationX;
+            //divide2=0;
 
+
+        }
+    }
 
 
     public static void main(String [] args)
