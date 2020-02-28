@@ -28,8 +28,8 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false;
-    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false,fg3=false;
+    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5;
     static String outcome="40", jk [];
 
    JButton jb1;
@@ -661,21 +661,22 @@ exit_enter=true;
         });
 
         info();
-/*
-  Thread t5 = new Thread();
-
-      try
-      {
-          volume_up_down(0);
-          t5.sleep(1000);
 
 
-      }
-      catch (Exception gdf)
-      {
-          System.out.println(gdf);
-      }
- */
+
+
+
+        /*
+            if (jli1.getSelectedIndex() - 1 < jli1.getFirstVisibleIndex()) {
+            // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
+            jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 1);
+
+            panel1.repaint();
+            //jli1.set;
+        }
+
+         */
 
 
 
@@ -702,8 +703,105 @@ exit_enter=true;
         //pause();
 
 
-        setVisible(true);
+
         add(panel1);
+
+
+        panel1.repaint();
+
+/*
+ new Thread(){
+
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    sleep(100);
+                    System.out.println("selected index: "+jli1.getSelectedIndex());
+                    System.out.println("first visible index: "+jli1.getFirstVisibleIndex());
+                    System.out.println("last visible index: "+jli1.getLastVisibleIndex());
+
+
+
+                }
+                catch (Exception ed)
+                {
+                    System.out.println(ed);
+                }
+
+            }
+        }.start();
+ */
+
+
+        setVisible(true);
+
+        Thread tgh3 = new Thread();
+
+        try
+        {
+            tgh3.sleep(100);
+            System.out.println("selected index: "+jli1.getSelectedIndex());
+            System.out.println("first visible index: "+jli1.getFirstVisibleIndex());
+            System.out.println("last visible index: "+jli1.getLastVisibleIndex());
+        }
+        catch (Exception hj5)
+        {
+            System.out.println(hj5);
+        }
+
+
+        while (jli1.getSelectedIndex() -1 < jli1.getFirstVisibleIndex())
+        {
+           // System.out.println("First visible index:"+jli1.getFirstVisibleIndex()+" Selected index: "+jli1.getSelectedIndex());
+            jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
+          // if(ctrl1> jp1.getVerticalScrollBar().getValue()) break;
+            ctrl1= jp1.getVerticalScrollBar().getValue();
+
+
+            if(jli1.getFirstVisibleIndex()==0)
+            {
+                jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
+              // fg3=true;
+                break;
+                //jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
+            }
+
+
+          //  if(jli1.getSelectedIndex() +1== jli1.getFirstVisibleIndex()) break;
+        }
+
+          // System.out.println("loop is over");
+
+
+        while (jli1.getSelectedIndex() +1 > jli1.getLastVisibleIndex())
+        {
+            System.out.println("First visible index:"+jli1.getLastVisibleIndex()+" Selected index: "+jli1.getSelectedIndex());
+            jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() + 10);
+            // if(ctrl1> jp1.getVerticalScrollBar().getValue()) break;
+            ctrl1= jp1.getVerticalScrollBar().getValue();
+
+
+            if(jli1.getLastVisibleIndex()==list.length-1)
+            {
+                jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() + 10);
+                // fg3=true;
+                break;
+                //jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
+            }
+
+
+            //  if(jli1.getSelectedIndex() +1== jli1.getFirstVisibleIndex()) break;
+        }
+
+        System.out.println("loop is over");
+
+           panel1.repaint();
+           //jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
+
+
 
 
     }
@@ -965,6 +1063,7 @@ exit_enter=true;
                                             sleep(500);
 
                                             go_volume_bar();
+
                                             new Thread(){
 
                                                 @Override
@@ -1056,6 +1155,7 @@ public void pause()
                 jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 100);
 
                 panel1.repaint();
+                //jli1.set;
             }
 
        if (listlength - 1 == jli1.getSelectedIndex())
@@ -1064,6 +1164,7 @@ public void pause()
        }
 
         //jli1.getSelectedIndex()
+            Go(0);
 
     }
 
@@ -1087,9 +1188,9 @@ public void pause()
         }
 
 
+        //System.out.println(jli1.getFirstVisibleIndex());
 
-
-           if(jli1.getSelectedIndex()+1>jli1.getLastVisibleIndex())
+  if(jli1.getSelectedIndex()+1>jli1.getLastVisibleIndex())
         {
 
 
@@ -1097,10 +1198,9 @@ public void pause()
 
             panel1.repaint();
 
-
-
-
         }
+
+
 
         if(0==jli1.getSelectedIndex())
         {
@@ -1108,8 +1208,8 @@ public void pause()
             panel1.repaint();
         }
 
-
-
+//stop();
+Go(0);
 
     }
 
