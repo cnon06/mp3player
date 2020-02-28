@@ -743,9 +743,9 @@ exit_enter=true;
         try
         {
             tgh3.sleep(100);
-            System.out.println("selected index: "+jli1.getSelectedIndex());
-            System.out.println("first visible index: "+jli1.getFirstVisibleIndex());
-            System.out.println("last visible index: "+jli1.getLastVisibleIndex());
+           // System.out.println("selected index: "+jli1.getSelectedIndex());
+           // System.out.println("first visible index: "+jli1.getFirstVisibleIndex());
+          //  System.out.println("last visible index: "+jli1.getLastVisibleIndex());
         }
         catch (Exception hj5)
         {
@@ -778,7 +778,7 @@ exit_enter=true;
 
         while (jli1.getSelectedIndex() +1 > jli1.getLastVisibleIndex())
         {
-            System.out.println("First visible index:"+jli1.getLastVisibleIndex()+" Selected index: "+jli1.getSelectedIndex());
+            //System.out.println("First visible index:"+jli1.getLastVisibleIndex()+" Selected index: "+jli1.getSelectedIndex());
             jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() + 10);
             // if(ctrl1> jp1.getVerticalScrollBar().getValue()) break;
             ctrl1= jp1.getVerticalScrollBar().getValue();
@@ -796,7 +796,7 @@ exit_enter=true;
             //  if(jli1.getSelectedIndex() +1== jli1.getFirstVisibleIndex()) break;
         }
 
-        System.out.println("loop is over");
+        //System.out.println("loop is over");
 
            panel1.repaint();
            //jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
