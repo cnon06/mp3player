@@ -19,8 +19,20 @@ import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.*;
 import java.io.*;
+import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class untitled5 extends JFrame
@@ -30,7 +42,7 @@ public class untitled5 extends JFrame
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false,fg3=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5;
-    static String outcome="40", jk [];
+    static String outcome="40", jk [], list5[], path;
 
    JButton jb1;
     JLabel jl3, jl1,jl6,jl7,jl4,jl9,jl2,jl8,jl5;
@@ -68,28 +80,40 @@ public class untitled5 extends JFrame
         //panel1.update();
 
 
-        String path = "mp3";
+        path = "mp3\\";
         File folder = new File(path);
         File list[] = folder.listFiles();
-        String list5 [] = new String [list.length];
+        list5 = new String [list.length];
       listlength = list.length;
 
 
-
+//List <String> llist = new ArrayList<String>();
 
 
       for(int i=0;i<list.length;i++)
       {
           list5 [i] = list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1);
+          //llist.add(list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1));
       }
 
-       jli1 = new JList(list5);
 
+
+
+     //jli1 = new JList(list5);
+       //jli1 = new JList();
+        jli1 = new JList<String>(new DefaultListModel<String>());
+        list_add();
 
         jli1.setBackground(Color.GRAY);
         jli1.setSelectedIndex(0);
         jli1.setSelectionMode(0);
       //  jli1.setValueIsAdjusting(true);
+       // DefaultListModel model = (DefaultListModel) jli1.getModel();
+       // model.removeElement(0);
+       // jli1.set
+
+
+
 
         jli1.addMouseListener(new MouseAdapter() {
             @Override
@@ -100,12 +124,79 @@ public class untitled5 extends JFrame
             }
         });
 
+        jli1.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    stop();
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (List<File>) evt
+                            .getTransferable().getTransferData(
+                                    DataFlavor.javaFileListFlavor);
 
+                    ((DefaultListModel)jli1.getModel()).removeAllElements();
+
+                   path = droppedFiles.toString().replace("[","");
+                   path = path.replace("]","");
+                    path =path+"\\";
+                    System.out.println(path);
+
+                    File folder = new File(path);
+                    File list[] = folder.listFiles();
+                    list5 = new String [list.length];
+                    listlength = list.length;
+
+
+//List <String> llist = new ArrayList<String>();
+
+
+                    for(int i=0;i<list.length;i++)
+                    {
+                        list5 [i] = list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1);
+                        //llist.add(list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1));
+                    }
+
+                    for (File file : droppedFiles) {
+
+                        String get_em=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".")+1);
+
+                        String get_app=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\")+1);
+
+                        if(get_em.equals("mp3")   )
+                        {
+                            ((DefaultListModel)jli1.getModel()).addElement(get_app);
+
+                            // System.out.println("hhh"+get_app);
+                        }
+
+
+
+
+                        if(file.isDirectory())
+                        {
+
+
+                        list_directory(file.getAbsolutePath());
+
+
+
+                        }
+
+
+                    }
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                    ex.printStackTrace();
+                }
+            }
+        });
 
 
         jli1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+
+
+
 
                 boolean adjust = e.getValueIsAdjusting();
                 if(!adjust)
@@ -120,7 +211,7 @@ public class untitled5 extends JFrame
                       selected();
                   }
 
-
+                    System.out.println(path+selected);
 
                 }
 
@@ -819,7 +910,35 @@ exit_enter=true;
 
 
 
+    public void list_directory(String file3)
+    {
 
+
+
+
+        try (Stream<Path> walk = Files.walk(Paths.get(file3))) {
+
+            //List<String> result = walk.filter(Files::isRegularFile).map(x -> x.toString()).collect(Collectors.toList());
+            List<String> result = walk.map(x -> x.toString())
+                    .filter(f -> f.endsWith(".mp3")).collect(Collectors.toList());
+
+            for (String files : result)
+
+            {
+                //System.out.println(files);
+                // String get_em=files.substring(file3.lastIndexOf(".")+1);
+
+                String get_app=files.substring(files.lastIndexOf("\\")+1);
+                //System.out.println(get_app);
+                ((DefaultListModel)jli1.getModel()).addElement(get_app);
+            }
+
+            // result.forEach(System.out::println);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -1118,6 +1237,29 @@ exit_enter=true;
     }
 
 
+    public  void  list_add()
+    {
+
+
+        try
+        {
+            for ( String list8:list5)
+            {
+
+               // System.out.println(list8);
+               ((DefaultListModel)jli1.getModel()).addElement(list8);
+            }
+        }
+        catch (Exception es)
+        {
+            System.out.println(es);
+        }
+
+
+
+
+    }
+
 public void pause()
 {
     if(stop_start_stop) {
@@ -1270,7 +1412,7 @@ Go(0);
             info();
             try{
 
-                FileInputStream fis = new FileInputStream("mp3\\"+jli1.getSelectedValue().toString());
+                FileInputStream fis = new FileInputStream(path+jli1.getSelectedValue().toString());
              //   System.out.println(jli1.getSelectedValue().toString());
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
                 jb1.setText("Pause");
@@ -1381,7 +1523,7 @@ Go(0);
     {
         try {
 
-            File source = new File("mp3\\"+jli1.getSelectedValue());
+            File source = new File(path+jli1.getSelectedValue());
 
             Encoder encoder = new Encoder();
 
