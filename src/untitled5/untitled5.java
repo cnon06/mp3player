@@ -43,7 +43,7 @@ public class untitled5 extends JFrame
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false,fg3=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5;
     static String outcome="40", jk [], list5[], path;
-
+    FileInputStream fis;
    JButton jb1;
     JLabel jl3, jl1,jl6,jl7,jl4,jl9,jl2,jl8,jl5;
    //JTextField tf1,tf2;
@@ -126,48 +126,49 @@ public class untitled5 extends JFrame
 
         jli1.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
+               // stop_start_stop=true;
+                stop();
+
+/*
+    Thread th= new Thread();
+
+                try
+                {
+                    th.sleep(1000);
+                }
+                catch (Exception gg)
+                {
+                    System.out.println("Error code:27 "+gg);
+                }
+ */
+
+
                 try {
-                    stop();
+
+                    jb1.setText("Play");
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     java.util.List<File> droppedFiles = (List<File>) evt
                             .getTransferable().getTransferData(
                                     DataFlavor.javaFileListFlavor);
 
                     ((DefaultListModel)jli1.getModel()).removeAllElements();
-
-                   path = droppedFiles.toString().replace("[","");
-                   path = path.replace("]","");
-                    path =path+"\\";
-                    System.out.println(path);
-
-                    File folder = new File(path);
-                    File list[] = folder.listFiles();
-                    list5 = new String [list.length];
-                    listlength = list.length;
-
-
-//List <String> llist = new ArrayList<String>();
-
-
-                    for(int i=0;i<list.length;i++)
-                    {
-                        list5 [i] = list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1);
-                        //llist.add(list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1));
-                    }
-
                     for (File file : droppedFiles) {
+                        //((DefaultListModel)jli1.getModel()).addElement(file.getAbsolutePath());
+                        //String get_em=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".")+1);
 
-                        String get_em=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".")+1);
+
+                        String get_em =file.toString();
+
+                        System.out.println("exmp 3: "+get_em);
+                        path=get_em+"\\";
+
+                        // jli1.setSelectedIndex(0);
+
+
+
+                        System.out.println(get_em);
 
                         String get_app=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\")+1);
-
-                        if(get_em.equals("mp3")   )
-                        {
-                            ((DefaultListModel)jli1.getModel()).addElement(get_app);
-
-                            // System.out.println("hhh"+get_app);
-                        }
-
 
 
 
@@ -175,7 +176,7 @@ public class untitled5 extends JFrame
                         {
 
 
-                        list_directory(file.getAbsolutePath());
+                            list_directory(get_em);
 
 
 
@@ -183,10 +184,24 @@ public class untitled5 extends JFrame
 
 
                     }
+
+
+
+
+
+
                 } catch (Exception ex) {
-                    System.out.println(ex);
+                    System.out.println("Error code 21:"+ex);
+                    //System.out.println(ex);
                     ex.printStackTrace();
                 }
+
+
+
+
+
+
+
             }
         });
 
@@ -209,9 +224,11 @@ public class untitled5 extends JFrame
                       count=0;
                       start = (int) (count*1000 / 26);
                       selected();
+                      //stop();
+                    //  info();
                   }
 
-                    System.out.println(path+selected);
+                   System.out.println("exmp8: "+path+selected);
 
                 }
 
@@ -719,7 +736,8 @@ exit_enter=true;
         }
         catch (Exception e)
         {
-            vlm3=50; System.out.println(e);
+            vlm3=50; //System.out.println(e);
+            System.out.println("Error code 22:"+e);
         }
 
         volume_up_down(vlm3*(0.01F));
@@ -784,6 +802,7 @@ exit_enter=true;
         catch (Exception e)
         {
             vlm3=60;
+
         }
 
 
@@ -840,7 +859,8 @@ exit_enter=true;
         }
         catch (Exception hj5)
         {
-            System.out.println(hj5);
+            System.out.println("Error code 23:"+hj5);
+           // System.out.println(hj5);
         }
 
 
@@ -928,16 +948,22 @@ exit_enter=true;
                 //System.out.println(files);
                 // String get_em=files.substring(file3.lastIndexOf(".")+1);
 
-                String get_app=files.substring(files.lastIndexOf("\\")+1);
+               String get_app=files.substring(files.lastIndexOf("\\")+1);
                 //System.out.println(get_app);
                 ((DefaultListModel)jli1.getModel()).addElement(get_app);
+
             }
 
+
+            jli1.setSelectedIndex(0);
+            //info();
             // result.forEach(System.out::println);
 
         } catch (IOException e) {
+            System.out.println("Error code 1:"+e);
             e.printStackTrace();
         }
+
     }
 
 
@@ -980,7 +1006,9 @@ exit_enter=true;
                 ch = fileReader.read();
             }
         } catch (Exception etr) {
-            System.out.println(etr);
+
+            System.out.println("Error code 26:"+etr);
+            //System.out.println(etr);
         }
 
 
@@ -996,7 +1024,7 @@ exit_enter=true;
                 ch = fileReader.read();
             }
         } catch (Exception etr) {
-            System.out.println(etr);
+            System.out.println("Error code 2:"+etr);
         }
 
         try
@@ -1007,7 +1035,7 @@ exit_enter=true;
         }
         catch (Exception tye)
         {
-            System.out.println(tye);
+            System.out.println("Error code 3:"+tye);
         }
 
 
@@ -1026,7 +1054,7 @@ exit_enter=true;
                 ch = fileReader.read();
             }
         } catch (Exception etr) {
-            System.out.println(etr);
+            System.out.println("Error code 4:"+etr);
         }
 
         try
@@ -1039,7 +1067,7 @@ exit_enter=true;
         catch (Exception tye)
         {
             jli1.setSelectedIndex(0);
-            System.out.println(tye);
+            System.out.println("Error code 24:"+tye);
         }
 
         String outcome4="";
@@ -1054,7 +1082,7 @@ exit_enter=true;
                 ch = fileReader.read();
             }
         } catch (Exception etr) {
-            System.out.println(etr);
+            System.out.println("Error code 5:"+etr);
         }
 
         try
@@ -1067,7 +1095,7 @@ exit_enter=true;
         catch (Exception tye)
         {
             jp1.getVerticalScrollBar().setValue(0);
-            System.out.println(tye);
+            System.out.println("Error code 6:"+tye);
         }
 
 
@@ -1083,7 +1111,7 @@ exit_enter=true;
 
            fileWriter.write(""+(int)vlm3);
         } catch (IOException ej) {
-            System.out.println(ej);
+            System.out.println("Error code 7:"+ej);
         }
 
 
@@ -1092,14 +1120,14 @@ exit_enter=true;
 
             fileWriter.write(""+count);
         } catch (IOException ej) {
-               System.out.println(ej);
+               System.out.println("Error code 8:"+ej);
         }
 
         try(FileWriter fileWriter = new FileWriter( "selected_record.txt")) {
 
             fileWriter.write(""+jli1.getSelectedIndex());
         } catch (IOException ej) {
-            System.out.println(ej);
+            System.out.println("Error code 26:"+ej);
         }
 
 
@@ -1108,7 +1136,7 @@ exit_enter=true;
 
             fileWriter.write(""+ jp1.getVerticalScrollBar().getValue());
         } catch (IOException ej) {
-            System.out.println(ej);
+            System.out.println("Error code 9:"+ej);
         }
 
     }
@@ -1198,7 +1226,7 @@ exit_enter=true;
                                                     }
                                                     catch (Exception ed)
                                                     {
-                                                        System.out.println(ed);
+                                                        System.out.println("Error code 10:"+ed);
                                                     }
 
                                                 }
@@ -1207,7 +1235,7 @@ exit_enter=true;
                                         }
                                         catch (Exception ed)
                                         {
-                                            System.out.println(ed);
+                                            System.out.println("Error code 11:"+ed);
                                         }
 
                                     }
@@ -1216,7 +1244,7 @@ exit_enter=true;
                             }
                             catch (Exception ed)
                             {
-                                System.out.println(ed);
+                                System.out.println("Error code 12:"+ed);
                             }
 
                         }
@@ -1225,7 +1253,7 @@ exit_enter=true;
                 }
                 catch (Exception ed)
                 {
-                    System.out.println(ed);
+                    System.out.println("Error code 13:"+ed);
                 }
 
             }
@@ -1252,7 +1280,7 @@ exit_enter=true;
         }
         catch (Exception es)
         {
-            System.out.println(es);
+            System.out.println("Error code 14:"+es);
         }
 
 
@@ -1393,27 +1421,33 @@ Go(0);
                 }
             }
         } catch (Exception e) {
+
+         System.out.println("Error code 15:"+e);
             JOptionPane.showMessageDialog(null,"Erro\n"+e);
         }
 
     }
 
 
-
-
+    public void start2() {
+    start();
+    }
 
     public void start()
     {
+        System.out.println("exmpt 9: "+path+jli1.getSelectedValue().toString()+"dont_play_again: "+dont_play_again);
+
         if(!dont_play_again)
         {
 
             stop_start_stop=true;
             dont_play_again=true;
-            info();
+          info();
             try{
 
-                FileInputStream fis = new FileInputStream(path+jli1.getSelectedValue().toString());
-             //   System.out.println(jli1.getSelectedValue().toString());
+
+               if(jli1.getSelectedValue()!=null) fis = new FileInputStream(path+jli1.getSelectedValue().toString());
+
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
                 jb1.setText("Pause");
 
@@ -1470,7 +1504,7 @@ Go(0);
                             }
                             catch (Exception hj)
                             {
-
+System.out.println("Error code 16:hj");
                             }
 
 
@@ -1506,13 +1540,18 @@ Go(0);
                         }
                         catch (Exception yu)
                         {
-
+                            System.out.println("Error code 17:"+yu);
                         }
 
                     }
                 }.start();
 
-            }catch(Exception ey){System.out.println(ey);}
+            }catch(Exception ey){
+                //System.out.println(ey);
+                System.out.println("Error code 18:"+ey+" Duration"+durration);
+             stop_start_stop=false;
+             //   stop();
+            }
 
         }
 
@@ -1521,10 +1560,12 @@ Go(0);
 
     public void info()
     {
+
+        System.out.println("Exmp 2: "+path+jli1.getSelectedValue());
         try {
 
             File source = new File(path+jli1.getSelectedValue());
-
+           //System.out.println("Exmp 1: "+source);
             Encoder encoder = new Encoder();
 
             MultimediaInfo mi = encoder.getInfo(source);
@@ -1540,7 +1581,10 @@ Go(0);
         }
         catch (Exception er)
         {
-            System.out.println(er);
+            System.out.println("Error code 19:"+er);
+            stop();
+           //info();
+            //System.out.println(er);
         }
     }
 
@@ -1552,19 +1596,46 @@ Go(0);
 
             stop();
 
+
+        new Thread(){
+
+            @Override
+            public void run() {
+
+                try
+                {
+
+                    sleep(1250);
+
+                    start2();
+
+
+
+                }
+                catch (Exception ed)
+                {
+                    System.out.println("Error code 20:"+ed);
+                }
+
+            }
+        }.start();
+
+
+            /*
             Thread th = new Thread();
 
             try
             {
 
-                th.sleep(1250);
 
-                start();
             }
             catch (Exception ed)
             {
-                System.out.println(ed);
+                System.out.println("Error code 20:"+ed);
+                // System.out.println(ed);
             }
+             */
+
 
 
 
