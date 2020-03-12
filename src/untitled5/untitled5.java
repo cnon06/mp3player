@@ -30,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -52,6 +53,7 @@ public class untitled5 extends JFrame
     JScrollPane jp1;
     JPanel panel1;
     int listlength;
+    HashMap<String, String> directories_and_files = new HashMap<>();;
     
     untitled5()
     {
@@ -93,6 +95,13 @@ public class untitled5 extends JFrame
       for(int i=0;i<list.length;i++)
       {
           list5 [i] = list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1);
+
+          String get_directory = list[i].toString().substring(0, list[i].toString().lastIndexOf("\\")+1);
+          //System.out.println("exmpt 4342: "+get_directory+"++++"+get_app);
+
+          directories_and_files.put(list5[i],get_directory);
+
+
           //llist.add(list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1));
       }
 
@@ -127,7 +136,7 @@ public class untitled5 extends JFrame
         jli1.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                // stop_start_stop=true;
-                stop();
+               // stop();
 
 /*
     Thread th= new Thread();
@@ -157,16 +166,18 @@ public class untitled5 extends JFrame
                         //String get_em=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".")+1);
 
 
-                        String get_em =file.toString();
+String get_em =file.toString();
 
-                        System.out.println("exmp 3: "+get_em);
+                       // System.out.println("exmp 3: "+get_em);
                         path=get_em+"\\";
 
-                        // jli1.setSelectedIndex(0);
+
 
 
 
                         System.out.println(get_em);
+
+
 
                         String get_app=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\")+1);
 
@@ -228,7 +239,7 @@ public class untitled5 extends JFrame
                     //  info();
                   }
 
-                   System.out.println("exmp8: "+path+selected);
+                //   System.out.println("exmp8: "+path+selected);
 
                 }
 
@@ -932,9 +943,9 @@ exit_enter=true;
 
     public void list_directory(String file3)
     {
+//stop();
 
-
-
+directories_and_files.clear();
 
         try (Stream<Path> walk = Files.walk(Paths.get(file3))) {
 
@@ -951,6 +962,28 @@ exit_enter=true;
                String get_app=files.substring(files.lastIndexOf("\\")+1);
                 //System.out.println(get_app);
                 ((DefaultListModel)jli1.getModel()).addElement(get_app);
+
+                String get_directory = files.substring(0,files.lastIndexOf("\\")+1);
+                //System.out.println("exmpt 4342: "+get_directory+"++++"+get_app);
+
+                directories_and_files.put(get_app,get_directory);
+
+                System.out.println("exmpt 4342: "+directories_and_files);
+                 // String get_em =files.toString();
+
+            //   System.out.println("exmp 345: "+files);
+
+
+                //System.out.println(get_em);
+
+
+
+
+
+
+
+
+
 
             }
 
@@ -1435,7 +1468,7 @@ Go(0);
 
     public void start()
     {
-        System.out.println("exmpt 9: "+path+jli1.getSelectedValue().toString()+"dont_play_again: "+dont_play_again);
+
 
         if(!dont_play_again)
         {
@@ -1445,8 +1478,9 @@ Go(0);
           info();
             try{
 
-
-               if(jli1.getSelectedValue()!=null) fis = new FileInputStream(path+jli1.getSelectedValue().toString());
+                //System.out.println("exmpt 9: "+path+jli1.getSelectedValue().toString());
+               path=directories_and_files.get(jli1.getSelectedValue());
+                if(jli1.getSelectedValue()!=null) fis = new FileInputStream(path+jli1.getSelectedValue().toString());
 
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
                 jb1.setText("Pause");
@@ -1540,6 +1574,8 @@ System.out.println("Error code 16:hj");
                         }
                         catch (Exception yu)
                         {
+                            //stop2();
+                            jb1.setText("Play");
                             System.out.println("Error code 17:"+yu);
                         }
 
@@ -1561,7 +1597,7 @@ System.out.println("Error code 16:hj");
     public void info()
     {
 
-        System.out.println("Exmp 2: "+path+jli1.getSelectedValue());
+        //System.out.println("Exmp 2: "+path+jli1.getSelectedValue());
         try {
 
             File source = new File(path+jli1.getSelectedValue());
@@ -1582,8 +1618,12 @@ System.out.println("Error code 16:hj");
         catch (Exception er)
         {
             System.out.println("Error code 19:"+er);
+           // stop_start_stop=true;
             stop();
-           //info();
+            jb1.setText("Play");
+
+
+            //info();
             //System.out.println(er);
         }
     }
