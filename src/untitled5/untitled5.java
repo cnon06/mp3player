@@ -1490,6 +1490,10 @@ Go(0);
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
+
+                        next();
+                        //stop2();
+                        //Go(0);
                      //next();
 
                     }
@@ -1509,10 +1513,15 @@ Go(0);
 
                                 if(count>(durration/1000))
                             {
-                                //this.stop();
                                 next();
+
+                               /*
+
                                 stop2();
                                 Go(0);
+
+                                */
+
 
                             }
 
