@@ -30,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -943,53 +944,46 @@ exit_enter=true;
 
     public void list_directory(String file3)
     {
-//stop();
+
 
 directories_and_files.clear();
 
         try (Stream<Path> walk = Files.walk(Paths.get(file3))) {
 
-            //List<String> result = walk.filter(Files::isRegularFile).map(x -> x.toString()).collect(Collectors.toList());
+
             List<String> result = walk.map(x -> x.toString())
                     .filter(f -> f.endsWith(".mp3")).collect(Collectors.toList());
 
             for (String files : result)
 
             {
-                //System.out.println(files);
-                // String get_em=files.substring(file3.lastIndexOf(".")+1);
+
 
                String get_app=files.substring(files.lastIndexOf("\\")+1);
-                //System.out.println(get_app);
+
                 ((DefaultListModel)jli1.getModel()).addElement(get_app);
 
                 String get_directory = files.substring(0,files.lastIndexOf("\\")+1);
-                //System.out.println("exmpt 4342: "+get_directory+"++++"+get_app);
+
 
                 directories_and_files.put(get_app,get_directory);
-
-                //System.out.println("exmpt 4342: "+directories_and_files);
-                 // String get_em =files.toString();
-
-            //   System.out.println("exmp 345: "+files);
-
-
-                //System.out.println(get_em);
-
-
-
-
-
-
-
 
 
 
             }
 
 
-            jli1.setSelectedIndex(0);
+            int total=0;
 
+            for (String l :  directories_and_files.values()) {
+                total ++;
+            }
+
+
+            System.out.println("exmpt 8763: "+total);
+           listlength=total;
+
+           jli1.setSelectedIndex(0);
 
         } catch (IOException e) {
             System.out.println("Error code 1:"+e);
