@@ -168,14 +168,14 @@ public class untitled5 extends JFrame
 
 String get_em =file.toString();
 
-                       // System.out.println("exmp 3: "+get_em);
+
                         path=get_em+"\\";
 
 
 
 
 
-                        System.out.println(get_em);
+
 
 
 
@@ -968,7 +968,7 @@ directories_and_files.clear();
 
                 directories_and_files.put(get_app,get_directory);
 
-                System.out.println("exmpt 4342: "+directories_and_files);
+                //System.out.println("exmpt 4342: "+directories_and_files);
                  // String get_em =files.toString();
 
             //   System.out.println("exmp 345: "+files);
@@ -989,8 +989,7 @@ directories_and_files.clear();
 
 
             jli1.setSelectedIndex(0);
-            //info();
-            // result.forEach(System.out::println);
+
 
         } catch (IOException e) {
             System.out.println("Error code 1:"+e);
@@ -1475,13 +1474,13 @@ Go(0);
 
             stop_start_stop=true;
             dont_play_again=true;
-          info();
             try{
 
                 //System.out.println("exmpt 9: "+path+jli1.getSelectedValue().toString());
                path=directories_and_files.get(jli1.getSelectedValue());
                 if(jli1.getSelectedValue()!=null) fis = new FileInputStream(path+jli1.getSelectedValue().toString());
 
+                info();
                 AdvancedPlayer playMP3 = new AdvancedPlayer(fis);
                 jb1.setText("Pause");
 
@@ -1586,6 +1585,8 @@ System.out.println("Error code 16:hj");
                             //stop2();
                             jb1.setText("Play");
                             System.out.println("Error code 17:"+yu);
+
+
                         }
 
                     }
@@ -1628,7 +1629,7 @@ System.out.println("Error code 16:hj");
         {
             System.out.println("Error code 19:"+er);
            // stop_start_stop=true;
-            stop();
+            //stop();
             jb1.setText("Play");
 
 
