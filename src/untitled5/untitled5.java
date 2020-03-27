@@ -42,7 +42,7 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false,fg3=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5;
     static String outcome="40", jk [], list5[], path;
     FileInputStream fis;
@@ -136,8 +136,15 @@ public class untitled5 extends JFrame
 
         jli1.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
-               // stop_start_stop=true;
+
+                change_value_stop=true;
+                // stop_start_stop=true;
                // stop();
+
+               // pause();
+                String get_app="",get_app2="";
+
+                directories_and_files.clear();
 
 /*
     Thread th= new Thread();
@@ -162,25 +169,72 @@ public class untitled5 extends JFrame
                                     DataFlavor.javaFileListFlavor);
 
                     ((DefaultListModel)jli1.getModel()).removeAllElements();
+                 // droppedFiles.g
+                   // list_directory(droppedFiles.toString()+"\\");
+                   // File files3 = new File(droppedFiles);
+
+                    //System.out.println("Exempt 5643: "+droppedFiles);
                     for (File file : droppedFiles) {
                         //((DefaultListModel)jli1.getModel()).addElement(file.getAbsolutePath());
                         //String get_em=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".")+1);
 
 
-String get_em =file.toString();
+
+                      // System.out.println("exempt 653434:"+file.getCanonicalPath());
+
+                    String get_em =file.toString();
 
 
                         path=get_em+"\\";
 
+//System.out.println("Exempt 5643: "+path);
 
 
 
 
 
+                        get_app2=file.getAbsolutePath();
+                     //  get_app=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\")+1);
+                        //System.out.println("Exempt 5646: "+get_app2);
+                       // System.out.println("Exempt 5646: "+get_em.replaceFirst(get_app,""));
+
+
+                    /*
+                        String get_app=files.substring(files.lastIndexOf("\\")+1);
+
+                        ((DefaultListModel)jli1.getModel()).addElement(get_app);
+
+                        String get_directory = files.substring(0,files.lastIndexOf("\\")+1);
+
+
+                        directories_and_files.put(get_app,get_directory);
+                        */
+
+
+                        if(file.isFile())
+                        {
+
+                            String get_em2=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".")+1);
+
+                            if(get_em2.equals("mp3"))
+                            {
+                                //System.out.println("exempt 2331:"+get_em2);
+                                String get_app3=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\")+1);
+
+                                ((DefaultListModel)jli1.getModel()).addElement(get_app3);
+
+                                String get_directory = file.getAbsolutePath().substring(0,file.getAbsolutePath().lastIndexOf("\\")+1);
+
+
+                                directories_and_files.put(get_app3,get_directory);
+                            }
 
 
 
-                        String get_app=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\")+1);
+
+                        }
+ 
+
 
 
 
@@ -199,6 +253,25 @@ String get_em =file.toString();
 
 
 
+                      int total=0;
+
+                    for (String l :  directories_and_files.values()) {
+                        total ++;
+                    }
+
+
+
+                    listlength=total;
+
+                    jli1.setSelectedIndex(0);
+
+
+
+
+                    //System.out.println("Exempt 5648: "+get_app);
+                    get_app=get_app2.substring(get_app2.lastIndexOf("\\")+1);
+                    //System.out.println("Exempt 5646: "+get_app2.replaceFirst(get_app,""));
+                   //list_directory(get_app2);
 
 
 
@@ -207,9 +280,6 @@ String get_em =file.toString();
                     //System.out.println(ex);
                     ex.printStackTrace();
                 }
-
-
-
 
 
 
@@ -226,21 +296,61 @@ String get_em =file.toString();
 
 
                 boolean adjust = e.getValueIsAdjusting();
-                if(!adjust)
-                {
 
-                    JList list2 = (JList) e.getSource();
-                    selected = list2.getSelectedValue();
-                  if(!dindong)
+              if(!change_value_stop)
+              {
+                  if(!adjust )
                   {
-                      count=0;
-                      start = (int) (count*1000 / 26);
-                      selected();
-                      //stop();
-                    //  info();
-                  }
 
-                //   System.out.println("exmp8: "+path+selected);
+                      JList list2 = (JList) e.getSource();
+                      selected = list2.getSelectedValue();
+                      if(!dindong)
+                      {
+                          count=0;
+                          start = (int) (count*1000 / 26);
+                          selected();
+                          //stop();
+                          //  info();
+                      }
+
+                      //   System.out.println("exmp8: "+path+selected);
+
+                  }
+              }
+
+
+
+                else
+                {
+                    stop();
+                   // change_value_stop=false;
+                    new Thread(){
+
+                        @Override
+                        public void run() {
+
+                            try
+                            {
+
+                                sleep(100);
+
+                                change_value_stop=false;
+
+                                //System.out.println("selected index: "+jli1.getSelectedIndex());
+                                //System.out.println("first visible index: "+jli1.getFirstVisibleIndex());
+                                //System.out.println("last visible index: "+jli1.getLastVisibleIndex());
+
+
+
+                            }
+                            catch (Exception ed)
+                            {
+                                System.out.println(ed);
+                            }
+
+                        }
+                    }.start();
+
 
                 }
 
@@ -946,7 +1056,7 @@ exit_enter=true;
     {
 
 
-directories_and_files.clear();
+
 
         try (Stream<Path> walk = Files.walk(Paths.get(file3))) {
 
@@ -980,7 +1090,7 @@ directories_and_files.clear();
             }
 
 
-            System.out.println("exmpt 8763: "+total);
+            //System.out.println("exmpt 8763: "+total);
            listlength=total;
 
            jli1.setSelectedIndex(0);
@@ -1650,6 +1760,8 @@ System.out.println("Error code 16:hj");
                 {
 
                     sleep(1250);
+
+
 
                     start2();
 
