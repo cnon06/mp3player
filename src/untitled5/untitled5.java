@@ -29,9 +29,7 @@ import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,7 +40,7 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5;
     static String outcome="40", jk [], list5[], path;
     FileInputStream fis;
@@ -137,6 +135,8 @@ public class untitled5 extends JFrame
         jli1.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
 
+
+                jli1.setModel(new DefaultListModel());
                 change_value_stop=true;
                 // stop_start_stop=true;
                // stop();
@@ -443,7 +443,11 @@ public class untitled5 extends JFrame
                previous();
             }
         });
-        
+
+
+
+
+
         
        jb1 = new JButton("Play");
         jb1.setVisible(true);
@@ -847,8 +851,95 @@ exit_enter=true;
         panel1.add(jl5);
 
 
+        JButton jb5 = new JButton("Ascending");
+        jb5.setVisible(true);
+        jb5.setSize(80,20);
+        jb5.setLocation(300+locationX,105);
+
+        panel1.add(jb5);
+
+        jb5.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
 
 
+                //JList jl = new JList(new Object[]{4.5,1,"Hi!"});
+                // ListModel model = jli1.getModel();
+                //String[] strings = new String[model.getSize()];
+                //((DefaultListModel)jli1.getModel()).addElement(get_app);
+
+
+                String[] strings = new String[jli1.getModel().getSize()];
+                //  jli1.getModel().getSize();
+                for(int i=0;i<strings.length;i++){
+                    strings[i]=jli1.getModel().getElementAt(i).toString();
+                }
+
+                if(jb5.getText().equals("Ascending"))
+                {
+                    Arrays.sort(strings);
+                    jb5.setText("Descending");
+                }
+
+                else
+                {
+                    Arrays.sort(strings, Collections.reverseOrder());
+                    jb5.setText("Ascending");
+                }
+
+                // Arrays.
+                jli1.setModel(new DefaultListModel());
+                jli1.setListData(strings);
+                //  next();
+
+
+                // jli1.getModel().
+                change_value_stop=true;
+                jli1.setSelectedIndex(0);
+                jb1.setText("Play");
+
+
+
+
+
+
+            }
+        });
+
+        JButton jb6 = new JButton("Shuffle");
+        jb6.setVisible(true);
+        jb6.setSize(80,20);
+        jb6.setLocation(200+locationX,105);
+
+        panel1.add(jb6);
+
+        jb6.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+
+                //Font font = new Font("Verdana", Font.BOLD, 12);
+                Font font = new Font(jb6.getFont().getName(), Font.BOLD, jb6.getFont().getSize());
+
+
+                if(!jb6_font_color)
+                {
+                    jb6.setFont(font);
+                    jb6.setForeground(Color.RED);
+                    jb6_font_color=true;
+                }
+             else
+                {
+                    jb6.setFont(font);
+                    jb6.setForeground(Color.BLACK);
+                    jb6_font_color=false;
+                }
+
+
+
+
+            }
+        });
         
         volume_read();
 
