@@ -40,7 +40,7 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false,jb7_font_color=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5;
     static String outcome="40", jk [], list5[], path;
     FileInputStream fis;
@@ -248,20 +248,19 @@ public class untitled5 extends JFrame
 
                         }
 
-
+Go(0);
                     }
 
 
 
-                      int total=0;
-
-                    for (String l :  directories_and_files.values()) {
-                        total ++;
-                    }
 
 
 
-                    listlength=total;
+
+
+
+
+                    listlength= jli1.getModel().getSize();
 
                     jli1.setSelectedIndex(0);
 
@@ -896,8 +895,8 @@ exit_enter=true;
                 // jli1.getModel().
                 change_value_stop=true;
                 jli1.setSelectedIndex(0);
-                jb1.setText("Play");
-
+               // jb1.setText("Play");
+                Go(0);
 
 
 
@@ -933,6 +932,42 @@ exit_enter=true;
                     jb6.setFont(font);
                     jb6.setForeground(Color.BLACK);
                     jb6_font_color=false;
+                }
+
+
+
+
+            }
+        });
+
+
+        JButton jb7 = new JButton("Repeat");
+        jb7.setVisible(true);
+        jb7.setSize(80,20);
+        jb7.setLocation(100+locationX,105);
+
+        panel1.add(jb7);
+
+        jb7.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+
+                //Font font = new Font("Verdana", Font.BOLD, 12);
+                Font font = new Font(jb7.getFont().getName(), Font.BOLD, jb7.getFont().getSize());
+
+
+                if(!jb7_font_color)
+                {
+                    jb7.setFont(font);
+                    jb7.setForeground(Color.RED);
+                    jb7_font_color=true;
+                }
+                else
+                {
+                    jb7.setFont(font);
+                    jb7.setForeground(Color.BLACK);
+                    jb7_font_color=false;
                 }
 
 
@@ -1131,6 +1166,87 @@ exit_enter=true;
     }
 
 
+    public void shuffle()
+    {
+
+        if( !jb7_font_color)
+        {
+            if( !jb6_font_color)
+            {
+                next();
+            }
+
+            else
+            {
+                Random rand = new Random();
+
+
+
+
+
+                int number_of_list_items=jli1.getModel().getSize();
+                int rand_int1 = rand.nextInt(number_of_list_items);
+                //jli1.setSelectedIndex(0);
+                //stop();
+                jli1.setSelectedIndex(rand_int1);
+                //jli1.setSelectedIndex(800);
+
+
+
+
+
+
+                //System.out.println("765665: "+jli.i);
+
+
+
+                System.out.println("r54356r: "+(rand_int1)+" list length: "+number_of_list_items );
+                Go(0);
+
+
+                boolean tg=false;
+                while (!tg)
+                {
+                    if (jli1.getSelectedIndex() - 1 < jli1.getFirstVisibleIndex()) {
+                        // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
+                        jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 1);
+
+                        panel1.repaint();
+                        //jli1.set;
+                    }
+                    else break;
+                }
+
+
+                //tg=false;
+                while (!tg)
+                {
+                    if (jli1.getSelectedIndex() + 1 > jli1.getLastVisibleIndex()) {
+                        // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
+                        jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() + 1);
+
+                        panel1.repaint();
+                        //jli1.set;
+                    }
+                    else break;
+                }
+
+
+
+                // next();
+            }
+        }
+        else
+        {
+            Go(0);
+        }
+
+
+
+    }
+
     public void go_volume_bar()
     {
 
@@ -1174,16 +1290,11 @@ exit_enter=true;
             }
 
 
-            int total=0;
-
-            for (String l :  directories_and_files.values()) {
-                total ++;
-            }
 
 
-            //System.out.println("exmpt 8763: "+total);
-           listlength=total;
 
+
+            listlength= jli1.getModel().getSize();
            jli1.setSelectedIndex(0);
 
         } catch (IOException e) {
@@ -1685,7 +1796,8 @@ Go(0);
                     public void playbackFinished(PlaybackEvent evt) {
 
 
-                        next();
+                     shuffle();
+
                         //stop2();
                         //Go(0);
                      //next();
@@ -1707,7 +1819,12 @@ Go(0);
 
                                 if(count>(durration/1000))
                             {
-                                next();
+
+                                shuffle();
+                                // next();
+
+
+
 
                                /*
 
