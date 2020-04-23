@@ -26,9 +26,8 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.*;
 import java.io.*;
 import java.lang.reflect.Array;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -138,26 +137,12 @@ public class untitled5 extends JFrame
 
                 jli1.setModel(new DefaultListModel());
                 change_value_stop=true;
-                // stop_start_stop=true;
-               // stop();
 
-               // pause();
                 String get_app="",get_app2="";
 
                 directories_and_files.clear();
 
-/*
-    Thread th= new Thread();
 
-                try
-                {
-                    th.sleep(1000);
-                }
-                catch (Exception gg)
-                {
-                    System.out.println("Error code:27 "+gg);
-                }
- */
 
 
                 try {
@@ -169,14 +154,11 @@ public class untitled5 extends JFrame
                                     DataFlavor.javaFileListFlavor);
 
                     ((DefaultListModel)jli1.getModel()).removeAllElements();
-                 // droppedFiles.g
-                   // list_directory(droppedFiles.toString()+"\\");
-                   // File files3 = new File(droppedFiles);
 
-                    //System.out.println("Exempt 5643: "+droppedFiles);
+
+
                     for (File file : droppedFiles) {
-                        //((DefaultListModel)jli1.getModel()).addElement(file.getAbsolutePath());
-                        //String get_em=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".")+1);
+
 
 
 
@@ -186,29 +168,15 @@ public class untitled5 extends JFrame
 
 
                         path=get_em+"\\";
-
-//System.out.println("Exempt 5643: "+path);
+                        //path=get_em;
+System.out.println("Exempt 5643: "+path);
 
 
 
 
 
                         get_app2=file.getAbsolutePath();
-                     //  get_app=file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("\\")+1);
-                        //System.out.println("Exempt 5646: "+get_app2);
-                       // System.out.println("Exempt 5646: "+get_em.replaceFirst(get_app,""));
 
-
-                    /*
-                        String get_app=files.substring(files.lastIndexOf("\\")+1);
-
-                        ((DefaultListModel)jli1.getModel()).addElement(get_app);
-
-                        String get_directory = files.substring(0,files.lastIndexOf("\\")+1);
-
-
-                        directories_and_files.put(get_app,get_directory);
-                        */
 
 
                         if(file.isFile())
@@ -238,11 +206,18 @@ public class untitled5 extends JFrame
 
 
 
-                        if(file.isDirectory())
+                        if(file.isDirectory() && file.canRead())
                         {
 
+                            //$RECYCLE.BIN
+                         //  if(path.contains("$RECYCLE.BIN")) System.out.println("75231: "+path.contains("$RECYCLE.BIN"));
 
-                            list_directory(get_em);
+                         //File file_can_read = new File(path);
+
+                        list_directory(path);
+
+
+                           //list_directory(get_em);
 
 
 
@@ -278,6 +253,9 @@ Go(0);
                     System.out.println("Error code 21:"+ex);
                     //System.out.println(ex);
                     ex.printStackTrace();
+                   //list_directory(path);
+
+
                 }
 
 
@@ -1262,45 +1240,69 @@ exit_enter=true;
     public void list_directory(String file3)
     {
 
+        
 
 
 
-        try (Stream<Path> walk = Files.walk(Paths.get(file3))) {
 
 
-            List<String> result = walk.map(x -> x.toString())
-                    .filter(f -> f.endsWith(".mp3")).collect(Collectors.toList());
+         // try (Stream<Path> walk = Files.walk(Paths.get(file3)))
 
-            for (String files : result)
+       /*
 
-            {
+                DirectoryStream<Path> directoryStream = Files.newDirectoryStream(file6);
 
-
-               String get_app=files.substring(files.lastIndexOf("\\")+1);
-
-                ((DefaultListModel)jli1.getModel()).addElement(get_app);
-
-                String get_directory = files.substring(0,files.lastIndexOf("\\")+1);
-
-
-                directories_and_files.put(get_app,get_directory);
+                for (Path p : directoryStream) {
+                    System.out.println(p.getFileName());
+                }
+        */
 
 
 
+
+
+
+        try
+        {
+
+                Stream<Path> walk = Files.walk(Paths.get(file3));
+
+           
+
+
+                 List<String> result = walk.map(x -> x.toString())
+                        .filter(f -> f.endsWith(".mp3")).collect(Collectors.toList());
+
+                for (String files : result)
+
+                {
+
+
+                    String get_app=files.substring(files.lastIndexOf("\\")+1);
+
+                    ((DefaultListModel)jli1.getModel()).addElement(get_app);
+
+                    String get_directory = files.substring(0,files.lastIndexOf("\\")+1);
+
+
+                    directories_and_files.put(get_app,get_directory);
+
+
+
+                }
+
+
+
+                listlength= jli1.getModel().getSize();
+                jli1.setSelectedIndex(0);
+
+            } catch (IOException e) {
+                System.out.println("Error code 1:"+e);
+                e.printStackTrace();
             }
 
 
 
-
-
-
-            listlength= jli1.getModel().getSize();
-           jli1.setSelectedIndex(0);
-
-        } catch (IOException e) {
-            System.out.println("Error code 1:"+e);
-            e.printStackTrace();
-        }
 
     }
 
