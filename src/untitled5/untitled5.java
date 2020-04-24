@@ -51,8 +51,10 @@ public class untitled5 extends JFrame
     JScrollPane jp1;
     JPanel panel1;
     int listlength;
-    HashMap<String, String> directories_and_files = new HashMap<>();;
-    
+    HashMap<String, String> directories_and_files = new HashMap<>();
+    Path fileDir;
+    MyFileVisitor visitor;
+
     untitled5()
     {
 
@@ -217,7 +219,7 @@ System.out.println("Exempt 5643: "+path);
                         list_directory(path);
 
 
-                           //list_directory(get_em);
+
 
 
 
@@ -244,8 +246,6 @@ Go(0);
 
                     //System.out.println("Exempt 5648: "+get_app);
                     get_app=get_app2.substring(get_app2.lastIndexOf("\\")+1);
-                    //System.out.println("Exempt 5646: "+get_app2.replaceFirst(get_app,""));
-                   //list_directory(get_app2);
 
 
 
@@ -253,7 +253,7 @@ Go(0);
                     System.out.println("Error code 21:"+ex);
                     //System.out.println(ex);
                     ex.printStackTrace();
-                   //list_directory(path);
+
 
 
                 }
@@ -1265,9 +1265,24 @@ exit_enter=true;
         try
         {
 
-                Stream<Path> walk = Files.walk(Paths.get(file3));
+           Path fileDir = Paths.get("d:\\");
+           fileDir = Paths.get(file3);
+           visitor = new MyFileVisitor();
 
-           
+
+            Files.walkFileTree(fileDir,visitor);
+            directories_and_files = visitor.directories_and_files;
+            directories_and_files.forEach((k, v) -> {
+                System.out.println("File: "+k+" Path: "+v);
+                ((DefaultListModel)jli1.getModel()).addElement(k);
+            });
+
+
+            /*
+
+             Stream<Path> walk = Files.walk(Paths.get(file3));
+
+
 
 
                  List<String> result = walk.map(x -> x.toString())
@@ -1290,6 +1305,9 @@ exit_enter=true;
 
 
                 }
+
+             */
+
 
 
 
