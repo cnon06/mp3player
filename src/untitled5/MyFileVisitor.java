@@ -59,7 +59,7 @@ public class MyFileVisitor extends SimpleFileVisitor<Path>
 
     public FileVisitResult visitFileFailed (Path file, IOException exc) throws  IOException
     {
-        System.err.println(exc.getMessage());
+        //System.err.println(exc.getMessage());
         return FileVisitResult.CONTINUE;
     }
 

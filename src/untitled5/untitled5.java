@@ -171,7 +171,7 @@ public class untitled5 extends JFrame
 
                         path=get_em+"\\";
                         //path=get_em;
-System.out.println("Exempt 5643: "+path);
+//System.out.println("Exempt 5643: "+path);
 
 
 
@@ -1273,7 +1273,7 @@ exit_enter=true;
             Files.walkFileTree(fileDir,visitor);
             directories_and_files = visitor.directories_and_files;
             directories_and_files.forEach((k, v) -> {
-                System.out.println("File: "+k+" Path: "+v);
+                //System.out.println("File: "+k+" Path: "+v);
                 ((DefaultListModel)jli1.getModel()).addElement(k);
             });
 
@@ -1457,6 +1457,50 @@ exit_enter=true;
         }
 
 
+/*
+ String outcome5="";
+
+        try(FileReader fileReader = new FileReader( "list_record.txt")) {
+            int ch = fileReader.read();
+            while(ch != -1) {
+
+
+                outcome5+=(char)ch;
+
+                ch = fileReader.read();
+            }
+        } catch (Exception etr) {
+            System.out.println("Error code 567:"+etr);
+        }
+
+        System.out.println("3557: "+outcome5);
+ */
+
+
+
+
+ BufferedReader reader;
+        try
+        {
+
+            reader = new BufferedReader(new FileReader("list_record.txt"));
+            String line = reader.readLine();
+          //  System.out.println(line);
+            while ( (line = reader.readLine()) != null)
+            {
+                System.out.println(line);
+               // line = reader.readLine();
+            }
+
+
+        }
+        catch (Exception hg)
+        {
+            System.out.println("Error 432: "+hg);
+        }
+
+
+
       //  jp1.getVerticalScrollBar().setValue(jli1.getSelectedIndex()*11);
 
 
@@ -1496,6 +1540,31 @@ exit_enter=true;
         } catch (IOException ej) {
             System.out.println("Error code 9:"+ej);
         }
+
+        try(FileWriter fileWriter = new FileWriter( "list_record.txt")) {
+
+           // fileWriter.write(""+ jp1.getVerticalScrollBar().getValue());
+
+            directories_and_files.forEach((k, v) -> {
+              //  System.out.println("File: "+k+" Path: "+v);
+
+                try
+                {
+                    fileWriter.write(k+"*"+v+"\n");
+                }
+                catch (Exception er)
+                {
+                    System.out.println("7233: "+er);
+                }
+
+
+                //((DefaultListModel)jli1.getModel()).addElement(k);
+            });
+
+        } catch (IOException ej) {
+            System.out.println("Error code 964:"+ej);
+        }
+
 
     }
 
