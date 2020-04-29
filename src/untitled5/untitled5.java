@@ -40,7 +40,7 @@ public class untitled5 extends JFrame
     static float divide2=0,vlm3=50;
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false,jb7_font_color=false;
-    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5;
+    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5, ik=0;
     static String outcome="40", jk [], list5[], path;
     FileInputStream fis;
    JButton jb1;
@@ -52,7 +52,7 @@ public class untitled5 extends JFrame
     JPanel panel1;
     int listlength;
     HashMap<String, String> directories_and_files = new HashMap<>();
-    Path fileDir;
+
     MyFileVisitor visitor;
 
     untitled5()
@@ -82,35 +82,80 @@ public class untitled5 extends JFrame
         //panel1.update();
 
 
+        list_read();
+       // list_add();
         path = "mp3\\";
         File folder = new File(path);
         File list[] = folder.listFiles();
-        list5 = new String [list.length];
-      listlength = list.length;
+       list5 = new String [directories_and_files.size()];
+
+        //list5 = new String [directories_and_files.size()];
+
+      //listlength = list.length;
+        listlength = directories_and_files.size();
+
+//System.out.println("4522: "+directories_and_files.size());
 
 
-//List <String> llist = new ArrayList<String>();
+
+ik=0;
+        directories_and_files.forEach((k, v) -> {
+            //  System.out.println("File: "+k+" Path: "+v);
+
+            try
+            {
+
+                list5[ik] = k;
+                ik++;
+              //System.out.println("1143: "+k);
+               // ((DefaultListModel)jli1.getModel()).addElement(k);
+                //  fileWriter.write(k+"d45a689t90a"+v+"\n");
+            }
+            catch (Exception er)
+            {
+                System.out.println("7233: "+er);
+            }
 
 
-      for(int i=0;i<list.length;i++)
+
+            //((DefaultListModel)jli1.getModel()).addElement(k);
+        });
+
+        path=directories_and_files.get(list5[0]);
+
+
+
+/*
+ for(int i=0;i<list.length;i++)
       {
           list5 [i] = list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1);
 
           String get_directory = list[i].toString().substring(0, list[i].toString().lastIndexOf("\\")+1);
-          //System.out.println("exmpt 4342: "+get_directory+"++++"+get_app);
+
 
           directories_and_files.put(list5[i],get_directory);
 
 
-          //llist.add(list[i].toString().substring(list[i].toString().lastIndexOf("\\")+1));
+
       }
+ */
+
+
+
+   //     System.out.println("2389 directories_and_files: "+directories_and_files.size());
+    //    System.out.println("2389 listlength: "+listlength);
+
 
 
 
 
      //jli1 = new JList(list5);
        //jli1 = new JList();
+
+
+
         jli1 = new JList<String>(new DefaultListModel<String>());
+
         list_add();
 
         jli1.setBackground(Color.GRAY);
@@ -787,7 +832,7 @@ exit_enter=true;
 
 
                 volume_up_down(vlm3*(0.01F));
-              //  volume_write((int)vlm3);
+
 
             }
 
@@ -954,7 +999,7 @@ exit_enter=true;
             }
         });
         
-        volume_read();
+      volume_read();
 
         try
         {
@@ -1178,7 +1223,7 @@ exit_enter=true;
 
 
 
-                System.out.println("r54356r: "+(rand_int1)+" list length: "+number_of_list_items );
+               // System.out.println("r54356r: "+(rand_int1)+" list length: "+number_of_list_items );
                 Go(0);
 
 
@@ -1351,6 +1396,49 @@ exit_enter=true;
 
     }
 
+
+    public void list_read()
+    {
+        BufferedReader reader;
+        try
+        {
+
+            reader = new BufferedReader(new FileReader("list_record.txt"));
+            String line = reader.readLine();
+            //  System.out.println(line);
+            String[] parts;
+            //  String part1;
+            // String part2;
+
+
+           do {
+               // System.out.println("8675: "+line);
+                parts = line.split("d45a689t90a");
+                //    part1 = parts[0]; // 004
+                //
+                //  part2 = parts[1]; // 034556
+
+             // System.out.println("753: "+parts[0]);
+                directories_and_files.put(parts[0],parts[1]);
+                //directories_and_files.put(get_app3,get_directory);
+
+                // line = reader.readLine();
+
+
+
+            }while ( (line = reader.readLine()) != null);
+
+
+        }
+        catch (Exception hg)
+        {
+            System.out.println("Error 432: "+hg);
+        }
+      //  listlength  =directories_and_files.size();
+
+    }
+
+
     public void volume_read()
     {
         outcome="";
@@ -1479,28 +1567,10 @@ exit_enter=true;
 
 
 
- BufferedReader reader;
-        try
-        {
-
-            reader = new BufferedReader(new FileReader("list_record.txt"));
-            String line = reader.readLine();
-          //  System.out.println(line);
-            while ( (line = reader.readLine()) != null)
-            {
-                System.out.println(line);
-               // line = reader.readLine();
-            }
 
 
-        }
-        catch (Exception hg)
-        {
-            System.out.println("Error 432: "+hg);
-        }
-
-
-
+        //System.out.println("2389 directories_and_files: "+directories_and_files.size());
+        //System.out.println("2389 listlength: "+listlength);
       //  jp1.getVerticalScrollBar().setValue(jli1.getSelectedIndex()*11);
 
 
@@ -1550,7 +1620,7 @@ exit_enter=true;
 
                 try
                 {
-                    fileWriter.write(k+"*"+v+"\n");
+                    fileWriter.write(k+"d45a689t90a"+v+"\n");
                 }
                 catch (Exception er)
                 {
@@ -1695,8 +1765,31 @@ exit_enter=true;
     public  void  list_add()
     {
 
+/*
+        directories_and_files.forEach((k, v) -> {
+            //  System.out.println("File: "+k+" Path: "+v);
 
-        try
+
+              try
+            {
+
+                ((DefaultListModel)jli1.getModel()).addElement(k);
+
+            }
+            catch (Exception er)
+            {
+                System.out.println("7233: "+er);
+            }
+
+
+
+
+        });
+        listlength=directories_and_files.size();
+             */
+
+
+         try
         {
             for ( String list8:list5)
             {
@@ -1709,6 +1802,9 @@ exit_enter=true;
         {
             System.out.println("Error code 14:"+es);
         }
+
+
+
 
 
 
@@ -2010,6 +2106,8 @@ System.out.println("Error code 16:hj");
 
         //System.out.println("Exmp 2: "+path+jli1.getSelectedValue());
         try {
+
+            path=directories_and_files.get(jli1.getSelectedValue());
 
             File source = new File(path+jli1.getSelectedValue());
            //System.out.println("Exmp 1: "+source);
