@@ -39,7 +39,7 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false,jb7_font_color=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false,jb7_font_color=false, dont_repeat=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5, ik=0;
     static String outcome="40", jk [], list5[], path;
     FileInputStream fis;
@@ -52,6 +52,7 @@ public class untitled5 extends JFrame
     JPanel panel1;
     int listlength;
     HashMap<String, String> directories_and_files = new HashMap<>();
+    File src1;
 
     MyFileVisitor visitor;
 
@@ -98,6 +99,7 @@ public class untitled5 extends JFrame
 
 
 
+       // if(!source.exists()) source=new File("friyingpan.mp3");
 ik=0;
         directories_and_files.forEach((k, v) -> {
             //  System.out.println("File: "+k+" Path: "+v);
@@ -105,8 +107,14 @@ ik=0;
             try
             {
 
-                list5[ik] = k;
-                ik++;
+                src1 = new File(v+k);
+
+                if(src1.exists())
+                {
+                    list5[ik] = k;
+                    ik++;
+                }
+
               //System.out.println("1143: "+k);
                // ((DefaultListModel)jli1.getModel()).addElement(k);
                 //  fileWriter.write(k+"d45a689t90a"+v+"\n");
@@ -117,9 +125,21 @@ ik=0;
             }
 
 
-
             //((DefaultListModel)jli1.getModel()).addElement(k);
         });
+        if(ik==0)
+        {
+            list5= new String[1];
+            list5 [0] = "friyingpan.mp3";
+            directories_and_files.clear();
+            directories_and_files.put("friyingpan.mp3","");
+            dont_repeat=true;
+            Go(0);
+
+           dont_repeat=true;
+
+
+        }
 
         path=directories_and_files.get(list5[0]);
 
@@ -184,6 +204,7 @@ ik=0;
 
                 jli1.setModel(new DefaultListModel());
                 change_value_stop=true;
+                dont_repeat=false;
 
                 String get_app="",get_app2="";
 
@@ -653,10 +674,6 @@ exit_enter=true;
 
 
 
-                /*
-                 count = (int)(dragX*durration/1000)/(370)-(int)(durration/1000*0.05813);
-                if(count<0) count=0;
-                 */
 
 
                 // 0.05813 should be calculated when locationX is changed, it depends on the float difference that is between two songs and the location of processing bar.
@@ -1192,78 +1209,87 @@ exit_enter=true;
     public void shuffle()
     {
 
-        if( !jb7_font_color)
-        {
-            if( !jb6_font_color)
-            {
-                next();
-            }
 
+        if(!dont_repeat)
+        {
+
+            if( !jb7_font_color)
+            {
+                if( !jb6_font_color)
+                {
+                    next();
+                }
+
+                else
+                {
+                    Random rand = new Random();
+
+
+
+
+
+                    int number_of_list_items=jli1.getModel().getSize();
+                    int rand_int1 = rand.nextInt(number_of_list_items);
+                    //jli1.setSelectedIndex(0);
+                    //stop();
+                    jli1.setSelectedIndex(rand_int1);
+                    //jli1.setSelectedIndex(800);
+
+
+
+
+
+
+                    //System.out.println("765665: "+jli.i);
+
+
+
+                    // System.out.println("r54356r: "+(rand_int1)+" list length: "+number_of_list_items );
+                    Go(0);
+
+
+                    boolean tg=false;
+                    while (!tg)
+                    {
+                        if (jli1.getSelectedIndex() - 1 < jli1.getFirstVisibleIndex()) {
+                            // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
+                            jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 1);
+
+                            panel1.repaint();
+                            //jli1.set;
+                        }
+                        else break;
+                    }
+
+
+                    //tg=false;
+                    while (!tg)
+                    {
+                        if (jli1.getSelectedIndex() + 1 > jli1.getLastVisibleIndex()) {
+                            // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
+                            jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() + 1);
+
+                            panel1.repaint();
+                            //jli1.set;
+                        }
+                        else break;
+                    }
+
+
+
+                    // next();
+                }
+            }
             else
             {
-                Random rand = new Random();
-
-
-
-
-
-                int number_of_list_items=jli1.getModel().getSize();
-                int rand_int1 = rand.nextInt(number_of_list_items);
-                //jli1.setSelectedIndex(0);
-                //stop();
-                jli1.setSelectedIndex(rand_int1);
-                //jli1.setSelectedIndex(800);
-
-
-
-
-
-
-                //System.out.println("765665: "+jli.i);
-
-
-
-               // System.out.println("r54356r: "+(rand_int1)+" list length: "+number_of_list_items );
                 Go(0);
-
-
-                boolean tg=false;
-                while (!tg)
-                {
-                    if (jli1.getSelectedIndex() - 1 < jli1.getFirstVisibleIndex()) {
-                        // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
-
-                        jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 1);
-
-                        panel1.repaint();
-                        //jli1.set;
-                    }
-                    else break;
-                }
-
-
-                //tg=false;
-                while (!tg)
-                {
-                    if (jli1.getSelectedIndex() + 1 > jli1.getLastVisibleIndex()) {
-                        // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
-
-                        jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() + 1);
-
-                        panel1.repaint();
-                        //jli1.set;
-                    }
-                    else break;
-                }
-
-
-
-                // next();
             }
         }
-        else
+       else
         {
-            Go(0);
+           stop(); //dont_repeat=false;
         }
 
 
@@ -1644,19 +1670,7 @@ exit_enter=true;
         stop();
 
         count = gogo;
-        /*
-          try
-        {
-            //count = Integer.parseInt(gogo);
-            count = gogo;
-           // count = Integer.parseInt(tf1.getText());
-        }
-        catch (Exception ej)
-        {
-            count=1;
-          //  tf1.setText("1");
-        }
-         */
+
 
 
         if(count>durration/1000 || count<0)
@@ -1981,7 +1995,7 @@ Go(0);
                     public void playbackFinished(PlaybackEvent evt) {
 
 
-                     shuffle();
+                        shuffle();
 
                         //stop2();
                         //Go(0);
@@ -2111,6 +2125,9 @@ System.out.println("Error code 16:hj");
 
             File source = new File(path+jli1.getSelectedValue());
            //System.out.println("Exmp 1: "+source);
+
+
+
             Encoder encoder = new Encoder();
 
             MultimediaInfo mi = encoder.getInfo(source);
