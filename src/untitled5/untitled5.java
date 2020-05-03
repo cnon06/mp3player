@@ -1531,8 +1531,11 @@ exit_enter=true;
 
         try
         {
-
-            jli1.setSelectedIndex(Integer.parseInt(outcome3));
+            for (int i=0;i<list5.length;i++)
+            {
+                if(outcome3.equals(list5[i]))  jli1.setSelectedIndex(i);
+            }
+          //  jli1.setSelectedIndex(Integer.parseInt(outcome3));
             //count=Integer.parseInt(outcome2);
 
         }
@@ -1623,7 +1626,9 @@ exit_enter=true;
 
         try(FileWriter fileWriter = new FileWriter( "selected_record.txt")) {
 
-            fileWriter.write(""+jli1.getSelectedIndex());
+
+            fileWriter.write(""+jli1.getSelectedValue());
+            //fileWriter.write(""+jli1.getSelectedIndex());
         } catch (IOException ej) {
             System.out.println("Error code 26:"+ej);
         }
