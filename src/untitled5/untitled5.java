@@ -218,7 +218,7 @@ ik=0;
             public void mousePressed(MouseEvent e) {
 
                 dindong=false;
-                //  super.mousePressed(e);
+              
             }
         });
 
@@ -233,8 +233,6 @@ ik=0;
                 String get_app="",get_app2="";
 
                 directories_and_files.clear();
-
-
 
 
                 try {
