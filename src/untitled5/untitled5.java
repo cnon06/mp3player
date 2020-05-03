@@ -40,7 +40,7 @@ public class untitled5 extends JFrame
     static float divide2=0,vlm3=50;
     static long durration;
     static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false,jb7_font_color=false, dont_repeat=false;
-    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5, ik=0;
+    static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5, ik=0, error_count_19=0;
     static String outcome="40", jk [], list5[], path;
     FileInputStream fis;
    JButton jb1;
@@ -133,10 +133,34 @@ ik=0;
             list5 [0] = "friyingpan.mp3";
             directories_and_files.clear();
             directories_and_files.put("friyingpan.mp3","");
-            dont_repeat=true;
+           // dont_repeat=true;
             Go(0);
 
            dont_repeat=true;
+
+
+            new Thread(){
+
+                @Override
+                public void run() {
+
+                    try
+                    {
+
+                        sleep(1000);
+                        JOptionPane.showMessageDialog(null, "It's not been found any folder or directory.", "Error" , JOptionPane.INFORMATION_MESSAGE);
+                      //  go_volume_bar();
+
+                    }
+                    catch (Exception ed)
+                    {
+                        System.out.println("Error code 14530:"+ed);
+                    }
+
+                }
+            }.start();
+
+
 
 
         }
@@ -200,7 +224,7 @@ ik=0;
 
         jli1.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
-
+                error_count_19=0;
 
                 jli1.setModel(new DefaultListModel());
                 change_value_stop=true;
@@ -352,11 +376,11 @@ Go(0);
                           count=0;
                           start = (int) (count*1000 / 26);
                           selected();
-                          //stop();
-                          //  info();
+
                       }
 
-                      //   System.out.println("exmp8: "+path+selected);
+
+
 
                   }
               }
@@ -366,7 +390,7 @@ Go(0);
                 else
                 {
                     stop();
-                   // change_value_stop=false;
+
                     new Thread(){
 
                         @Override
@@ -378,11 +402,6 @@ Go(0);
                                 sleep(100);
 
                                 change_value_stop=false;
-
-                                //System.out.println("selected index: "+jli1.getSelectedIndex());
-                                //System.out.println("first visible index: "+jli1.getFirstVisibleIndex());
-                                //System.out.println("last visible index: "+jli1.getLastVisibleIndex());
-
 
 
                             }
@@ -402,8 +421,7 @@ Go(0);
                 jp1 = new JScrollPane();
         jp1.setViewportView(jli1);
         jli1.setLayoutOrientation(JList.VERTICAL);
-       // jp1.getVerticalScrollBar().setValue(500);
-        //jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getMaximum());
+
 
 
         jp1.setSize(225,140);
@@ -413,7 +431,7 @@ Go(0);
 
         panel1.add(jp1);
 
-        //jp1.paintComponents();
+
 
         JLabel jl11 = new JLabel("Duration:");
         jl11.setVisible(true);
@@ -572,9 +590,6 @@ exit_enter=true;
                 stop4();
 
 
-                 //stop();
-                //Go(timeline);
-               // timeline=Integer.pa
                 jl9.setVisible(true);
 
             }
@@ -584,7 +599,7 @@ exit_enter=true;
 
 
                 Go(timeline);
-                //Go(jl9.getText());
+
                 jl9.setVisible(false);
                 exit_enter=false;
 
@@ -1096,9 +1111,7 @@ exit_enter=true;
 
         volume_up_down(vlm3*(0.01F));
         jl1.setText(convert_to_minute(count));
-        //start();
 
-        //pause();
 
 
 
@@ -1106,32 +1119,6 @@ exit_enter=true;
 
 
         panel1.repaint();
-
-/*
- new Thread(){
-
-            @Override
-            public void run() {
-
-                try
-                {
-
-                    sleep(100);
-                    System.out.println("selected index: "+jli1.getSelectedIndex());
-                    System.out.println("first visible index: "+jli1.getFirstVisibleIndex());
-                    System.out.println("last visible index: "+jli1.getLastVisibleIndex());
-
-
-
-                }
-                catch (Exception ed)
-                {
-                    System.out.println(ed);
-                }
-
-            }
-        }.start();
- */
 
 
         setVisible(true);
@@ -1141,31 +1128,29 @@ exit_enter=true;
         try
         {
             tgh3.sleep(100);
-           // System.out.println("selected index: "+jli1.getSelectedIndex());
-           // System.out.println("first visible index: "+jli1.getFirstVisibleIndex());
-          //  System.out.println("last visible index: "+jli1.getLastVisibleIndex());
+
         }
         catch (Exception hj5)
         {
             System.out.println("Error code 23:"+hj5);
-           // System.out.println(hj5);
+
         }
 
 
         while (jli1.getSelectedIndex() -1 < jli1.getFirstVisibleIndex())
         {
-           // System.out.println("First visible index:"+jli1.getFirstVisibleIndex()+" Selected index: "+jli1.getSelectedIndex());
+
             jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
-          // if(ctrl1> jp1.getVerticalScrollBar().getValue()) break;
+
             ctrl1= jp1.getVerticalScrollBar().getValue();
 
 
             if(jli1.getFirstVisibleIndex()==0)
             {
                 jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
-              // fg3=true;
+
                 break;
-                //jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 10);
+
             }
 
 
@@ -1230,10 +1215,9 @@ exit_enter=true;
 
                     int number_of_list_items=jli1.getModel().getSize();
                     int rand_int1 = rand.nextInt(number_of_list_items);
-                    //jli1.setSelectedIndex(0);
-                    //stop();
+
                     jli1.setSelectedIndex(rand_int1);
-                    //jli1.setSelectedIndex(800);
+
 
 
 
@@ -1289,7 +1273,7 @@ exit_enter=true;
         }
        else
         {
-           stop(); //dont_repeat=false;
+           stop();
         }
 
 
@@ -1862,12 +1846,12 @@ public void pause()
             }
 
             if (jli1.getSelectedIndex() - 1 < jli1.getFirstVisibleIndex()) {
-                // jp1.getViewport().setViewPosition(new Point(0,(int)jp1.getViewport().getViewPosition().getY()+100));
+
 
                 jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() - 100);
 
                 panel1.repaint();
-                //jli1.set;
+
             }
 
        if (listlength - 1 == jli1.getSelectedIndex())
@@ -1875,7 +1859,7 @@ public void pause()
            jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getMaximum());
        }
 
-        //jli1.getSelectedIndex()
+
             Go(0);
 
     }
@@ -1900,7 +1884,7 @@ public void pause()
         }
 
 
-        //System.out.println(jli1.getFirstVisibleIndex());
+
 
   if(jli1.getSelectedIndex()+1>jli1.getLastVisibleIndex())
         {
@@ -1920,7 +1904,7 @@ public void pause()
             panel1.repaint();
         }
 
-//stop();
+
 Go(0);
 
     }
@@ -1986,7 +1970,7 @@ Go(0);
             dont_play_again=true;
             try{
 
-                //System.out.println("exmpt 9: "+path+jli1.getSelectedValue().toString());
+
                path=directories_and_files.get(jli1.getSelectedValue());
                 if(jli1.getSelectedValue()!=null) fis = new FileInputStream(path+jli1.getSelectedValue().toString());
 
@@ -1999,12 +1983,8 @@ Go(0);
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
-
                         shuffle();
 
-                        //stop2();
-                        //Go(0);
-                     //next();
 
                     }
                 });
@@ -2025,17 +2005,7 @@ Go(0);
                             {
 
                                 shuffle();
-                                // next();
 
-
-
-
-                               /*
-
-                                stop2();
-                                Go(0);
-
-                                */
 
 
                             }
@@ -2051,7 +2021,7 @@ Go(0);
 
 
                                 if(jb4x>390)  jb4x = 390;
-                                    //jl3.setLocation(369,130);
+
 
                                 if(jb4x<locationX) jb4x = locationX;
 
@@ -2098,7 +2068,7 @@ System.out.println("Error code 16:hj");
                         }
                         catch (Exception yu)
                         {
-                            //stop2();
+
                             jb1.setText("Play");
                             System.out.println("Error code 17:"+yu);
 
@@ -2109,10 +2079,10 @@ System.out.println("Error code 16:hj");
                 }.start();
 
             }catch(Exception ey){
-                //System.out.println(ey);
+
                 System.out.println("Error code 18:"+ey+" Duration"+durration);
              stop_start_stop=false;
-             //   stop();
+
             }
 
         }
@@ -2123,13 +2093,13 @@ System.out.println("Error code 16:hj");
     public void info()
     {
 
-        //System.out.println("Exmp 2: "+path+jli1.getSelectedValue());
+
         try {
 
             path=directories_and_files.get(jli1.getSelectedValue());
 
             File source = new File(path+jli1.getSelectedValue());
-           //System.out.println("Exmp 1: "+source);
+
 
 
 
@@ -2149,13 +2119,15 @@ System.out.println("Error code 16:hj");
         catch (Exception er)
         {
             System.out.println("Error code 19:"+er);
-           // stop_start_stop=true;
-            //stop();
+
+           if(error_count_19==0) JOptionPane.showMessageDialog(null, er, "Error" , JOptionPane.INFORMATION_MESSAGE);
+          error_count_19++;
+            pause();
+
             jb1.setText("Play");
 
 
-            //info();
-            //System.out.println(er);
+
         }
     }
 
@@ -2194,20 +2166,7 @@ System.out.println("Error code 16:hj");
         }.start();
 
 
-            /*
-            Thread th = new Thread();
 
-            try
-            {
-
-
-            }
-            catch (Exception ed)
-            {
-                System.out.println("Error code 20:"+ed);
-                // System.out.println(ed);
-            }
-             */
 
 
 
@@ -2237,23 +2196,15 @@ System.out.println("Error code 16:hj");
         if(stop_start_stop)
         {
             start_stop=true;
-            //count=0;
-            //start=0;
-            //jb4x=locationX;
-            //divide2=0;
 
 
         }
     }
 
-
     public static void main(String [] args)
     {
 
-
 new untitled5();
-
-
 
 
     }
