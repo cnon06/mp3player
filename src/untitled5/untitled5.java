@@ -43,7 +43,7 @@ public class untitled5 extends JFrame
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5, ik=0, error_count_19=0;
     static String outcome="40", jk [], list5[], path;
     FileInputStream fis;
-   JButton jb1;
+   JButton jb1,jb6, jb7;
     JLabel jl3, jl1,jl6,jl7,jl4,jl9,jl2,jl8,jl5;
    //JTextField tf1,tf2;
     JList jli1;
@@ -778,7 +778,7 @@ exit_enter=true;
 
 
                 volume_up_down((int)converse*(0.01F));
-               // volume_write((int)converse);
+
             }
 
 
@@ -853,7 +853,7 @@ exit_enter=true;
 
                 volume_up_down(vlm3*(0.01F));
 
-                //  volume_write((int)vlm3);
+
 
             }
 
@@ -958,7 +958,7 @@ exit_enter=true;
             }
         });
 
-        JButton jb6 = new JButton("Shuffle");
+        jb6 = new JButton("Shuffle");
         jb6.setVisible(true);
         jb6.setSize(80,20);
         jb6.setLocation(200+locationX,105);
@@ -994,7 +994,7 @@ exit_enter=true;
         });
 
 
-        JButton jb7 = new JButton("Repeat");
+      jb7 = new JButton("Repeat");
         jb7.setVisible(true);
         jb7.setSize(80,20);
         jb7.setLocation(100+locationX,105);
@@ -1054,18 +1054,7 @@ exit_enter=true;
 
 
 
-               /*
-                try(FileWriter fileWriter = new FileWriter( "volume_record.txt")) {
 
-                    fileWriter.write(vlm.toString());
-                } catch (IOException ej) {
-
-                }
-                */
-
-
-
-            //    System.out.println("WindowClosingDemo.windowClosing");
                 System.exit(0);
             }
         });
@@ -1111,12 +1100,15 @@ exit_enter=true;
         jl1.setText(convert_to_minute(count));
 
 
-
+shuffle_read();
 
         add(panel1);
 
 
         panel1.repaint();
+
+
+        //end of the constructor
 
 
         setVisible(true);
@@ -1160,7 +1152,7 @@ exit_enter=true;
 
         while (jli1.getSelectedIndex() +1 > jli1.getLastVisibleIndex())
         {
-            //System.out.println("First visible index:"+jli1.getLastVisibleIndex()+" Selected index: "+jli1.getSelectedIndex());
+
             jp1.getVerticalScrollBar().setValue(jp1.getVerticalScrollBar().getValue() + 10);
             // if(ctrl1> jp1.getVerticalScrollBar().getValue()) break;
             ctrl1= jp1.getVerticalScrollBar().getValue();
@@ -1556,33 +1548,18 @@ exit_enter=true;
         }
 
 
-/*
- String outcome5="";
-
-        try(FileReader fileReader = new FileReader( "list_record.txt")) {
-            int ch = fileReader.read();
-            while(ch != -1) {
-
-
-                outcome5+=(char)ch;
-
-                ch = fileReader.read();
-            }
-        } catch (Exception etr) {
-            System.out.println("Error code 567:"+etr);
-        }
-
-        System.out.println("3557: "+outcome5);
- */
 
 
 
 
 
 
-        //System.out.println("2389 directories_and_files: "+directories_and_files.size());
-        //System.out.println("2389 listlength: "+listlength);
-      //  jp1.getVerticalScrollBar().setValue(jli1.getSelectedIndex()*11);
+
+
+
+
+
+
 
 
     }
@@ -1646,6 +1623,22 @@ exit_enter=true;
 
         } catch (IOException ej) {
             System.out.println("Error code 964:"+ej);
+        }
+
+
+        try(FileWriter fileWriter = new FileWriter( "shuffle_record.txt")) {
+
+            fileWriter.write(""+  jb6_font_color);
+        } catch (IOException ej) {
+            System.out.println("Error code 9:"+ej);
+        }
+
+
+        try(FileWriter fileWriter = new FileWriter( "repeat_record.txt")) {
+
+            fileWriter.write(""+  jb7_font_color);
+        } catch (IOException ej) {
+            System.out.println("Error code 9:"+ej);
         }
 
 
@@ -1981,7 +1974,7 @@ Go(0);
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
-                        shuffle();
+                      //  shuffle();
 
 
                     }
@@ -2129,6 +2122,81 @@ System.out.println("Error code 16:hj");
         }
     }
 
+
+    public void shuffle_read()
+    {
+
+
+        String outcome5="";
+
+        try(FileReader fileReader = new FileReader( "shuffle_record.txt")) {
+            int ch = fileReader.read();
+            while(ch != -1) {
+
+
+                outcome5+=(char)ch;
+
+                ch = fileReader.read();
+            }
+        } catch (Exception etr) {
+            System.out.println("Error code 567:"+etr);
+        }
+
+        Font font = new Font(jb6.getFont().getName(), Font.BOLD, jb6.getFont().getSize());
+
+
+        System.out.println("3557: "+outcome5);
+
+        if(outcome5.equals("true"))
+        {
+            jb6_font_color=true;
+            jb6.setFont(font);
+            jb6.setForeground(Color.RED);
+        }
+        else
+        {
+            jb6.setFont(font);
+            jb6.setForeground(Color.BLACK);
+            jb6_font_color=false;
+        }
+
+
+        String outcome6="";
+
+        try(FileReader fileReader = new FileReader( "repeat_record.txt")) {
+            int ch = fileReader.read();
+            while(ch != -1) {
+
+
+                outcome6+=(char)ch;
+
+                ch = fileReader.read();
+            }
+        } catch (Exception etr) {
+            System.out.println("Error code 567:"+etr);
+        }
+
+        Font font2 = new Font(jb7.getFont().getName(), Font.BOLD, jb7.getFont().getSize());
+
+
+        System.out.println("3557: "+outcome6);
+
+        if(outcome6.equals("true"))
+        {
+            jb7_font_color=true;
+            jb7.setFont(font2);
+            jb7.setForeground(Color.RED);
+        }
+        else
+        {
+            jb7.setFont(font2);
+            jb7.setForeground(Color.BLACK);
+            jb7_font_color=false;
+        }
+
+
+        //System.out.println("3557: "+outcome5);
+    }
 
     public void selected()
     {
