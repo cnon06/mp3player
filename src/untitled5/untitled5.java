@@ -39,11 +39,11 @@ public class untitled5 extends JFrame
 {
     static float divide2=0,vlm3=50;
     static long durration;
-    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false,jb7_font_color=false, dont_repeat=false;
+    static boolean start_stop=false, dont_play_again=false, stop_start_stop=false,dindong=false,exit_enter=false, change_value_stop=false, jb6_font_color=false,jb7_font_color=false, dont_repeat=false, jb8_font_color=false;
     static int count =0,start=0,jb4x=0,X,Y,dragX,locationX=20,XVolume,YVolume, GetXvolume, timeline,timeX,ctrl1=-5, ik=0, error_count_19=0;
     static String outcome="40", jk [], list5[], path;
     FileInputStream fis;
-   JButton jb1,jb6, jb7;
+   JButton jb1,jb6, jb7, jb8;
     JLabel jl3, jl1,jl6,jl7,jl4,jl9,jl2,jl8,jl5;
    //JTextField tf1,tf2;
     JList jli1;
@@ -63,7 +63,7 @@ public class untitled5 extends JFrame
         jb4x=locationX;
 
         setTitle("MP3 Player with JAVA by Sinan");
-        setSize(680,200);
+        setSize(680,250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -1028,7 +1028,45 @@ exit_enter=true;
 
             }
         });
-        
+
+
+        jb8 = new JButton("Don't Repeat");
+        jb8.setVisible(true);
+        jb8.setSize(80,20);
+        jb8.setLocation(locationX,155);
+
+        panel1.add(jb8);
+
+        jb8.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+
+                //Font font = new Font("Verdana", Font.BOLD, 12);
+                Font font = new Font(jb8.getFont().getName(), Font.BOLD, jb8.getFont().getSize());
+
+
+                if(!jb8_font_color)
+                {
+                    jb8.setFont(font);
+                    jb8.setForeground(Color.RED);
+                    jb8_font_color=true;
+                }
+                else
+                {
+                    jb8.setFont(font);
+                    jb8.setForeground(Color.BLACK);
+                    jb8_font_color=false;
+                }
+
+
+
+
+            }
+        });
+
+
+
       volume_read();
 
         try
@@ -1858,7 +1896,9 @@ public void pause()
 
     public void stop2()
     {
+
         stop();
+        jb1.setText("Play");
     }
 
     public void next()
@@ -1974,7 +2014,6 @@ Go(0);
                     @Override
                     public void playbackFinished(PlaybackEvent evt) {
 
-                      //  shuffle();
 
 
                     }
@@ -1992,10 +2031,11 @@ Go(0);
                             count++;
 
 
-                                if(count>(durration/1000))
+                                if(count>=(durration/1000))
                             {
 
-                                shuffle();
+                              if(!jb8_font_color)  shuffle();
+                              else stop2();
 
 
 
